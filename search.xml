@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>信息安全体系搭建</title>
+    <url>/2019/11/19/security/</url>
+    <content><![CDATA[<p>##互联网企业<br>####1、安全测试团队，渗透测试团队<br>####2、安全应急响应（xSRC），对外宣传和白帽子漏洞处理<br>####3、数据及隐私合规评审<br>####4、安全研发团队，自研WAF、HIDS、内容识别、流量分析</p>
+<p>##传统企业<br>####1、办公安全，堆设备，买买买！！如Macfee防病毒、深信服VPN、齐志、深信服上网行为管理、Imperva、IPS、Repid7、splunk<br>####2、安全制度制定，安全证书认证，等保2.0，27001，CSTAR<br>####3、安全顾问、评审、安全测试、开墙审批<br>####4、安全研发，SIEM日志收集，态势感知攻击WEB，Wazuh适配，云上产品研发，SOAR安全事件响应</p>
+]]></content>
+      <categories>
+        <category>体系</category>
+      </categories>
+      <tags>
+        <tag>信息安全</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hexo命令</title>
     <url>/2019/11/17/hexo/</url>
     <content><![CDATA[<h3 id="hexo常见操作"><a href="#hexo常见操作" class="headerlink" title="hexo常见操作"></a>hexo常见操作</h3><p><code>hexo new &quot;postName&quot;</code>#新建文章<br><code>hexo new page &quot;pageName&quot;</code>#新建页面<br><code>hexo clean</code> #清除部署緩存<br><code>hexo n == hexo new</code> #新建文章<br><code>hexo g == hexo generate</code> #生成静态页面至public目录<br><code>hexo s == hexo server</code> #开启预览访问端口（默认端口4000，可在浏览器输入localhost:4000预览）<br><code>hexo d == hexo deploy</code> #将.deploy目录部署到GitHub<br><code>hexo g -d</code> #生成加部署<br><code>hexo g -s</code>#生成加预览</p>
