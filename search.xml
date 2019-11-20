@@ -1,6 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Hello World</title>
+    <url>/2019/11/20/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><a id="more"></a>
+<h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>安全工作分工</title>
+    <url>/2019/11/19/work/</url>
+    <content><![CDATA[<h3 id="办公安全"><a href="#办公安全" class="headerlink" title="办公安全"></a>办公安全</h3><p>1、齐治堡垒机给正式员工，按部门创建跳板机，区分测试和生产。开发员工禁止通过堡垒机访问生产服务器，排障的话，由运维协助，有日志平台<br>外包使用Jumpserver</p>
+<p>2、金科办公网禁止Github访问，禁止pan、mail访问，脱离办公网由Macfee加黑名单<a id="more"></a></p>
+<h3 id="IDC-服务器"><a href="#IDC-服务器" class="headerlink" title="IDC/服务器"></a>IDC/服务器</h3><p>1、申请DEV服务器、SIT服务器，必须通过立项。申请开墙，提供系统架构图</p>
+<p>2、交换机负责网络隔离，划分vlan，防火墙也是逻辑隔离，访问控制建议在防火墙上做，双向控制，虽然交换机也可以做</p>
+<p>3、金科的数据库DB的账号密码由DBA生成，发给运维，（开发人员不知道密码），加密后写入配置文件，应用程序框架读取配置文件后解密得到密码去连DB</p>
+<h3 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h3><p>1、金科服务器默认不能访问外网，走外网必须经过DMZ，数据中心的外网由防火墙出口访问控制</p>
+<p>2、测试SIT环境，开发DEV环境，测试开发员工可以在CAE申请root权限，有审计功能，同一时间只能锁定一个用户</p>
+<h3 id="系统"><a href="#系统" class="headerlink" title="系统"></a>系统</h3><p>1、CAE密码管理系统，接管数据中心Linux账号、密码，脚本下发<br>2、配置中心禁止出现明文密码<br>3、</p>
+]]></content>
+      <categories>
+        <category>安全工作</category>
+      </categories>
+      <tags>
+        <tag>安全分工</tag>
+        <tag>安全经验</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CDN安全</title>
+    <url>/2019/11/19/cdn/</url>
+    <content><![CDATA[<h3 id="DDos一般D的是流量"><a href="#DDos一般D的是流量" class="headerlink" title="DDos一般D的是流量"></a>DDos一般D的是流量</h3><h3 id="CC攻击针对域名，制造大量的链接"><a href="#CC攻击针对域名，制造大量的链接" class="headerlink" title="CC攻击针对域名，制造大量的链接"></a>CC攻击针对域名，制造大量的链接</h3><p>隐藏服务器真实IP地址是最好的方法。<br>服务器前加个CDN中转，或买个高防的盾机。域名解析DNS上解析的是CDN，子网站也映射给CDN</p>
+<a id="more"></a>
+<blockquote>
+<p>1、无论什么时候都要隐藏真实IP<br>2、购买CDN来抗DDoS不一定全程抗住，比较运营商会果断的屏蔽你的域名<br>3、DDoS是一个长久对抗的话题，尤其是应对大流量的攻击更是需要时间来磨，防守同样需要大量的资金注入，比如流量需要钱，盾机需要钱等等，主要看业务的损失来衡量需不需要投入大量的金钱去维护了。<br>4、回源是什么意思：当cdn缓存服务器没有客户端请求的资源，就会回我们的服务器上获取资源。回源地址可以是IP回源、域名回源。<br><code>客户端 ---( https)---&gt; CDN ---( https)---&gt; 源站（这个是跟随场景）</code><br><code>客户端 ---( https)---&gt; CDN ---( http)----&gt; 源站（这个是限定http）</code><br>5、CDN设置为http回源，CDN使用https就行了，不要用协议跟随（固定死CDN–&gt;源站走HTTP）。<br>6、源站域名和加速域名（用户看到的）不能一样，加速域名必须要在工信部备案，源站域名不要求备案，但需要公网能正常解析。<br>7、回源host（回源域名）是CDN请求源站时请求头中的host字段，请求源站上哪个目录web站点。可以是加速域名、源站域名、自定义URL<br>8、加速域名走https的话，需要把网站私钥给CDN服务商</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>CDN</category>
+      </categories>
+      <tags>
+        <tag>CDN安全</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>信息安全体系搭建</title>
     <url>/2019/11/19/security/</url>
     <content><![CDATA[<h3 id="互联网企业"><a href="#互联网企业" class="headerlink" title="互联网企业"></a>互联网企业</h3><p>1、安全测试团队，渗透测试团队<br>2、安全应急响应（xSRC），对外宣传和白帽子漏洞处理<br>3、数据及隐私合规评审<br>4、安全研发团队，自研WAF、HIDS、内容识别、流量分析</p>
@@ -14,52 +69,19 @@
       </tags>
   </entry>
   <entry>
-    <title>Hexo命令</title>
-    <url>/2019/11/17/hexo/</url>
-    <content><![CDATA[<h3 id="hexo常见操作"><a href="#hexo常见操作" class="headerlink" title="hexo常见操作"></a>hexo常见操作</h3><p><code>hexo new &quot;postName&quot;</code>#新建文章<br><code>hexo new page &quot;pageName&quot;</code>#新建页面<br><code>hexo clean</code> #清除部署緩存<br><code>hexo n == hexo new</code> #新建文章<br><code>hexo g == hexo generate</code> #生成静态页面至public目录<br><code>hexo s == hexo server</code> #开启预览访问端口（默认端口4000，可在浏览器输入localhost:4000预览）<br><code>hexo d == hexo deploy</code> #将.deploy目录部署到GitHub<br><code>hexo g -d</code> #生成加部署<br><code>hexo g -s</code>#生成加预览</p>
-<h3 id="新建文章，默认的注释内容"><a href="#新建文章，默认的注释内容" class="headerlink" title="新建文章，默认的注释内容"></a>新建文章，默认的注释内容</h3><p>hexo/scaffolds/post.md</p>
-]]></content>
-      <categories>
-        <category>Hexo</category>
-      </categories>
-      <tags>
-        <tag>Hexo命令及安装</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2019/11/17/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<a id="more"></a>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
     <title>HTTPS解密及中间人攻击</title>
     <url>/2019/11/17/https/</url>
     <content><![CDATA[<h3 id="HTTPS原理："><a href="#HTTPS原理：" class="headerlink" title="HTTPS原理："></a>HTTPS原理：</h3><blockquote>
 <p><a href="https://dabaotthao.com/2018/07/13/https/">https://dabaotthao.com/2018/07/13/https/</a><br><a href="https://www.cnblogs.com/handsomeBoys/p/6556336.html">https://www.cnblogs.com/handsomeBoys/p/6556336.html</a><br><a href="https://www.2cto.com/article/201607/523509.html">https://www.2cto.com/article/201607/523509.html</a></p>
 </blockquote>
 <h3 id="单向认证："><a href="#单向认证：" class="headerlink" title="单向认证："></a>单向认证：</h3><blockquote>
-<p>1、源端不做限制，对服务端进行验证，非公司内客户端都可以访问服务端。<br>2、服务端需要生成公钥（配证书）和私钥，公钥可写死在客户端，也可公网从服务端获取证书（公钥）。<br>3、忽略校验证书，则服务端不可信，有风险。所有不可信的服务端都能访问，易受中间人攻击。</p>
-</blockquote>
-<a id="more"></a>
-<blockquote>
-<p>4、严格意义上来说https下不存在中间人攻击，存在中间人攻击的前提条件是没有严格的对证书进行校验，或者人为的信任伪造证书<br>5、自签的证书，客户端访问时，证书校验error，要么忽略校验，风险见上。要么使用自己定义的信任存储（trust store）代替APP系统自带的<br>6、如果服务器申请的证书到期或者因为泄露等其他原因需要更换证书，但这个证书又写死在客户端APP代码中，也就必须强制用户进行客户端升级。<br>7、证书=公钥+申请者与颁发者信息+签名<br>8、申请证书不需要提供私钥，确保私钥永远只能服务器掌握<br>9、客户端写死证书的好处（ssl pinning:证书锁定），客户端将预置的证书<br>与从公网接收的证书做比较，如果一致，就建立连接，不走系统的证书信任链去校验，所以即使导入Burp CA公钥证书，也无法进行中间人攻击（抓包）。但相应的成本也会升高，见6<br>10、抓包只能抓单向认证的</p>
+<p>1、源端不做限制，对服务端进行验证，非公司内客户端都可以访问服务端。<br>2、服务端需要生成公钥（配证书）和私钥，公钥可写死在客户端，也可公网从服务端获取证书（公钥）。<br>3、忽略校验证书，则服务端不可信，有风险。所有不可信的服务端都能访问，易受中间人攻击。<a id="more"></a><br>4、严格意义上来说https下不存在中间人攻击，存在中间人攻击的前提条件是没有严格的对证书进行校验，或者人为的信任伪造证书<br>5、自签的证书，客户端访问时，证书校验error，要么忽略校验，风险见上。要么使用自己定义的信任存储（trust store）代替APP系统自带的<br>6、如果服务器申请的证书到期或者因为泄露等其他原因需要更换证书，但这个证书又写死在客户端APP代码中，也就必须强制用户进行客户端升级。<br>7、证书=公钥+申请者与颁发者信息+签名<br>8、申请证书不需要提供私钥，确保私钥永远只能服务器掌握<br>9、客户端写死证书的好处（ssl pinning:证书锁定），客户端将预置的证书<br>与从公网接收的证书做比较，如果一致，就建立连接，不走系统的证书信任链去校验，所以即使导入Burp CA公钥证书，也无法进行中间人攻击（抓包）。但相应的成本也会升高，见6<br>10、抓包只能抓单向认证的</p>
 </blockquote>
 <h3 id="双向认证："><a href="#双向认证：" class="headerlink" title="双向认证："></a>双向认证：</h3><blockquote>
 <p>1、校验客户端的身份，非授权客户端无法访问指定的服务端</p>
+</blockquote>
+<h3 id="加密协议"><a href="#加密协议" class="headerlink" title="加密协议"></a>加密协议</h3><blockquote>
+<p>等保要求，加密协议用<code>TLS 1.1</code>及以上版本，推荐<code>TLS 1.2</code><br>禁止使用<code>TLS1.0</code>、<code>SSL2.0</code>及<code>SSL3.0</code></p>
 </blockquote>
 ]]></content>
       <categories>
@@ -69,6 +91,19 @@
         <tag>传输加密</tag>
         <tag>SSL证书</tag>
         <tag>HTTPS原理</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo命令</title>
+    <url>/2019/11/17/hexo/</url>
+    <content><![CDATA[<h3 id="hexo常见操作"><a href="#hexo常见操作" class="headerlink" title="hexo常见操作"></a>hexo常见操作</h3><p><code>hexo new &quot;postName&quot;</code>#新建文章<br><code>hexo new page &quot;pageName&quot;</code>#新建页面<a id="more"></a><br><code>hexo clean</code> #清除部署緩存<br><code>hexo n == hexo new</code> #新建文章<br><code>hexo g == hexo generate</code> #生成静态页面至public目录<br><code>hexo s == hexo server</code> #开启预览访问端口（默认端口4000，可在浏览器输入localhost:4000预览）<br><code>hexo d == hexo deploy</code> #将.deploy目录部署到GitHub<br><code>hexo g -d</code> #生成加部署<br><code>hexo g -s</code>#生成加预览</p>
+<h3 id="新建文章，默认的注释内容"><a href="#新建文章，默认的注释内容" class="headerlink" title="新建文章，默认的注释内容"></a>新建文章，默认的注释内容</h3><p>hexo/scaffolds/post.md</p>
+]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+      <tags>
+        <tag>Hexo命令及安装</tag>
       </tags>
   </entry>
 </search>
