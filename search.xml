@@ -1,6 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>keepalived</title>
+    <url>/2019/11/28/keepalived/</url>
+    <content><![CDATA[<p><img src="/images/keepalived.jpg" alt=""></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>sso</title>
+    <url>/2019/11/28/sso/</url>
+    <content><![CDATA[<p><img src="/images/sso.png" alt=""></p>
+]]></content>
+      <categories>
+        <category>sso</category>
+      </categories>
+      <tags>
+        <tag>sso</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Centos7安装Nginx</title>
+    <url>/2019/11/28/nginx/</url>
+    <content><![CDATA[<p>1、安装epel-release源并进行安装</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum install epel-release</span><br><span class="line">yum update</span><br><span class="line">yum install nginx</span><br></pre></td></tr></table></figure>
+<p>2、执行相关的应用操作</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl start nginx <span class="comment">#启动</span></span><br><span class="line">systemctl stop nginx <span class="comment">#停止</span></span><br><span class="line">systemctl restart nginx <span class="comment">#重启</span></span><br><span class="line">systemctl status nginx <span class="comment">#查看运行状态</span></span><br><span class="line">systemctl <span class="built_in">enable</span> nginx <span class="comment">#开机启动</span></span><br></pre></td></tr></table></figure>
+<p>3、设置防火墙</p>
+<p>在启动完以后可能无法通过IP访问，需要进一步设置防火墙（关于firewall-cmd的使用方法下一篇文章再详细讲解）</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">firewall-cmd --permanent --zone=public --add-service=http</span><br><span class="line">firewall-cmd --permanent --zone=public --add-service=https</span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure>
+<p>至此，安装完毕。</p>
+]]></content>
+      <categories>
+        <category>Nginx</category>
+      </categories>
+      <tags>
+        <tag>nginx</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>数据脱敏</title>
     <url>/2019/11/26/%E8%84%B1%E6%95%8F/</url>
     <content><![CDATA[<h3 id="数据脱敏评审点"><a href="#数据脱敏评审点" class="headerlink" title="数据脱敏评审点"></a>数据脱敏评审点</h3><p>1、频率<br>2、数量级 <code>全量/抽样</code><br>3、表、字段，样例及注释<br>4、敏感信息字段是否脱敏，脱敏方式。<code>*模糊、MD5、加密等</code><br>5、最小化原则，是否必须提供</p>
