@@ -1303,7 +1303,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/11/17/https/" itemprop="url">HTTPS解密及中间人攻击</a></h1>
+                <a class="post-title-link" href="/2019/11/17/https/" itemprop="url">HTTPS证书及中间人攻击</a></h1>
         
 
         <div class="post-meta">
@@ -1376,14 +1376,14 @@
 
       
         
-          <h3 id="HTTPS原理："><a href="#HTTPS原理：" class="headerlink" title="HTTPS原理："></a>HTTPS原理：</h3><blockquote>
-<p><a href="https://dabaotthao.com/2018/07/13/https/">https://dabaotthao.com/2018/07/13/https/</a><br><a href="https://www.cnblogs.com/handsomeBoys/p/6556336.html">https://www.cnblogs.com/handsomeBoys/p/6556336.html</a><br><a href="https://www.2cto.com/article/201607/523509.html">https://www.2cto.com/article/201607/523509.html</a></p>
-</blockquote>
-<h3 id="单向认证："><a href="#单向认证：" class="headerlink" title="单向认证："></a>单向认证：</h3><blockquote>
-<p>1、源端不做限制，对服务端进行验证，非公司内客户端都可以访问服务端。</p>
-</blockquote>
-<p>2、服务端需要生成公钥（配证书）和私钥，公钥可写死在客户端，也可公网从服务端获取证书（公钥）。</p>
-<p>3、忽略校验证书，则服务端不可信，有风险。所有不可信的服务端都能访问，易受中间人攻击。
+          <h3 id="HTTPS原理："><a href="#HTTPS原理：" class="headerlink" title="HTTPS原理："></a>HTTPS原理：</h3><ul>
+<li><a href="https://dabaotthao.com/2018/07/13/https/" title="dabao&#39;s Blog">浅谈https基本原理</a></li>
+<li><a href="https://www.cnblogs.com/handsomeBoys/p/6556336.html" title="handsomeBoys">CA证书扫盲，https讲解</a></li>
+<li><a href="https://www.2cto.com/article/201607/523509.html" title="2016.06-白泽安全团队投稿的作品">浅析HTTPS中间人攻击与证书校验</a></li>
+<li><a href="https://dishibolei.github.io/2017/05/11/https-safe-1/" title="萝卜的空间">IOS应用安全-HTTP/HTTPS网络安全</a></li>
+</ul>
+<hr>
+<h3 id="证书"><a href="#证书" class="headerlink" title="证书"></a>证书</h3><p>1、证书=Server公钥+申请者与颁发者信息+签名<br>（<strong><code>CA的公钥</code></strong>公之于众，如浏览器内置，没有在证书中）
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2019/11/17/https/#more" rel="contents">
