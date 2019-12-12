@@ -445,7 +445,7 @@ body {
 .header-inner {
   margin: 0 auto;
   padding: 100px 0 70px;
-  width: 700px;
+  width: 850px;
 }
 @media (min-width: 1600px) {
   .container .header-inner {
@@ -457,7 +457,7 @@ body {
 }
 .main-inner {
   margin: 0 auto;
-  width: 700px;
+  width: 850px;
 }
 @media (min-width: 1600px) {
   .container .main-inner {
@@ -474,7 +474,7 @@ body {
 .footer-inner {
   box-sizing: border-box;
   margin: 20px auto;
-  width: 700px;
+  width: 850px;
 }
 @media (min-width: 1600px) {
   .container .footer-inner {
@@ -1832,7 +1832,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #4f041c;
+  background: #ed75ff;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2917,7 +2917,7 @@ hr {
   }
 }
 .header {
-  background: $yellow;
+  background: #2c3e50;
 }
 .site-subtitle {
   font-size: 15px;
@@ -2944,8 +2944,8 @@ a {
   color: rgba(0,0,0,0.8);
 }
 a:hover {
-  color: #ff106c;
-  border-bottom-color: #ff106c;
+  color: #1c86ee;
+  border-bottom-color: #1c86ee;
 }
 .menu .menu-item a {
   font-size: 14px;
@@ -2978,21 +2978,20 @@ a:hover {
   margin-top: 20px;
 }
 code {
-  color: #e6006b;
-  background: #fff;
+  color: #ff7600;
+  background: #fbf7f8;
   border-radius: 3px;
 }
-.highlight figcaption {
-  margin: 0em;
-  padding: 0.5em;
-  background: #eee;
-  border-bottom: 1px solid #e9e9e9;
+.highlight,
+pre {
+  margin: 5px 0;
+  padding: 5px;
+  border-radius: 3px;
 }
-.highlight figcaption a {
-  color: #5073b8;
-}
-.posts-expand .post-title-link::before {
-  background-image: linear-gradient(90deg, #a166ab 0%, #ef4e7b 25%, #f37055 50%, #ef4e7b 75%, #a166ab 100%);
+.highlight,
+code,
+pre {
+  border: 1px solid #d6d6d6;
 }
 .post-body h2,
 h3,
