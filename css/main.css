@@ -1832,7 +1832,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #11e0f4;
+  background: #d4d0bd;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2966,18 +2966,6 @@ pre {
 code,
 pre {
   border: 1px solid #d6d6d6;
-}
-.post-body h2,
-h3,
-h4,
-h5,
-h6 {
-  border-left: 4px solid #657b83;
-  padding-left: 10px;
-}
-.post-body h1 {
-  border-left: 5px solid #657b83;
-  padding-left: 10px;
 }
 body {
   color: #444;
