@@ -1832,7 +1832,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #b3c6b9;
+  background: #28ffec;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2916,29 +2916,9 @@ hr {
     text-align: center;
   }
 }
-.header {
-  background: #2c3e50;
-}
 .site-subtitle {
   font-size: 15px;
   color: #fff;
-}
-.site-title {
-  font-size: 40px;
-  font-weight: bold;
-}
-.brand {
-  background: transparent;
-}
-.menu {
-  margin-top: 20px;
-  padding-left: 0;
-  text-align: center;
-  background: rgba(240,240,240,0.5);
-  margin-left: auto;
-  margin-right: auto;
-  width: 530px;
-  border-radius: initial;
 }
 a {
   color: rgba(0,0,0,0.8);
@@ -2946,12 +2926,6 @@ a {
 a:hover {
   color: #1c86ee;
   border-bottom-color: #1c86ee;
-}
-.menu .menu-item a {
-  font-size: 14px;
-}
-.menu .menu-item a:hover {
-  border-bottom-color: #ff106c;
 }
 .post {
   margin-top: 10px;
