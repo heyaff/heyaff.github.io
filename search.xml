@@ -1,9 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>容器安全</title>
+    <url>/2020/01/03/container/</url>
+    <content><![CDATA[<p><img src="/images/%E5%AE%B9%E5%99%A8%E5%AE%89%E5%85%A8.png" alt="&quot;安全镜像&quot;"></p>
+]]></content>
+      <categories>
+        <category>容器</category>
+        <category>云平台</category>
+      </categories>
+      <tags>
+        <tag>容器安全</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Nginx</title>
-    <url>/2019/12/17/nginx/</url>
-    <content><![CDATA[<p><strong>启动nginx</strong>：<code>nginx</code><br><strong>关闭nginx</strong>：<code>nginx -s stop</code><br><strong>检测配置格式</strong>：<code>nginx -t</code><br><strong>重启nginx</strong>：<code>nginx -s reload</code></p>
+    <url>/2019/12/18/nginx/</url>
+    <content><![CDATA[<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><p><strong>启动nginx</strong>：<code>nginx</code><br><strong>关闭nginx</strong>：<code>nginx -s stop</code><br><strong>检测配置格式</strong>：<code>nginx -t</code><br><strong>重启nginx</strong>：<code>nginx -s reload</code></p>
+<p><img src="/images/nginx%E8%BD%AC%E5%8F%91.jpg" alt="Nginx转发"></p>
+<h3 id="upstream"><a href="#upstream" class="headerlink" title="upstream"></a>upstream</h3><p>后端的应用IP</p>
+<h3 id="server"><a href="#server" class="headerlink" title="server"></a>server</h3><p>一个站点/域名，nginx可配置十多个域名</p>
 <h3 id="location"><a href="#location" class="headerlink" title="location"></a>location</h3><p><code>~</code>     开头表示区分大小写的正则匹配<br><code>~*</code>    开头表示不区分大小写的正则匹配<br><code>!~</code>    区分大小写不匹配的正则<br><code>!~*</code>    不区分大小写不匹配的正则</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">localtion / &#123;</span><br><span class="line">    <span class="comment"># 所有请求都匹配以下规则</span></span><br><span class="line">    <span class="comment"># 因为所有的地址都以 / 开头，所以这条规则将匹配到所有请求</span></span><br><span class="line">    <span class="comment"># xxx 你的配置写在这里</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">location = / &#123;</span><br><span class="line">    <span class="comment"># 精确匹配 / ，后面带任何字符串的地址都不符合</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">localtion /api &#123;</span><br><span class="line">    <span class="comment"># 匹配任何 /api 开头的URL，包括 /api 后面任意的, 比如 /api/getList</span></span><br><span class="line">    <span class="comment"># 匹配符合以后，还要继续往下搜索</span></span><br><span class="line">    <span class="comment"># 只有后面的正则表达式没有匹配到时，这一条才会采用这一条</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">localtion ~ /api/abc &#123;</span><br><span class="line">    <span class="comment"># 匹配任何 /api/abc 开头的URL，包括 /api/abc 后面任意的, 比如 /api/abc/getList</span></span><br><span class="line">    <span class="comment"># 匹配符合以后，还要继续往下搜索</span></span><br><span class="line">    <span class="comment"># 只有后面的正则表达式没有匹配到时，这一条才会采用这一条</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
