@@ -1,9 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>SPF防范假冒邮件</title>
+    <url>/2020/01/07/spf/</url>
+    <content><![CDATA[<p>如果你购买的域名，没有配置SPF值，则黑客可以冒充你的域名后缀发送邮件。</p>
+<h3 id="添加TXT记录"><a href="#添加TXT记录" class="headerlink" title="添加TXT记录"></a>添加TXT记录</h3><figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">v=spf1 include:spf.mail.qq.com ip4:<span class="number">1.1</span><span class="number">.1</span><span class="number">.1</span> -all</span><br></pre></td></tr></table></figure>
+
+<h3 id="查看域名配置的TXT记录"><a href="#查看域名配置的TXT记录" class="headerlink" title="查看域名配置的TXT记录"></a>查看域名配置的TXT记录</h3><p>Windows下，命令行下输入：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">nslookup -<span class="built_in">type</span>=txt 域名</span><br></pre></td></tr></table></figure>
+
+<p>Unix下：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">dig 域名 txt +short</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>SPF</category>
+      </categories>
+      <tags>
+        <tag>SPF</tag>
+        <tag>伪造邮箱</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>容器安全</title>
     <url>/2020/01/03/container/</url>
-    <content><![CDATA[<p><img src="/images/%E5%AE%B9%E5%99%A8%E5%AE%89%E5%85%A8.png" alt="&quot;安全镜像&quot;"></p>
+    <content><![CDATA[<p><img src="/images/%E5%AE%89%E5%85%A8%E5%AE%B9%E5%99%A8.png" alt="安全容器"></p>
 ]]></content>
       <categories>
         <category>容器</category>
