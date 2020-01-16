@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="安全分工,安全经验," />
+  <meta name="keywords" content="跨域,CORS," />
 
 
 
@@ -79,18 +79,16 @@
 
 
 
-<meta name="description" content="办公安全1、齐治堡垒机给正式员工，按部门创建跳板机，区分测试和生产。开发员工禁止通过堡垒机访问生产服务器，排障的话，由运维协助，有日志平台外包使用Jumpserver 2、金科办公网禁止Github访问，禁止pan、mail访问，脱离办公网由Macfee加黑名单">
-<meta name="keywords" content="安全分工,安全经验">
+<meta name="description" content="CSRF 跨域攻击浏览器有同源策略限制在HTML标签里，、获取资源的标签是没有跨域限制的.同源策略是浏览器需要遵循的标准，而如果是服务器向服务器请求就无需遵循同源策略。 如果想跨域，4种方法： JSONP标签发起GET请求，安全性差，不推荐 ### 标签 ### CORS W3C标准 跨域资源共享   服务端设置，安全性高，推荐使用 Cors需要服务器设置header：Access-Control">
+<meta name="keywords" content="跨域,CORS">
 <meta property="og:type" content="article">
-<meta property="og:title" content="安全工作分工">
-<meta property="og:url" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;2019&#x2F;12&#x2F;17&#x2F;work&#x2F;index.html">
+<meta property="og:title" content="跨域请求">
+<meta property="og:url" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;2020&#x2F;01&#x2F;15&#x2F;cors&#x2F;index.html">
 <meta property="og:site_name" content="安全笔记">
-<meta property="og:description" content="办公安全1、齐治堡垒机给正式员工，按部门创建跳板机，区分测试和生产。开发员工禁止通过堡垒机访问生产服务器，排障的话，由运维协助，有日志平台外包使用Jumpserver 2、金科办公网禁止Github访问，禁止pan、mail访问，脱离办公网由Macfee加黑名单">
+<meta property="og:description" content="CSRF 跨域攻击浏览器有同源策略限制在HTML标签里，、获取资源的标签是没有跨域限制的.同源策略是浏览器需要遵循的标准，而如果是服务器向服务器请求就无需遵循同源策略。 如果想跨域，4种方法： JSONP标签发起GET请求，安全性差，不推荐 ### 标签 ### CORS W3C标准 跨域资源共享   服务端设置，安全性高，推荐使用 Cors需要服务器设置header：Access-Control">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;diting.png">
-<meta property="og:updated_time" content="2019-12-17T08:26:43.870Z">
+<meta property="og:updated_time" content="2020-01-15T08:38:53.300Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;diting.png">
 
 
 
@@ -120,13 +118,13 @@
 
 
 
-  <link rel="canonical" href="http://heyaff.github.io/2019/12/17/work/"/>
+  <link rel="canonical" href="http://heyaff.github.io/2020/01/15/cors/"/>
 
 
 
 
 
-  <title>安全工作分工 | 安全笔记</title>
+  <title>跨域请求 | 安全笔记</title>
   
 
 
@@ -297,7 +295,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://heyaff.github.io/2019/12/17/work/">
+    <link itemprop="mainEntityOfPage" href="http://heyaff.github.io/2020/01/15/cors/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="heyaff">
@@ -314,7 +312,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">安全工作分工</h1>
+          <h1 class="post-title" itemprop="name headline">跨域请求</h1>
         
 
         <div class="post-meta">
@@ -326,8 +324,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-17T16:26:43+08:00">
-                2019-12-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-15T16:38:53+08:00">
+                2020-01-15
               </time>
             
 
@@ -349,8 +347,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%AE%89%E5%85%A8%E5%B7%A5%E4%BD%9C/" itemprop="url" rel="index">
-                    <span itemprop="name">安全工作</span>
+                  <a href="/categories/CORS/" itemprop="url" rel="index">
+                    <span itemprop="name">CORS</span>
                   </a>
                 </span>
 
@@ -391,19 +389,17 @@
       
 
       
-        <h3 id="办公安全"><a href="#办公安全" class="headerlink" title="办公安全"></a>办公安全</h3><p>1、齐治堡垒机给正式员工，按部门创建跳板机，区分测试和生产。开发员工禁止通过堡垒机访问生产服务器，排障的话，由运维协助，有日志平台<br>外包使用Jumpserver</p>
-<p>2、金科办公网禁止Github访问，禁止pan、mail访问，脱离办公网由Macfee加黑名单<a id="more"></a></p>
-<h3 id="IDC-服务器"><a href="#IDC-服务器" class="headerlink" title="IDC/服务器"></a>IDC/服务器</h3><p>1、申请DEV服务器、SIT服务器，必须通过立项。申请开墙，提供系统架构图</p>
-<p>2、交换机负责网络隔离，划分vlan，防火墙也是逻辑隔离，访问控制建议在防火墙上做，双向控制，虽然交换机也可以做</p>
-<p>3、金科的数据库DB的账号密码由DBA生成，发给运维，（开发人员不知道密码），加密后写入配置文件，应用程序框架读取配置文件后解密得到密码去连DB</p>
-<p>4、金科Gitlab放在生产网段，办公网可访问。导致很多测试、开发服务器开墙去访问，拉源码</p>
-<h3 id="主机安全"><a href="#主机安全" class="headerlink" title="主机安全"></a>主机安全</h3><p>1、Rapid7扫描主机漏洞，Webinspect扫描WEB漏洞，OP是合二为一，如下图<br><img src="/images/diting.png" alt="扫描"></p>
-<p>2、windows登陆账号分配申请人域账号为管理员，Linux账号统一由CAE获取</p>
-<p>3、访问控制</p>
-<h3 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h3><p>1、金科服务器默认不能访问外网，走外网必须经过DMZ，数据中心的外网由防火墙出口访问控制</p>
-<p>2、测试SIT环境，开发DEV环境，测试开发员工可以在CAE申请root权限，有审计功能，同一时间只能锁定一个用户</p>
-<p>3、运维不负责开发测试机器，只负责交付中间件、数据库等服务。</p>
-<h3 id="系统"><a href="#系统" class="headerlink" title="系统"></a>系统</h3><p>1、CAE密码管理系统，接管数据中心Linux账号、密码，脚本下发（如非标部署）<br>2、CAE提供全网主机命令通道支持工具和脚本执行，配置文件推送。可以满足登录主机的日常部署操作使用。<br>3、配置中心禁止出现明文密码<br>4、VPN权限仅限运维中心开通，堡垒机仅限公司员工使用，禁止第三方申请</p>
+        <p>CSRF 跨域攻击<br>浏览器有同源策略限制<br>在HTML标签里，<script src='xxx'>、<img >获取资源的标签是没有跨域限制的.<br>同源策略是浏览器需要遵循的标准，而如果是服务器向服务器请求就无需遵循同源策略。</p>
+<p>如果想跨域，4种方法：</p>
+<h3 id="JSONP"><a href="#JSONP" class="headerlink" title="JSONP"></a>JSONP</h3><script>标签发起GET请求，安全性差，不推荐
+### <iframe>标签
+### CORS W3C标准 跨域资源共享  
+服务端设置，安全性高，推荐使用
+Cors需要服务器设置header：Access-Control-Allow-Origin
+【Tips】即使设置了header，但CORS只对浏览器起作用，对curl或者postman或普通程序不起作用，都是可访问的，。
+[]<>
+### Nginx反向代理  Nginx中转服务器，用于转发请求（NG与其他服务端之间的资源请求不会有跨域限制）
+如访问前端域名下的/api路径，然后在部署的服务器上，用nginx把/api路径转发到API域名那里。此时前端相当于不跨域，和正常请求一致，无需额外配置。
 
       
     </div>
@@ -421,9 +417,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/%E5%AE%89%E5%85%A8%E5%88%86%E5%B7%A5/" rel="tag"># 安全分工</a>
+            <a href="/tags/%E8%B7%A8%E5%9F%9F/" rel="tag"># 跨域</a>
           
-            <a href="/tags/%E5%AE%89%E5%85%A8%E7%BB%8F%E9%AA%8C/" rel="tag"># 安全经验</a>
+            <a href="/tags/CORS/" rel="tag"># CORS</a>
           
         </div>
       
@@ -436,8 +432,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/11/28/keepalived/" rel="next" title="keepalived">
-                <i class="fa fa-chevron-left"></i> keepalived
+              <a href="/2020/01/14/work/" rel="next" title="安全工作分工">
+                <i class="fa fa-chevron-left"></i> 安全工作分工
               </a>
             
           </div>
@@ -445,10 +441,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/01/07/spf/" rel="prev" title="SPF防范假冒邮件">
-                SPF防范假冒邮件 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -500,17 +492,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -529,7 +512,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -540,7 +523,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -551,7 +534,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -574,22 +557,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#办公安全"><span class="nav-number">1.</span> <span class="nav-text">办公安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IDC-服务器"><span class="nav-number">2.</span> <span class="nav-text">IDC/服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主机安全"><span class="nav-number">3.</span> <span class="nav-text">主机安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网络"><span class="nav-number">4.</span> <span class="nav-text">网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#系统"><span class="nav-number">5.</span> <span class="nav-text">系统</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       

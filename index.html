@@ -295,6 +295,312 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://heyaff.github.io/2020/01/16/cors/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="heyaff">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="安全笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/01/16/cors/" itemprop="url">跨域请求</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-16T19:23:21+08:00">
+                2020-01-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CORS/" itemprop="url" rel="index">
+                    <span itemprop="name">CORS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>-<a href="https://ningyu1.github.io/site/post/92-cors-ajax/" title="凝雨">跨域踩坑经验总结（内涵：跨域知识科普）</a><br>-<a href="https://www.ruanyifeng.com/blog/2016/04/cors.html" title="阮一峰的网络日志">跨域资源共享 CORS 详解</a></p>
+<h3 id="什么情况下出现跨域"><a href="#什么情况下出现跨域" class="headerlink" title="什么情况下出现跨域"></a>什么情况下出现跨域</h3><p><img src="/images/cors.png" alt=""><br>浏览器有同源策略限制<br>前后端数据交互经常会碰到请求跨域<br>如果缺少了同源策略，浏览器很容易受到XSS、CSRF等攻击<br>对于<code>&lt;a&gt;</code> <code>&lt;script&gt;</code> <code>&lt;img&gt;</code> <code>&lt;video&gt;</code> <code>&lt;link&gt;</code>这类属性带有src、href的标签，允许跨域加载<br>同源策略是浏览器需要遵循的标准，而如果是服务器向服务器的请求（后端–&gt;后端）就无需遵循同源策略</p>
+<h3 id="跨域请求方式"><a href="#跨域请求方式" class="headerlink" title="跨域请求方式"></a>跨域请求方式</h3><p>1、JSONP（废弃）<br>只支持GET请求（不支持POST），安全性差，不推荐</p>
+<p>2、CORS W3C标准 跨域资源共享<br>CORS需要服务器设置header <code>Access-Control-Allow-Origin</code> 白名单等等，安全性高，<strong>推荐使用</strong></p>
+<p><img src="/images/response.png" alt=""></p>
+<ul>
+<li><p>2.1 对于简单请求：<br>浏览器直接发出CORS请求。具体来说，就是在头信息之中，增加一个Origin字段。</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">GET</span> <span class="string">/cors</span> HTTP/1.1</span><br><span class="line"><span class="attribute">Origin</span>: http://www.cmft.com</span><br><span class="line"><span class="attribute">Host</span>: api.cmft.com</span><br><span class="line"><span class="attribute">Accept-Language</span>: en-US</span><br><span class="line"><span class="attribute">Connection</span>: keep-alive</span><br><span class="line"><span class="attribute">User-Agent</span>: Mozilla/5.0...</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>2.2 对于复杂请求：<br>非简单请求的CORS请求，会在正式通信之前，增加一次HTTP查询请求，称为”预检”请求</p>
+<figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">OPTIONS /cors HTTP/<span class="number">1.1</span></span><br><span class="line">Origin: http:<span class="comment">//www.cmft.com</span></span><br><span class="line">Access-Control-Request-<span class="function"><span class="keyword">Method</span>:</span> PUT</span><br><span class="line">Access-Control-Request-Headers: X-Custom-Header</span><br><span class="line">Host: api.cmft.com</span><br><span class="line">Accept-Language: en-US</span><br><span class="line">Connection: keep-alive</span><br><span class="line">User-Agent: Mozilla/<span class="number">5.0</span>...</span><br></pre></td></tr></table></figure>
+<p>“预检”请求用的是OPTIONS，是用来询问的。头信息里面，关键字段是Origin，表示请求来自哪个源。RESPONSE只有header，没有响应包。<br>整个CORS通信过程，都是浏览器自动完成，不需要用户参与</p>
+</li>
+</ul>
+<p><font color=#DC143C>【Tips】即使设置了header，但CORS只对浏览器起作用，对curl或postman或普通程序不起作用，都是可访问的。</font></p>
+<p>3、Nginx反向代理<br>Nginx中转服务器，用于转发请求（NG与其他服务端之间的资源请求不会有跨域限制）</p>
+<p>例如<code>www.123.com/index.html</code>需要调用<code>www.456.com/server.php</code>，可以写一个接口<code>www.123.com/api/server.php</code>，由这个接口在后端去调用<code>www.456.com/server.php</code>并拿到返回值，然后再返回给index.html。用nginx把/api路径转发到其他域名那里，相当于绕过了浏览器端，自然就不存在跨域问题。</p>
+<p>CSRF 跨域攻击</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://heyaff.github.io/2020/01/14/work/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="heyaff">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="安全笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/01/14/work/" itemprop="url">安全工作分工</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-14T20:24:33+08:00">
+                2020-01-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AE%89%E5%85%A8%E5%B7%A5%E4%BD%9C/" itemprop="url" rel="index">
+                    <span itemprop="name">安全工作</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h3 id="办公安全"><a href="#办公安全" class="headerlink" title="办公安全"></a>办公安全</h3><p>1、齐治堡垒机给正式员工，按部门创建跳板机，区分测试和生产。开发员工禁止通过堡垒机访问生产服务器，排障的话，由运维协助，有日志平台<br>外包使用Jumpserver</p>
+<p>2、金科办公网禁止Github访问，禁止pan、mail访问，脱离办公网由Macfee加黑名单
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/01/14/work/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://heyaff.github.io/2020/01/13/nginx/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -755,153 +1061,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://heyaff.github.io/2019/12/17/work/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="heyaff">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="安全笔记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/12/17/work/" itemprop="url">安全工作分工</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-17T16:26:43+08:00">
-                2019-12-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%AE%89%E5%85%A8%E5%B7%A5%E4%BD%9C/" itemprop="url" rel="index">
-                    <span itemprop="name">安全工作</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="办公安全"><a href="#办公安全" class="headerlink" title="办公安全"></a>办公安全</h3><p>1、齐治堡垒机给正式员工，按部门创建跳板机，区分测试和生产。开发员工禁止通过堡垒机访问生产服务器，排障的话，由运维协助，有日志平台<br>外包使用Jumpserver</p>
-<p>2、金科办公网禁止Github访问，禁止pan、mail访问，脱离办公网由Macfee加黑名单
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/12/17/work/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://heyaff.github.io/2019/11/28/keepalived/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1138,8 +1297,8 @@
         
           
             <p><img src="/images/sso.png" alt=""></p>
-<h3 id="鉴权-黑猫-UM（统一模板，控制子菜单权限）"><a href="#鉴权-黑猫-UM（统一模板，控制子菜单权限）" class="headerlink" title="鉴权:黑猫/UM（统一模板，控制子菜单权限）"></a>鉴权:黑猫/UM（统一模板，控制子菜单权限）</h3><h3 id="SSO-统一认证系统-单点登录"><a href="#SSO-统一认证系统-单点登录" class="headerlink" title="SSO:统一认证系统/单点登录"></a>SSO:统一认证系统/单点登录</h3><p><img src="/images/sso1.png" alt="SSO流程图"><br>访问A系统，点击登录，跳转到SSO认证页面，认证通过后，返回A系统。又访问B系统，无须登录可访问B。</p>
-<h3 id="AD：域账号（存储用户的账号-密码）"><a href="#AD：域账号（存储用户的账号-密码）" class="headerlink" title="AD：域账号（存储用户的账号/密码）"></a>AD：域账号（存储用户的账号/密码）</h3><p>不接SSO，直接用AD登录C系统，用C系统自带的登陆页面，登录成功后，访问D系统，依然还得登录= =!</p>
+<h3 id="鉴权-黑猫-UM（统一模板，控制子菜单权限）"><a href="#鉴权-黑猫-UM（统一模板，控制子菜单权限）" class="headerlink" title="鉴权:黑猫/UM（统一模板，控制子菜单权限）"></a>鉴权:黑猫/UM（统一模板，控制子菜单权限）</h3><h3 id="SSO-统一认证系统-单点登录"><a href="#SSO-统一认证系统-单点登录" class="headerlink" title="SSO:统一认证系统/单点登录"></a>SSO:统一认证系统/单点登录</h3><p><img src="/images/sso1.png" alt="SSO流程图"><br>访问A系统，右上角点击登录，跳转到SSO认证页面，认证通过后，返回A系统。又访问B系统，无须登录可访问B。</p>
+<h3 id="AD：域账号（存储用户的账号-密码）"><a href="#AD：域账号（存储用户的账号-密码）" class="headerlink" title="AD：域账号（存储用户的账号/密码）"></a>AD：域账号（存储用户的账号/密码）</h3><p>若C系统不接SSO，直接用AD登录C系统自带的登陆页面，登录成功后，访问D系统，依然还得登录= =!</p>
 
           
         
@@ -1606,159 +1765,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://heyaff.github.io/2019/11/17/https/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="heyaff">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="安全笔记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/11/17/https/" itemprop="url">HTTPS证书及中间人攻击</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-17T19:12:57+08:00">
-                2019-11-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/HTTPS/" itemprop="url" rel="index">
-                    <span itemprop="name">HTTPS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="HTTPS原理"><a href="#HTTPS原理" class="headerlink" title="HTTPS原理"></a>HTTPS原理</h3><ul>
-<li><a href="https://dabaotthao.com/2018/07/13/https/" title="dabao&#39;s Blog">浅谈https基本原理</a></li>
-<li><a href="https://www.cnblogs.com/handsomeBoys/p/6556336.html" title="handsomeBoys">CA证书扫盲，https讲解</a></li>
-<li><a href="https://www.2cto.com/article/201607/523509.html" title="2016.06-白泽安全团队投稿的作品">浅析HTTPS中间人攻击与证书校验</a></li>
-<li><a href="https://dishibolei.github.io/2017/05/11/https-safe-1/" title="萝卜的空间">IOS应用安全-HTTP/HTTPS网络安全</a></li>
-</ul>
-<p><img src="/images/diagrammatize_https_theory.jpg" alt="HTTPS原理"></p>
-<h3 id="证书"><a href="#证书" class="headerlink" title="证书"></a>证书</h3><p>1、证书=Server公钥+申请者与颁发者信息+签名<br>（<strong><code>CA的公钥</code></strong>公之于众，如浏览器内置，没有在证书中）
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/11/17/https/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1813,7 +1819,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1824,7 +1830,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1835,7 +1841,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

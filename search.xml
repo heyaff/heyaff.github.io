@@ -1,6 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>跨域请求</title>
+    <url>/2020/01/16/cors/</url>
+    <content><![CDATA[<p>-<a href="https://ningyu1.github.io/site/post/92-cors-ajax/" title="凝雨">跨域踩坑经验总结（内涵：跨域知识科普）</a><br>-<a href="https://www.ruanyifeng.com/blog/2016/04/cors.html" title="阮一峰的网络日志">跨域资源共享 CORS 详解</a></p>
+<h3 id="什么情况下出现跨域"><a href="#什么情况下出现跨域" class="headerlink" title="什么情况下出现跨域"></a>什么情况下出现跨域</h3><p><img src="/images/cors.png" alt=""><br>浏览器有同源策略限制<br>前后端数据交互经常会碰到请求跨域<br>如果缺少了同源策略，浏览器很容易受到XSS、CSRF等攻击<br>对于<code>&lt;a&gt;</code> <code>&lt;script&gt;</code> <code>&lt;img&gt;</code> <code>&lt;video&gt;</code> <code>&lt;link&gt;</code>这类属性带有src、href的标签，允许跨域加载<br>同源策略是浏览器需要遵循的标准，而如果是服务器向服务器的请求（后端–&gt;后端）就无需遵循同源策略</p>
+<h3 id="跨域请求方式"><a href="#跨域请求方式" class="headerlink" title="跨域请求方式"></a>跨域请求方式</h3><p>1、JSONP（废弃）<br>只支持GET请求（不支持POST），安全性差，不推荐</p>
+<p>2、CORS W3C标准 跨域资源共享<br>CORS需要服务器设置header <code>Access-Control-Allow-Origin</code> 白名单等等，安全性高，<strong>推荐使用</strong></p>
+<p><img src="/images/response.png" alt=""></p>
+<ul>
+<li><p>2.1 对于简单请求：<br>浏览器直接发出CORS请求。具体来说，就是在头信息之中，增加一个Origin字段。</p>
+<figure class="highlight http"><table><tr><td class="code"><pre><span class="line"><span class="keyword">GET</span> <span class="string">/cors</span> HTTP/1.1</span><br><span class="line"><span class="attribute">Origin</span>: http://www.cmft.com</span><br><span class="line"><span class="attribute">Host</span>: api.cmft.com</span><br><span class="line"><span class="attribute">Accept-Language</span>: en-US</span><br><span class="line"><span class="attribute">Connection</span>: keep-alive</span><br><span class="line"><span class="attribute">User-Agent</span>: Mozilla/5.0...</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>2.2 对于复杂请求：<br>非简单请求的CORS请求，会在正式通信之前，增加一次HTTP查询请求，称为”预检”请求</p>
+<figure class="highlight oxygene"><table><tr><td class="code"><pre><span class="line">OPTIONS /cors HTTP/<span class="number">1.1</span></span><br><span class="line">Origin: http:<span class="comment">//www.cmft.com</span></span><br><span class="line">Access-Control-Request-<span class="function"><span class="keyword">Method</span>:</span> PUT</span><br><span class="line">Access-Control-Request-Headers: X-Custom-Header</span><br><span class="line">Host: api.cmft.com</span><br><span class="line">Accept-Language: en-US</span><br><span class="line">Connection: keep-alive</span><br><span class="line">User-Agent: Mozilla/<span class="number">5.0</span>...</span><br></pre></td></tr></table></figure>
+<p>“预检”请求用的是OPTIONS，是用来询问的。头信息里面，关键字段是Origin，表示请求来自哪个源。RESPONSE只有header，没有响应包。<br>整个CORS通信过程，都是浏览器自动完成，不需要用户参与</p>
+</li>
+</ul>
+<p><font color=#DC143C>【Tips】即使设置了header，但CORS只对浏览器起作用，对curl或postman或普通程序不起作用，都是可访问的。</font></p>
+<p>3、Nginx反向代理<br>Nginx中转服务器，用于转发请求（NG与其他服务端之间的资源请求不会有跨域限制）</p>
+<p>例如<code>www.123.com/index.html</code>需要调用<code>www.456.com/server.php</code>，可以写一个接口<code>www.123.com/api/server.php</code>，由这个接口在后端去调用<code>www.456.com/server.php</code>并拿到返回值，然后再返回给index.html。用nginx把/api路径转发到其他域名那里，相当于绕过了浏览器端，自然就不存在跨域问题。</p>
+<p>CSRF 跨域攻击</p>
+]]></content>
+      <categories>
+        <category>CORS</category>
+      </categories>
+      <tags>
+        <tag>跨域</tag>
+        <tag>CORS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>安全工作分工</title>
+    <url>/2020/01/14/work/</url>
+    <content><![CDATA[<h3 id="办公安全"><a href="#办公安全" class="headerlink" title="办公安全"></a>办公安全</h3><p>1、齐治堡垒机给正式员工，按部门创建跳板机，区分测试和生产。开发员工禁止通过堡垒机访问生产服务器，排障的话，由运维协助，有日志平台<br>外包使用Jumpserver</p>
+<p>2、金科办公网禁止Github访问，禁止pan、mail访问，脱离办公网由Macfee加黑名单<a id="more"></a></p>
+<h3 id="IDC-服务器"><a href="#IDC-服务器" class="headerlink" title="IDC/服务器"></a>IDC/服务器</h3><p>1、申请DEV服务器、SIT服务器，必须通过立项。申请开墙，提供系统架构图</p>
+<p>2、交换机负责网络隔离，划分vlan，防火墙也是逻辑隔离，访问控制建议在防火墙上做，双向控制，虽然交换机也可以做</p>
+<p>3、金科的数据库DB的账号密码由DBA生成，发给运维，（开发人员不知道密码），加密后写入配置文件，应用程序框架读取配置文件后解密得到密码去连DB</p>
+<p>4、金科Gitlab放在生产网段，办公网可访问。导致很多测试、开发服务器开墙去访问，拉源码</p>
+<h3 id="主机安全"><a href="#主机安全" class="headerlink" title="主机安全"></a>主机安全</h3><p>1、Rapid7扫描主机漏洞，Webinspect扫描WEB漏洞，OP是合二为一，如下图<br><img src="/images/diting.png" alt="扫描"></p>
+<p>2、windows登陆账号分配申请人域账号为管理员，Linux账号统一由CAE获取</p>
+<p>3、访问控制</p>
+<h3 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h3><p>1、金科服务器默认不能访问外网，走外网必须经过DMZ，数据中心的外网由防火墙出口访问控制</p>
+<p>2、测试SIT环境，开发DEV环境，测试/开发员工可以在CAE申请root权限，有审计功能，同一时间只能锁定一个用户</p>
+<p>3、外包没有CAE权限，所以外包的堡垒机没有root权限</p>
+<p>4、测试/开发员工禁止堡垒机访问任何生产服务器</p>
+<p>5、运维不负责开发测试机器，只负责交付中间件、数据库等服务。</p>
+<h3 id="系统"><a href="#系统" class="headerlink" title="系统"></a>系统</h3><p>1、CAE密码管理系统，接管数据中心Linux账号、密码，脚本下发（如非标部署）<br>2、CAE提供全网主机命令通道支持工具和脚本执行，配置文件推送。可以满足登录主机的日常部署操作使用。<br>3、配置中心禁止出现明文密码<br>4、VPN权限仅限运维中心开通，堡垒机仅限公司员工使用，禁止第三方申请</p>
+]]></content>
+      <categories>
+        <category>安全工作</category>
+      </categories>
+      <tags>
+        <tag>安全分工</tag>
+        <tag>安全经验</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Nginx</title>
     <url>/2020/01/13/nginx/</url>
     <content><![CDATA[<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><p><strong>启动nginx</strong>：<code>nginx</code><br><strong>关闭nginx</strong>：<code>nginx -s stop</code><br><strong>检测配置格式</strong>：<code>nginx -t</code><br><strong>重启nginx</strong>：<code>nginx -s reload</code></p>
@@ -68,31 +125,6 @@
       </tags>
   </entry>
   <entry>
-    <title>安全工作分工</title>
-    <url>/2019/12/17/work/</url>
-    <content><![CDATA[<h3 id="办公安全"><a href="#办公安全" class="headerlink" title="办公安全"></a>办公安全</h3><p>1、齐治堡垒机给正式员工，按部门创建跳板机，区分测试和生产。开发员工禁止通过堡垒机访问生产服务器，排障的话，由运维协助，有日志平台<br>外包使用Jumpserver</p>
-<p>2、金科办公网禁止Github访问，禁止pan、mail访问，脱离办公网由Macfee加黑名单<a id="more"></a></p>
-<h3 id="IDC-服务器"><a href="#IDC-服务器" class="headerlink" title="IDC/服务器"></a>IDC/服务器</h3><p>1、申请DEV服务器、SIT服务器，必须通过立项。申请开墙，提供系统架构图</p>
-<p>2、交换机负责网络隔离，划分vlan，防火墙也是逻辑隔离，访问控制建议在防火墙上做，双向控制，虽然交换机也可以做</p>
-<p>3、金科的数据库DB的账号密码由DBA生成，发给运维，（开发人员不知道密码），加密后写入配置文件，应用程序框架读取配置文件后解密得到密码去连DB</p>
-<p>4、金科Gitlab放在生产网段，办公网可访问。导致很多测试、开发服务器开墙去访问，拉源码</p>
-<h3 id="主机安全"><a href="#主机安全" class="headerlink" title="主机安全"></a>主机安全</h3><p>1、Rapid7扫描主机漏洞，Webinspect扫描WEB漏洞，OP是合二为一，如下图<br><img src="/images/diting.png" alt="扫描"></p>
-<p>2、windows登陆账号分配申请人域账号为管理员，Linux账号统一由CAE获取</p>
-<p>3、访问控制</p>
-<h3 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h3><p>1、金科服务器默认不能访问外网，走外网必须经过DMZ，数据中心的外网由防火墙出口访问控制</p>
-<p>2、测试SIT环境，开发DEV环境，测试开发员工可以在CAE申请root权限，有审计功能，同一时间只能锁定一个用户</p>
-<p>3、运维不负责开发测试机器，只负责交付中间件、数据库等服务。</p>
-<h3 id="系统"><a href="#系统" class="headerlink" title="系统"></a>系统</h3><p>1、CAE密码管理系统，接管数据中心Linux账号、密码，脚本下发（如非标部署）<br>2、CAE提供全网主机命令通道支持工具和脚本执行，配置文件推送。可以满足登录主机的日常部署操作使用。<br>3、配置中心禁止出现明文密码<br>4、VPN权限仅限运维中心开通，堡垒机仅限公司员工使用，禁止第三方申请</p>
-]]></content>
-      <categories>
-        <category>安全工作</category>
-      </categories>
-      <tags>
-        <tag>安全分工</tag>
-        <tag>安全经验</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>keepalived</title>
     <url>/2019/11/28/keepalived/</url>
     <content><![CDATA[<p><img src="/images/keepalived.jpg" alt=""></p>
@@ -108,8 +140,8 @@
     <title>sso</title>
     <url>/2019/11/28/sso/</url>
     <content><![CDATA[<p><img src="/images/sso.png" alt=""></p>
-<h3 id="鉴权-黑猫-UM（统一模板，控制子菜单权限）"><a href="#鉴权-黑猫-UM（统一模板，控制子菜单权限）" class="headerlink" title="鉴权:黑猫/UM（统一模板，控制子菜单权限）"></a>鉴权:黑猫/UM（统一模板，控制子菜单权限）</h3><h3 id="SSO-统一认证系统-单点登录"><a href="#SSO-统一认证系统-单点登录" class="headerlink" title="SSO:统一认证系统/单点登录"></a>SSO:统一认证系统/单点登录</h3><p><img src="/images/sso1.png" alt="SSO流程图"><br>访问A系统，点击登录，跳转到SSO认证页面，认证通过后，返回A系统。又访问B系统，无须登录可访问B。</p>
-<h3 id="AD：域账号（存储用户的账号-密码）"><a href="#AD：域账号（存储用户的账号-密码）" class="headerlink" title="AD：域账号（存储用户的账号/密码）"></a>AD：域账号（存储用户的账号/密码）</h3><p>不接SSO，直接用AD登录C系统，用C系统自带的登陆页面，登录成功后，访问D系统，依然还得登录= =!</p>
+<h3 id="鉴权-黑猫-UM（统一模板，控制子菜单权限）"><a href="#鉴权-黑猫-UM（统一模板，控制子菜单权限）" class="headerlink" title="鉴权:黑猫/UM（统一模板，控制子菜单权限）"></a>鉴权:黑猫/UM（统一模板，控制子菜单权限）</h3><h3 id="SSO-统一认证系统-单点登录"><a href="#SSO-统一认证系统-单点登录" class="headerlink" title="SSO:统一认证系统/单点登录"></a>SSO:统一认证系统/单点登录</h3><p><img src="/images/sso1.png" alt="SSO流程图"><br>访问A系统，右上角点击登录，跳转到SSO认证页面，认证通过后，返回A系统。又访问B系统，无须登录可访问B。</p>
+<h3 id="AD：域账号（存储用户的账号-密码）"><a href="#AD：域账号（存储用户的账号-密码）" class="headerlink" title="AD：域账号（存储用户的账号/密码）"></a>AD：域账号（存储用户的账号/密码）</h3><p>若C系统不接SSO，直接用AD登录C系统自带的登陆页面，登录成功后，访问D系统，依然还得登录= =!</p>
 ]]></content>
       <categories>
         <category>sso</category>
