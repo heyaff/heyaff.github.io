@@ -1,23 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Nginx</title>
+    <url>/2020/01/17/nginx/</url>
+    <content><![CDATA[<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><p><strong>启动nginx</strong>：<code>nginx</code><br><strong>关闭nginx</strong>：<code>nginx -s stop</code><br><strong>检测配置格式</strong>：<code>nginx -t</code><br><strong>重启nginx</strong>：<code>nginx -s reload</code></p>
+<p><img src="/images/nginx%E8%BD%AC%E5%8F%91.jpg" alt="Nginx转发"></p>
+<a id="more"></a>
+<h3 id="upstream"><a href="#upstream" class="headerlink" title="upstream"></a>upstream</h3><p>后端的应用IP<br>对用户来说是透明的，没有暴漏后端请求</p>
+<h3 id="server"><a href="#server" class="headerlink" title="server"></a>server</h3><p>一个站点/域名，nginx可配置十多个域名，见上图</p>
+<h3 id="location"><a href="#location" class="headerlink" title="location"></a>location</h3><p><code>~</code>开头   表示区分大小写的正则匹配</p>
+<figure class="highlight crmsh"><table><tr><td class="code"><pre><span class="line"><span class="keyword">location</span> <span class="title">^~ /images</span>/ &#123;</span><br><span class="line"><span class="comment"># 匹配任何已/images/开头的任何查询并且停止搜索，后面的正则不会再匹配</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>~*</code>开头   表示不区分大小写的正则匹配</p>
+<figure class="highlight crmsh"><table><tr><td class="code"><pre><span class="line"><span class="keyword">location</span> <span class="title">~* .(gif</span>|jpg|jpeg)$ &#123;</span><br><span class="line"><span class="comment"># 匹配任何已.gif、.jpg 或 .jpeg 结尾的请求</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>!~</code>   区分大小写不匹配的正则<br><code>!~*</code>  不区分大小写不匹配的正则</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">localtion / &#123;</span><br><span class="line">    <span class="comment"># 所有请求都匹配以下规则</span></span><br><span class="line">    <span class="comment"># 因为所有的地址都以 / 开头，所以这条规则将匹配到所有请求</span></span><br><span class="line">    <span class="comment"># xxx 你的配置写在这里</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">location = / &#123;</span><br><span class="line">    <span class="comment"># 精确匹配 / ，后面带任何字符串的地址都不匹配这条</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">localtion /api &#123;</span><br><span class="line">    <span class="comment"># 匹配任何 /api 开头的URL，包括 /api 后面任意的, 比如 /api/getList</span></span><br><span class="line">    <span class="comment"># 匹配符合以后，还要继续往下搜索</span></span><br><span class="line">    <span class="comment"># 只有后面的正则表达式没有匹配到时，这一条才会采用这一条</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">localtion ~ /api/abc &#123;</span><br><span class="line">    <span class="comment"># 匹配任何 /api/abc 开头的URL，包括 /api/abc 后面任意的, 比如 /api/abc/getList</span></span><br><span class="line">    <span class="comment"># 匹配符合以后，还要继续往下搜索</span></span><br><span class="line">    <span class="comment"># 只有后面的正则表达式没有匹配到时，这一条才会采用这一条</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">location /cn &#123;</span><br><span class="line">    <span class="comment">#代理跳转，客户端重定向，用户浏览器可看到URL发生了变化</span></span><br><span class="line">    <span class="comment">#proxy_pass最后有斜杠，最终跳转http://heyaff.github.io/index.html</span></span><br><span class="line">    <span class="comment">#proxy_pass最后无斜杠，最终跳转http://heyaff.github.io/cn/index.html</span></span><br><span class="line">    proxy_pass http://heyaff.github.io;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="Nginx生产环境场景"><a href="#Nginx生产环境场景" class="headerlink" title="Nginx生产环境场景"></a>Nginx生产环境场景</h3><p>1、静态文件（html/css/js/图片/字体等）直接在Nginx对应目录下访问<br>2、其它（api访问）代理到对应api服务的端口</p>
+]]></content>
+      <categories>
+        <category>Nginx</category>
+      </categories>
+      <tags>
+        <tag>nginx</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>跨域请求</title>
     <url>/2020/01/16/cors/</url>
     <content><![CDATA[<p>-<a href="https://ningyu1.github.io/site/post/92-cors-ajax/" title="凝雨">跨域踩坑经验总结（内涵：跨域知识科普）</a><br>-<a href="https://www.ruanyifeng.com/blog/2016/04/cors.html" title="阮一峰的网络日志">跨域资源共享 CORS 详解</a></p>
 <h3 id="什么情况下出现跨域"><a href="#什么情况下出现跨域" class="headerlink" title="什么情况下出现跨域"></a>什么情况下出现跨域</h3><p><img src="/images/cors.png" alt=""><br>浏览器有同源策略限制<br>前后端数据交互经常会碰到请求跨域<br>如果缺少了同源策略，浏览器很容易受到XSS、CSRF等攻击<br>对于<code>&lt;a&gt;</code> <code>&lt;script&gt;</code> <code>&lt;img&gt;</code> <code>&lt;video&gt;</code> <code>&lt;link&gt;</code>这类属性带有src、href的标签，允许跨域加载<br>同源策略是浏览器需要遵循的标准，而如果是服务器向服务器的请求（后端–&gt;后端）就无需遵循同源策略</p>
 <h3 id="跨域请求方式"><a href="#跨域请求方式" class="headerlink" title="跨域请求方式"></a>跨域请求方式</h3><p>1、JSONP（废弃）<br>只支持GET请求（不支持POST），安全性差，不推荐</p>
 <p>2、CORS W3C标准 跨域资源共享<br>CORS需要服务器设置header <code>Access-Control-Allow-Origin</code> 白名单等等，安全性高，<strong>推荐使用</strong></p>
-<p><img src="/images/response.png" alt=""></p>
 <ul>
 <li><p>2.1 对于简单请求：<br>浏览器直接发出CORS请求。具体来说，就是在头信息之中，增加一个Origin字段。</p>
 <figure class="highlight http"><table><tr><td class="code"><pre><span class="line"><span class="keyword">GET</span> <span class="string">/cors</span> HTTP/1.1</span><br><span class="line"><span class="attribute">Origin</span>: http://www.cmft.com</span><br><span class="line"><span class="attribute">Host</span>: api.cmft.com</span><br><span class="line"><span class="attribute">Accept-Language</span>: en-US</span><br><span class="line"><span class="attribute">Connection</span>: keep-alive</span><br><span class="line"><span class="attribute">User-Agent</span>: Mozilla/5.0...</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>2.2 对于复杂请求：<br>非简单请求的CORS请求，会在正式通信之前，增加一次HTTP查询请求，称为”预检”请求</p>
+<li><p>2.2 对于复杂请求：<br>非简单请求的CORS请求，会在正式通信之前，增加一次HTTP查询请求，称为”预检”请求OPTIONS</p>
 <figure class="highlight oxygene"><table><tr><td class="code"><pre><span class="line">OPTIONS /cors HTTP/<span class="number">1.1</span></span><br><span class="line">Origin: http:<span class="comment">//www.cmft.com</span></span><br><span class="line">Access-Control-Request-<span class="function"><span class="keyword">Method</span>:</span> PUT</span><br><span class="line">Access-Control-Request-Headers: X-Custom-Header</span><br><span class="line">Host: api.cmft.com</span><br><span class="line">Accept-Language: en-US</span><br><span class="line">Connection: keep-alive</span><br><span class="line">User-Agent: Mozilla/<span class="number">5.0</span>...</span><br></pre></td></tr></table></figure>
-<p>“预检”请求用的是OPTIONS，是用来询问的。头信息里面，关键字段是Origin，表示请求来自哪个源。RESPONSE只有header，没有响应包。<br>整个CORS通信过程，都是浏览器自动完成，不需要用户参与</p>
+<p>用来询问HOST，关键字段是Origin，表示请求来自哪个源。RESPONSE只有header，没有响应包。<br>整个CORS通信过程，都是浏览器自动完成，不需要用户参与<br><img src="/images/response.png" alt=""></p>
 </li>
 </ul>
-<p><font color=#DC143C>【Tips】即使设置了header，但CORS只对浏览器起作用，对curl或postman或普通程序不起作用，都是可访问的。</font></p>
+<p><font color=#DC143C>【Tips】即使设置了<code>Access-Control-Allow-Origin</code>，但CORS只对浏览器起作用，对curl或postman或普通程序不起作用，都是可访问的。</font></p>
 <p>3、Nginx反向代理<br>Nginx中转服务器，用于转发请求（NG与其他服务端之间的资源请求不会有跨域限制）</p>
 <p>例如<code>www.123.com/index.html</code>需要调用<code>www.456.com/server.php</code>，可以写一个接口<code>www.123.com/api/server.php</code>，由这个接口在后端去调用<code>www.456.com/server.php</code>并拿到返回值，然后再返回给index.html。用nginx把/api路径转发到其他域名那里，相当于绕过了浏览器端，自然就不存在跨域问题。</p>
 <p>CSRF 跨域攻击</p>
@@ -55,29 +79,6 @@
       <tags>
         <tag>安全分工</tag>
         <tag>安全经验</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Nginx</title>
-    <url>/2020/01/13/nginx/</url>
-    <content><![CDATA[<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><p><strong>启动nginx</strong>：<code>nginx</code><br><strong>关闭nginx</strong>：<code>nginx -s stop</code><br><strong>检测配置格式</strong>：<code>nginx -t</code><br><strong>重启nginx</strong>：<code>nginx -s reload</code></p>
-<p><img src="/images/nginx%E8%BD%AC%E5%8F%91.jpg" alt="Nginx转发"></p>
-<a id="more"></a>
-<h3 id="upstream"><a href="#upstream" class="headerlink" title="upstream"></a>upstream</h3><p>后端的应用IP<br>对用户来说是透明的，没有暴漏后端请求</p>
-<h3 id="server"><a href="#server" class="headerlink" title="server"></a>server</h3><p>一个站点/域名，nginx可配置十多个域名，见上图</p>
-<h3 id="location"><a href="#location" class="headerlink" title="location"></a>location</h3><p><code>~</code>开头   表示区分大小写的正则匹配</p>
-<figure class="highlight crmsh"><table><tr><td class="code"><pre><span class="line"><span class="keyword">location</span> <span class="title">^~ /images</span>/ &#123;</span><br><span class="line"><span class="comment"># 匹配任何已/images/开头的任何查询并且停止搜索，后面的正则不会再匹配</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><code>~*</code>开头   表示不区分大小写的正则匹配</p>
-<figure class="highlight crmsh"><table><tr><td class="code"><pre><span class="line"><span class="keyword">location</span> <span class="title">~* .(gif</span>|jpg|jpeg)$ &#123;</span><br><span class="line"><span class="comment"># 匹配任何已.gif、.jpg 或 .jpeg 结尾的请求</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><code>!~</code>   区分大小写不匹配的正则<br><code>!~*</code>  不区分大小写不匹配的正则</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">localtion / &#123;</span><br><span class="line">    <span class="comment"># 所有请求都匹配以下规则</span></span><br><span class="line">    <span class="comment"># 因为所有的地址都以 / 开头，所以这条规则将匹配到所有请求</span></span><br><span class="line">    <span class="comment"># xxx 你的配置写在这里</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">location = / &#123;</span><br><span class="line">    <span class="comment"># 精确匹配 / ，后面带任何字符串的地址都不匹配这条</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">localtion /api &#123;</span><br><span class="line">    <span class="comment"># 匹配任何 /api 开头的URL，包括 /api 后面任意的, 比如 /api/getList</span></span><br><span class="line">    <span class="comment"># 匹配符合以后，还要继续往下搜索</span></span><br><span class="line">    <span class="comment"># 只有后面的正则表达式没有匹配到时，这一条才会采用这一条</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">localtion ~ /api/abc &#123;</span><br><span class="line">    <span class="comment"># 匹配任何 /api/abc 开头的URL，包括 /api/abc 后面任意的, 比如 /api/abc/getList</span></span><br><span class="line">    <span class="comment"># 匹配符合以后，还要继续往下搜索</span></span><br><span class="line">    <span class="comment"># 只有后面的正则表达式没有匹配到时，这一条才会采用这一条</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">location /cn &#123;</span><br><span class="line">    <span class="comment">#代理跳转，客户端重定向，用户浏览器可看到URL发生了变化</span></span><br><span class="line">    <span class="comment">#proxy_pass最后有斜杠，最终跳转http://heyaff.github.io/index.html</span></span><br><span class="line">    <span class="comment">#proxy_pass最后无斜杠，最终跳转http://heyaff.github.io/cn/index.html</span></span><br><span class="line">    proxy_pass http://heyaff.github.io;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>Nginx</category>
-      </categories>
-      <tags>
-        <tag>nginx</tag>
       </tags>
   </entry>
   <entry>
