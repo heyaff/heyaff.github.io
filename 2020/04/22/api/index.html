@@ -79,14 +79,15 @@
 
 
 
-<meta name="description" content="记录工作中的细节">
+<meta name="description" content="接口暴漏在公网，需实施安全鉴权机制，包括但不限于以下几种：使用https协议通讯，防止敏感数据泄密和篡改；设置身份认证和访问机制，非授权不能访问接口；限制访问的源IP白名单，非授权IP不允许调用接口；实现时间戳超时机制，过期失效，防止接口重放攻击；设置接口参数过滤、限制，防止接口特殊参数注入引发的安全问题；限制访问的数据范围，防止对方访问不相关数据；限制满足业需求的最低访问频率，比如1万次&#x2F;天，防">
 <meta name="keywords" content="安全">
-<meta property="og:type" content="website">
-<meta property="og:title" content="安全笔记">
-<meta property="og:url" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;archives&#x2F;2020&#x2F;04&#x2F;index.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="api">
+<meta property="og:url" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;2020&#x2F;04&#x2F;22&#x2F;api&#x2F;index.html">
 <meta property="og:site_name" content="安全笔记">
-<meta property="og:description" content="记录工作中的细节">
+<meta property="og:description" content="接口暴漏在公网，需实施安全鉴权机制，包括但不限于以下几种：使用https协议通讯，防止敏感数据泄密和篡改；设置身份认证和访问机制，非授权不能访问接口；限制访问的源IP白名单，非授权IP不允许调用接口；实现时间戳超时机制，过期失效，防止接口重放攻击；设置接口参数过滤、限制，防止接口特殊参数注入引发的安全问题；限制访问的数据范围，防止对方访问不相关数据；限制满足业需求的最低访问频率，比如1万次&#x2F;天，防">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-04-22T10:13:13.312Z">
 <meta name="twitter:card" content="summary">
 
 
@@ -117,13 +118,13 @@
 
 
 
-  <link rel="canonical" href="http://heyaff.github.io/archives/2020/04/"/>
+  <link rel="canonical" href="http://heyaff.github.io/2020/04/22/api/"/>
 
 
 
 
 
-  <title>归档 | 安全笔记</title>
+  <title>api | 安全笔记</title>
   
 
 
@@ -152,7 +153,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -280,111 +281,146 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
-
-      <span class="archive-page-counter">
-        
-        
-        
-          
-        
-        嗯..! 目前共计 20 篇日志。 继续努力。
-      </span>
-
-      
-
-        
-        
-        
-
-        
-          
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2020">2020</h1>
-          </div>
-        
-        
-
-        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://heyaff.github.io/2020/04/22/api/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="heyaff">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="安全笔记">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2020/04/22/api/" itemprop="url">
-              
-                <span itemprop="name">api</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">api</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-04-22T18:13:13+08:00"
-              content="2020-04-22" >
-          04-22
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-22T18:13:13+08:00">
+                2020-04-22
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
 
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/04/22/nc/" itemprop="url">
-              
-                <span itemprop="name">内网刺探及穿透</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-04-22T17:27:53+08:00"
-              content="2020-04-22" >
-          04-22
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
+      
+        <p>接口暴漏在公网，需实施安全鉴权机制，包括但不限于以下几种：<br>使用https协议通讯，防止敏感数据泄密和篡改；<br>设置身份认证和访问机制，非授权不能访问接口；<br>限制访问的源IP白名单，非授权IP不允许调用接口；<br>实现时间戳超时机制，过期失效，防止接口重放攻击；<br>设置接口参数过滤、限制，防止接口特殊参数注入引发的安全问题；<br>限制访问的数据范围，防止对方访问不相关数据；<br>限制满足业需求的最低访问频率，比如1万次/天，防止不限制次数的接口调用导致用户信息泄露。</p>
+
+      
     </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/04/22/nc/" rel="next" title="内网刺探及穿透">
+                <i class="fa fa-chevron-left"></i> 内网刺探及穿透
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -392,6 +428,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -626,6 +666,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
