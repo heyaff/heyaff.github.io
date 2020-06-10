@@ -1,6 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>SDK与API区别</title>
+    <url>/2020/06/09/sdk/</url>
+    <content><![CDATA[<h3 id="SDK是二进制包，还是源代码"><a href="#SDK是二进制包，还是源代码" class="headerlink" title="SDK是二进制包，还是源代码"></a>SDK是二进制包，还是源代码</h3><p>SDK不是源代码，是工具包，编译后的jar、dll、so组件供开发者调用。<br>是完全封装好的，提供的是一个二进制的包</p>
+<h3 id="SDK需要升级"><a href="#SDK需要升级" class="headerlink" title="SDK需要升级"></a>SDK需要升级</h3><h3 id="SDK和开发语言相关"><a href="#SDK和开发语言相关" class="headerlink" title="SDK和开发语言相关"></a>SDK和开发语言相关</h3><h3 id="SDK与API的区别"><a href="#SDK与API的区别" class="headerlink" title="SDK与API的区别"></a>SDK与API的区别</h3><p>API文档一般是多个接口，需要消费者实现逻辑函数，比如先调用登录API，得到某个信息后，再调用另一个API，拿到另一个信息后，再调用下一个API，最后完成操作。<br>相比之下，如果用SDK的话，可能只需要写一句话就好了，因为别人已经封装好了。</p>
+<h3 id="SDK提供方"><a href="#SDK提供方" class="headerlink" title="SDK提供方"></a>SDK提供方</h3><p>提供API比提供SDK简单很多，因为SDK提供方要提供不同平台环境的，比如windows、IOS、Android的包。</p>
+]]></content>
+      <categories>
+        <category>SDK</category>
+      </categories>
+      <tags>
+        <tag>SDK</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>JWT</title>
+    <url>/2020/06/03/jwt/</url>
+    <content><![CDATA[<h3 id="传统的基于Token校验"><a href="#传统的基于Token校验" class="headerlink" title="传统的基于Token校验"></a>传统的基于Token校验</h3><p>APP项目或前后端分离的项目，大多是基于Token的验证。</p>
+<figure class="highlight gauss"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>、通过账号&amp;密码登陆成功，服务器生成一个<span class="built_in">token</span></span><br><span class="line"><span class="number">2</span>、服务端把该<span class="built_in">token</span>和userid保存到数据库（或Redis）中，然后把<span class="built_in">token</span>值返回给前端</span><br><span class="line"><span class="number">3</span>、客户端每次请求都带上该<span class="built_in">token</span>，服务端根据该<span class="built_in">token</span>查询是否合法和过期，然后去数据库中查出来userid进行使用</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>缺点：<br>1、验证信息存在数据库中，每次都要根据token查询userid，增加数据库开销<br>2、token一旦被泄露，很容易跨站请求伪造</p>
+<h3 id="JWT"><a href="#JWT" class="headerlink" title="JWT"></a>JWT</h3><p>JWT是token的升级，利用userId生成Token，该token可直接被用于认证。适用于分布式站点的单点登录场景</p>
+<p>JWT示例：</p>
+<figure class="highlight gcode"><table><tr><td class="code"><pre><span class="line">eyJ<span class="number">0</span>eXAxIjoiMTIz<span class="symbol">NCIsImFsZzIiOiJhZG1</span>pbiIsI<span class="symbol">nR5</span>cCI<span class="number">6</span>IkpX<span class="attr">VCIsImFsZyI6</span>IkhTMjU<span class="number">2</span>I<span class="symbol">n0</span>.eyJ<span class="attr">Vc2</span>VySWQiOjEyMywiVX<span class="symbol">Nlck5</span>hbWUiOiJhZ<span class="name">G1</span>pbiIsImV<span class="number">4</span>cCI<span class="number">6</span>MTU<span class="number">1</span>MjI<span class="number">4</span><span class="symbol">Njc0</span><span class="symbol">Ni44</span><span class="symbol">Nzc0</span>MDE<span class="number">4</span>fQ.pEgdmFAy<span class="number">73</span>walFo<span class="symbol">nEm2</span>zbx<span class="name">g46</span>Oth<span class="number">3</span>dlT<span class="number">02</span>HR<span class="number">9</span>iVzXa<span class="number">8</span></span><br><span class="line"></span><br><span class="line">your<span class="number">-256</span>-bit-secret：GQDstcKsx<span class="number">0</span><span class="symbol">NHjPOuXOYg5</span>MbeJ<span class="number">1</span>XT<span class="number">0</span>uFiwDVvVBrk</span><br></pre></td></tr></table></figure>
+<p>说明：签发生成jwt需要密钥your-256-bit-secret，这个存储在服务器端，不要泄露，在不知道密钥的情况下，是不能进行解密的，secret就是用来进行jwt的签发和jwt的验证，当然这些都是在服务器端做的事情。所以，它就是你服务端的私钥，在任何场景都不应该流露出去。一旦客户端得知这个secret, 那就意味着客户端可以伪造他人id越权攻击了。</p>
+<p><img src="/images/JWT.jpg" alt="JWT调用"><br>JWT是无状态的，不需要服务器端保存会话信息，直接存储在客户端上localstorage</p>
+<h3 id="App-key-amp-App-secret"><a href="#App-key-amp-App-secret" class="headerlink" title="App_key&amp;App_secret"></a>App_key&amp;App_secret</h3><p>客户端调用服务器端的校验，Token或JWT<br>服务器对接服务器，推荐AppID&amp;AppSecret</p>
+<p><img src="/images/AppSecret%E5%AE%89%E5%85%A8%E5%9C%BA%E6%99%AF.jpg" alt="AppSecret安全场景"></p>
+<h3 id="Oatuth2-0解决了你调用第三方，至于你的后端和你的APP如何信任，是你自己解决"><a href="#Oatuth2-0解决了你调用第三方，至于你的后端和你的APP如何信任，是你自己解决" class="headerlink" title="Oatuth2.0解决了你调用第三方，至于你的后端和你的APP如何信任，是你自己解决"></a>Oatuth2.0解决了你调用第三方，至于你的后端和你的APP如何信任，是你自己解决</h3><h3 id="Oauth2-0示意图"><a href="#Oauth2-0示意图" class="headerlink" title="Oauth2.0示意图"></a>Oauth2.0示意图</h3><p><img src="/images/Oauth2.0%E7%A4%BA%E6%84%8F%E5%9B%BE.jpg" alt="Oauth2.0示意图"></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>VPC网络隔离</title>
+    <url>/2020/06/03/vpc/</url>
+    <content><![CDATA[<h3 id="vpc和安全组的区别"><a href="#vpc和安全组的区别" class="headerlink" title="vpc和安全组的区别"></a>vpc和安全组的区别</h3><p>vpc内部，划分不同的网络区域，比如DMZ、PTR、SF等，不同网络区域由安全组来控制</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">默认规则如下：</span><br><span class="line">•网络域内的云资源可以互通，无需配置安全组。</span><br><span class="line">•VPC内不同的网络域之间的云资源入方向放行，出方向阻断，需要配置出方向的安全组才可互通</span><br><span class="line">•不同VPC之间、VPC和互联网之间、VPC和租户本地数据中心之间出入方向都阻断，需要配置出、入双方向的安全组才可互通。</span><br></pre></td></tr></table></figure>
+
+<p>一个容器集群只部署在一个网络隔离区内，不跨区部署。<br>比如区分内外网应用，不要公用一个k8s集群。一套容器云管平台管理多套k8s集群</p>
+<h3 id="两种网络插件对比"><a href="#两种网络插件对比" class="headerlink" title="两种网络插件对比"></a>两种网络插件对比</h3><p>1、在使用overlay网络模型下，容器网络安全最大的挑战之一是出方向的访问关系无法细粒度控制。<br>如两个应用容器共用一个宿主机，出去的源IP是一样的，在硬件防火墙无法有效区分<br>2、若使用calico这样的underlay网络模型，因为容器IP地址会变化，传统的基于源地址不变的访问关系控制方式也会不可用。一种做法是ip固定，一种做法是容器漂移后动态去设置安全策略</p>
+<p>Overlay网络下，南北向流量需要做NAT，东西向走Overlay网络。Underlay网络下，容器IP对硬件网络可见，南北向直接路由可达，东西向也是走硬件网络。</p>
+]]></content>
+      <categories>
+        <category>容器网络</category>
+      </categories>
+      <tags>
+        <tag>容器网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>安全密钥管理</title>
+    <url>/2020/05/28/key/</url>
+    <content><![CDATA[<h3 id="Oauth2-0——开放平台"><a href="#Oauth2-0——开放平台" class="headerlink" title="Oauth2.0——开放平台"></a>Oauth2.0——开放平台</h3><p>app_key(标记要申请的权限有哪些)+app_secret(密码, 表示你真的拥有这个权限)来申请一个token，access token过期失效</p>
+<h4 id="调用第三方的key-secret，保存在客户端APP还是服务器端？"><a href="#调用第三方的key-secret，保存在客户端APP还是服务器端？" class="headerlink" title="调用第三方的key/secret，保存在客户端APP还是服务器端？"></a>调用第三方的key/secret，保存在客户端APP还是服务器端？</h4><p>推荐保存在服务器端，客户端储存密钥一定是不安全的</p>
+<figure class="highlight clean"><table><tr><td class="code"><pre><span class="line">#### 调第三方接口，是客户端调还是服务端调？</span><br><span class="line">理想情况：</span><br><span class="line"><span class="number">1</span>、客户端用App_id去调WX、weibo、AliPay，拿到<span class="keyword">code</span></span><br><span class="line"><span class="number">2</span>、服务端用<span class="keyword">code</span>也去调第三方接口，获取access_token，返回给客户端</span><br><span class="line">#### 存在服务端，调用麻烦，传输secret？</span><br><span class="line">是的，发送key/secret给客户端，同HTTPS握手阶段一样，产生一个随机会话密钥，加密发给APP，APP解密后再去调第三方接口</span><br><span class="line"></span><br><span class="line">TIPs：第三方secret不是在使用过程中直接传送，而是用来运算的（签名校验）。建议服务端去运算返回APP，让APP直接使用</span><br></pre></td></tr></table></figure>
+
+<p>按第三方接口的认证方式可以分成两类：<br>1.直接传递 key：这种情况下只能用服务器端中转客户端到第三方的请求；<br>2.传递由 key 计算得到的某种短期 /临时 token：客户端请求服务器返回一个可用的 token，再用此 token 直接请求第三方。<br>1 的优势是服务器端掌控一切，想干嘛干嘛（比如权限控制、统计），而且方便更新，劣势是增加服务器负载；<br>2 的优势是服务器负载小，请求响应快。很适合上传文件这种流量大的请求。或者直接传递key</p>
+<h4 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h4><p>1、存放在APP端不可取，密钥更新必须强制更新APP<br>2、折中方案：使用会话密钥，避免直接固化secret在APP，也减少全部在后端运算负担。</p>
+]]></content>
+      <categories>
+        <category>密钥</category>
+      </categories>
+      <tags>
+        <tag>APIkey</tag>
+        <tag>APIsecret</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>api</title>
     <url>/2020/04/22/api/</url>
     <content><![CDATA[<p>接口暴漏在公网，需实施安全鉴权机制，包括但不限于以下几种：<br>使用https协议通讯，防止敏感数据泄密和篡改；<br>设置身份认证和访问机制，非授权不能访问接口；<br>限制访问的源IP白名单，非授权IP不允许调用接口；<br>实现时间戳超时机制，过期失效，防止接口重放攻击；<br>设置接口参数过滤、限制，防止接口特殊参数注入引发的安全问题；<br>限制访问的数据范围，防止对方访问不相关数据；<br>限制满足业需求的最低访问频率，比如1万次/天，防止不限制次数的接口调用导致用户信息泄露。</p>
@@ -254,7 +320,7 @@
     <title>sso</title>
     <url>/2019/11/28/sso/</url>
     <content><![CDATA[<p><img src="/images/sso.png" alt=""></p>
-<h3 id="鉴权-黑猫-UM（统一模板，控制子菜单权限）"><a href="#鉴权-黑猫-UM（统一模板，控制子菜单权限）" class="headerlink" title="鉴权:黑猫/UM（统一模板，控制子菜单权限）"></a>鉴权:黑猫/UM（统一模板，控制子菜单权限）</h3><h3 id="SSO-统一认证系统-单点登录"><a href="#SSO-统一认证系统-单点登录" class="headerlink" title="SSO:统一认证系统/单点登录"></a>SSO:统一认证系统/单点登录</h3><p><img src="/images/sso1.png" alt="SSO流程图"><br>访问A系统，右上角点击登录，跳转到SSO认证页面，认证通过后，返回A系统。又访问B系统，无须登录可访问B。</p>
+<h3 id="鉴权-黑猫-UM（统一模板，控制子菜单权限）"><a href="#鉴权-黑猫-UM（统一模板，控制子菜单权限）" class="headerlink" title="鉴权:黑猫/UM（统一模板，控制子菜单权限）"></a>鉴权:黑猫/UM（统一模板，控制子菜单权限）</h3><h3 id="SSO-统一认证系统-单点登录"><a href="#SSO-统一认证系统-单点登录" class="headerlink" title="SSO:统一认证系统/单点登录"></a>SSO:统一认证系统/单点登录</h3><p>实现效果：访问A系统，右上角点击登录，跳转到SSO认证页面，认证通过后，返回A系统。又访问B系统，无须登录可访问B。<br><img src="/images/sso1.jpg" alt="SSO流程图"><br>8、应用A拿到user的Token，要发给SSO去校验，不校验直接返回页面给user，是不安全的。校验Token是SSO的活，因为是它生成的Token<br>9、SSO校验Token是否真实，返回True/False给应用A。应用A将用户信息存在session中，当用户下次访问应用A时，应用A检测session中是否存在，如果存在将不会再访问SSO</p>
 <h3 id="AD：域账号（存储用户的账号-密码）"><a href="#AD：域账号（存储用户的账号-密码）" class="headerlink" title="AD：域账号（存储用户的账号/密码）"></a>AD：域账号（存储用户的账号/密码）</h3><p>若C系统不接SSO，直接用AD登录C系统自带的登陆页面，登录成功后，访问D系统，依然还得登录= =!</p>
 ]]></content>
       <categories>

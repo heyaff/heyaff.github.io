@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="鉴权:黑猫&#x2F;UM（统一模板，控制子菜单权限）SSO:统一认证系统&#x2F;单点登录访问A系统，右上角点击登录，跳转到SSO认证页面，认证通过后，返回A系统。又访问B系统，无须登录可访问B。 AD：域账号（存储用户的账号&#x2F;密码）若C系统不接SSO，直接用AD登录C系统自带的登陆页面，登录成功后，访问D系统，依然还得登录= =!">
+<meta name="description" content="鉴权:黑猫&#x2F;UM（统一模板，控制子菜单权限）SSO:统一认证系统&#x2F;单点登录实现效果：访问A系统，右上角点击登录，跳转到SSO认证页面，认证通过后，返回A系统。又访问B系统，无须登录可访问B。8、应用A拿到user的Token，要发给SSO去校验，不校验直接返回页面给user，是不安全的。校验Token是SSO的活，因为是它生成的Token9、SSO校验Token是否真实，返回True&#x2F;False">
 <meta name="keywords" content="sso">
 <meta property="og:type" content="article">
 <meta property="og:title" content="sso">
 <meta property="og:url" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;2019&#x2F;11&#x2F;28&#x2F;sso&#x2F;index.html">
 <meta property="og:site_name" content="安全笔记">
-<meta property="og:description" content="鉴权:黑猫&#x2F;UM（统一模板，控制子菜单权限）SSO:统一认证系统&#x2F;单点登录访问A系统，右上角点击登录，跳转到SSO认证页面，认证通过后，返回A系统。又访问B系统，无须登录可访问B。 AD：域账号（存储用户的账号&#x2F;密码）若C系统不接SSO，直接用AD登录C系统自带的登陆页面，登录成功后，访问D系统，依然还得登录= =!">
+<meta property="og:description" content="鉴权:黑猫&#x2F;UM（统一模板，控制子菜单权限）SSO:统一认证系统&#x2F;单点登录实现效果：访问A系统，右上角点击登录，跳转到SSO认证页面，认证通过后，返回A系统。又访问B系统，无须登录可访问B。8、应用A拿到user的Token，要发给SSO去校验，不校验直接返回页面给user，是不安全的。校验Token是SSO的活，因为是它生成的Token9、SSO校验Token是否真实，返回True&#x2F;False">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;sso.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;sso1.png">
-<meta property="og:updated_time" content="2020-01-14T07:43:24.983Z">
+<meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;sso1.jpg">
+<meta property="og:updated_time" content="2020-05-22T02:27:13.236Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;sso.png">
 
@@ -393,7 +393,7 @@
 
       
         <p><img src="/images/sso.png" alt=""></p>
-<h3 id="鉴权-黑猫-UM（统一模板，控制子菜单权限）"><a href="#鉴权-黑猫-UM（统一模板，控制子菜单权限）" class="headerlink" title="鉴权:黑猫/UM（统一模板，控制子菜单权限）"></a>鉴权:黑猫/UM（统一模板，控制子菜单权限）</h3><h3 id="SSO-统一认证系统-单点登录"><a href="#SSO-统一认证系统-单点登录" class="headerlink" title="SSO:统一认证系统/单点登录"></a>SSO:统一认证系统/单点登录</h3><p><img src="/images/sso1.png" alt="SSO流程图"><br>访问A系统，右上角点击登录，跳转到SSO认证页面，认证通过后，返回A系统。又访问B系统，无须登录可访问B。</p>
+<h3 id="鉴权-黑猫-UM（统一模板，控制子菜单权限）"><a href="#鉴权-黑猫-UM（统一模板，控制子菜单权限）" class="headerlink" title="鉴权:黑猫/UM（统一模板，控制子菜单权限）"></a>鉴权:黑猫/UM（统一模板，控制子菜单权限）</h3><h3 id="SSO-统一认证系统-单点登录"><a href="#SSO-统一认证系统-单点登录" class="headerlink" title="SSO:统一认证系统/单点登录"></a>SSO:统一认证系统/单点登录</h3><p>实现效果：访问A系统，右上角点击登录，跳转到SSO认证页面，认证通过后，返回A系统。又访问B系统，无须登录可访问B。<br><img src="/images/sso1.jpg" alt="SSO流程图"><br>8、应用A拿到user的Token，要发给SSO去校验，不校验直接返回页面给user，是不安全的。校验Token是SSO的活，因为是它生成的Token<br>9、SSO校验Token是否真实，返回True/False给应用A。应用A将用户信息存在session中，当用户下次访问应用A时，应用A检测session中是否存在，如果存在将不会再访问SSO</p>
 <h3 id="AD：域账号（存储用户的账号-密码）"><a href="#AD：域账号（存储用户的账号-密码）" class="headerlink" title="AD：域账号（存储用户的账号/密码）"></a>AD：域账号（存储用户的账号/密码）</h3><p>若C系统不接SSO，直接用AD登录C系统自带的登陆页面，登录成功后，访问D系统，依然还得登录= =!</p>
 
       
@@ -518,7 +518,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -529,7 +529,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -540,7 +540,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
