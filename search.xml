@@ -1,6 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>API</title>
+    <url>/2020/11/17/api/</url>
+    <content><![CDATA[<p>Q：签名是在哪做？是为了啥？证明谁的身份？场景是什么？<br>A：签名主要证明数据没有被篡改，签名发起方和接收方算法保持一致</p>
+<p>Q：客户端请求服务器端，API请求怎么签名？<br>1、客户端内置appkey和secret，sign字段=MD5(key1value1key2value2…secret)进行MD5计算发给服务端<br>2、建议把appsecret放到NDK中编译成so文件，app启动后去读取<br>3、或者第一次APP安装启动时，下发secret</p>
+<p>Q：浏览器请求服务器端，API请求怎么签名？<br>A：js中保存appsecret有较高风险，建议采用随机分配令牌的方式，为每个访问端分配一个token保存在cookie中，通过cookie请求头(cookie:h5_token=xxx;sessionid=xxx)传回服务端，sign=MD5(key1value1key2value2…token)<br>A：- <a href="https://mp.weixin.qq.com/s?__biz=MzIwNjUxMTQyMA%3D%3D&chksm=9721cf1ca056460a644f61bb84c255eb7620ac1905e8652ffb1a869c5432aac77a81400f90bd&idx=1&lang=zh_CN&mid=2247484239&scene=21&sn=1530557bc16ad40616d6614017a872d7&token=205497283#wechat_redirect" title="小歪丶 Python爬虫与算法进阶">淘宝sign签名算法</a></p>
+<p>接口暴漏在公网，需实施安全鉴权机制，包括但不限于以下几种：<br>使用https协议通讯，防止敏感数据泄密和篡改；<br>设置身份认证和访问机制，非授权不能访问接口；<br>限制访问的源IP白名单，非授权IP不允许调用接口；<br>实现时间戳超时机制，过期失效，防止接口重放攻击；<br>设置接口参数过滤、限制，防止接口特殊参数注入引发的安全问题；<br>限制访问的数据范围，防止对方访问不相关数据；<br>限制满足业需求的最低访问频率，比如1万次/天，防止不限制次数的接口调用导致用户信息泄露。</p>
+]]></content>
+      <categories>
+        <category>API</category>
+      </categories>
+      <tags>
+        <tag>接口</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>架构评审——安全要求</title>
+    <url>/2020/10/19/jiagou/</url>
+    <content><![CDATA[<h3 id="xxx系统架构设计"><a href="#xxx系统架构设计" class="headerlink" title="xxx系统架构设计"></a>xxx系统架构设计</h3><p>描述系统安全性设计与实现方案。系统安全性包括网络安全、系统安全、数据安全、交易安全等。例如：IP地址鉴权；各类数据加密机制；各类通讯加密机制；身份识别及认证等</p>
+]]></content>
+      <categories>
+        <category>架构安全</category>
+      </categories>
+      <tags>
+        <tag>安全架构</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>KMS密钥管理</title>
+    <url>/2020/10/10/kms/</url>
+    <content><![CDATA[<p>Q：前端加密敏感数据，密钥存放在哪里？不让硬编码在JS中，那放哪？<br>A：前端加密password等敏感字段，是用后端的公钥加密的，公钥可以硬编码在js中。<br>A：前端随机产生一个key，用来AES加密数据，然后用后端公钥加密key，一起传给后端。</p>
+<p>Q：密钥硬编码在代码中，有安全风险，那密钥存在哪里？后端的代码可以硬编码么？<br>A：后端硬编码不在公网上传输，其实也是安全的，但不推荐。</p>
+<p>Q：已经使用了HTTPS，前端加密是否有意义？<br>A：HTTPS并不是端到端（End to End），而往往中间夹杂着代理，有客户端代理也有服务端代理，他们自然就可以看到用户https明文流量，其中也包含用户的明文密码。一旦前端加密了用户密码，即使有代理的存在，依然无法获取明文密码。</p>
+<p>Q：前端应用中的API密钥如何保存？<br>A：应该使用后端获取API的结果，返回给前端。</p>
+<h3 id="KMS"><a href="#KMS" class="headerlink" title="KMS"></a>KMS</h3><p><strong>敏感信息加密</strong>是密钥管理服务（KMS）核心的能力，适用于保护小型敏感数据（小于4KB），如<big>密钥、证书、配置文件</big>等。</p>
+<p>采用对称加密的方式，业务方将敏感数据明文调用KMS进行加密，返回密文存储。将密文部署在应用服务器上，应用使用时，调用KMS解密在内存中，明文没有落地。<br>主要防止某一个环节禁止存放明文数据，故采用调KMS进行解密。</p>
+<p>接收方调KMS产生公钥，发给发送者，接收方收到公钥加密的信息，调KMS中对应的私钥解密，这图啥？</p>
+<p>KMS没有保存明文数据，解密时将密文解密到内存，保证明文不落盘</p>
+<p>KMS常见对小数据加密，若对海量的数据加密，“信封加密”场景</p>
+]]></content>
+      <categories>
+        <category>KMS</category>
+      </categories>
+      <tags>
+        <tag>密钥管理</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CSRF和XSS</title>
+    <url>/2020/09/07/csrf/</url>
+    <content><![CDATA[<p>-<a href="https://tech.meituan.com/2018/10/11/fe-security-csrf.html">前端安全系列（二）：如何防止CSRF攻击？</a></p>
+<h3 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h3><p>跨站请求伪造</p>
+<ul>
+<li><h4 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h4>用户访问有CSRF漏洞的网站A，然后又访问了网站B（恶意网站），网站B劫持网站A的Cookie发送请求，在用户无感知的情况下以他的名义发送请求给网站A。<a id="more"></a></li>
+<li><h4 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h4>攻击者看不到Cookie内容，由于同源策略限制，也拿不到Cookie，仅仅是借助用户的Cookie发送请求给CSRF漏洞网站，也获取不到Response的内容。换句话说，GET基本上没有CSRF漏洞（因为其他操作都用POST），所以GET请求基本上不需要CSRF防护。</li>
+<li><h4 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h4>抓包后，去掉请求头的Referer字段重新提交，若提交还有效，证明存在CSRF漏洞</li>
+</ul>
+<ul>
+<li><h4 id="预防"><a href="#预防" class="headerlink" title="预防"></a>预防</h4>1、增加验证码<br>2、检查Referer<br>3、添加CSRFtoken<br>（CSRF攻击之所以能成功，是因为攻击者可完全伪造用户的请求，该请求中的验证信息都是存在Cookie中，因此可直接利用用户自己的Cookie来发请求。要抵御CSRF，关键在于在请求中放入攻击者不能伪造的信息，并且该信息不存在Cookie中。如GET请求csrftoken附在URL之后，POST请求在form表单最后加上<code>&lt;input type=&quot;hidden&quot; name=&quot;csrftoken&quot; value=&quot;tokenvalue&quot;/&gt;</code>）</li>
+<li><h5 id="TIPs"><a href="#TIPs" class="headerlink" title="TIPs"></a>TIPs</h5>在burp中，右键Engagement tools –&gt; Generate CSRF Poc，产生一个恶意的网站B，修改value的参数值，来测试value修改后是否生效。</li>
+</ul>
+<h3 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h3><p>跨站脚本攻击</p>
+<ul>
+<li><h4 id="场景-1"><a href="#场景-1" class="headerlink" title="场景"></a>场景</h4><p>获取用户在该网站的Cookie</p>
+</li>
+<li><h4 id="验证-1"><a href="#验证-1" class="headerlink" title="验证"></a>验证</h4><p>插入<code>&lt;script&gt;alert(document.cookie)&lt;/script&gt;</code></p>
+</li>
+<li><h4 id="预防-1"><a href="#预防-1" class="headerlink" title="预防"></a>预防</h4><p>1、设置HttpOnly，禁止js读取Cookie。HttpOnly并非阻止XSS攻击，而是能阻止XSS攻击后的Cookie劫持攻击。<br>2、输入检查，过滤、转义<br>3、输出检查</p>
+</li>
+</ul>
+<h3 id="CORS漏洞"><a href="#CORS漏洞" class="headerlink" title="CORS漏洞"></a>CORS漏洞</h3><p>跨域资源共享漏洞</p>
+<ul>
+<li><h4 id="场景-2"><a href="#场景-2" class="headerlink" title="场景"></a>场景</h4><p>获取用户的Response等敏感信息，如GET请求</p>
+</li>
+<li><h4 id="验证-2"><a href="#验证-2" class="headerlink" title="验证"></a>验证</h4><p>添加/修改请求头中Origin: <code>http://evil.com</code>字段，若返回头是Access-Control-Allow-Origin: <code>http://evil.com</code>，证明存在CORS漏洞</p>
+</li>
+<li><h4 id="预防-2"><a href="#预防-2" class="headerlink" title="预防"></a>预防</h4><p>1、如无必要，不要开启CORS<br>2、严格校验Access-Control-Allow-Origin白名单，禁止*<br>3、尽量避免使用Access-Control-Allow-Credentials</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>CSRF</category>
+      </categories>
+      <tags>
+        <tag>CORS</tag>
+        <tag>XSS</tag>
+        <tag>CSRF</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>session和cookie</title>
+    <url>/2020/08/21/cookie/</url>
+    <content><![CDATA[<h3 id="session和cookie"><a href="#session和cookie" class="headerlink" title="session和cookie"></a>session和cookie</h3><p><img src="/images/session.png" alt="session-cookie"><br>1、session-cookie是一对，session保存在服务端memcache/redis，cookie保存客户端硬盘</p>
+<p>2、客户端只需要保存session_id，加密存储在cookie硬盘中，发送给服务端。</p>
+<p>3、浏览器把cookie以KV形式存储到硬盘中。session等登录用户信息存储在服务端</p>
+<p>4、API模式是不支持cookie的</p>
+<p>5、session_id欺骗<code>Cookie: JSESSIONID=2CC28F5D92F7CF0DFB1B21CBD3F161B9</code></p>
+<h3 id="token"><a href="#token" class="headerlink" title="token"></a>token</h3><p>1、token是为了解决session存储问题的</p>
+<p>2、token是在服务端用私钥签名生成的，发送给客户端后，客户端保存在cookie/localStorage（本地存储），在服务端验证token，可存储也可不存（session必须存储）。</p>
+<p>3、移动端对cookie的支持不是很好，而session需要基于cookie实现，所以移动端常用的是token</p>
+]]></content>
+      <categories>
+        <category>session</category>
+      </categories>
+      <tags>
+        <tag>session</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>后台安全管理规范</title>
     <url>/2020/07/09/houtai/</url>
     <content><![CDATA[<p>1.管理后台必须与业务系统分离，单独部署。<br>2.通过政策或规则加强密码复杂度（比如：要求使用字母、数字和特殊符号）和密码长度（常用的是至少8个字符长度）。<br>3.身份验证的失败提示信息应当避免过于明确。比如：可以使用“用户名或密码错误”，而不要使用“用户名错误”或者“密码错误”。<br>4.管理后台需要部署在内网并接入AD，禁止外网访问。<br>5.如有业务需要部署外网，请使用双因素认证登录，比如“账号+密码+短信验证码“或者“账号+密码+动态令牌“或者“账号+密码+邮箱验证码“。<br>6.管理后台需要保留日志记录，日志支持记录所有的操作以及特定安全事件的成功或失败操作（比如所有的身份验证尝试，失败的控制访问等）。<br>7.采用黑白名单机制，如IP、UA、referer等。</p>
@@ -93,12 +201,6 @@
       </tags>
   </entry>
   <entry>
-    <title>api</title>
-    <url>/2020/04/22/api/</url>
-    <content><![CDATA[<p>接口暴漏在公网，需实施安全鉴权机制，包括但不限于以下几种：<br>使用https协议通讯，防止敏感数据泄密和篡改；<br>设置身份认证和访问机制，非授权不能访问接口；<br>限制访问的源IP白名单，非授权IP不允许调用接口；<br>实现时间戳超时机制，过期失效，防止接口重放攻击；<br>设置接口参数过滤、限制，防止接口特殊参数注入引发的安全问题；<br>限制访问的数据范围，防止对方访问不相关数据；<br>限制满足业需求的最低访问频率，比如1万次/天，防止不限制次数的接口调用导致用户信息泄露。</p>
-]]></content>
-  </entry>
-  <entry>
     <title>内网刺探及穿透</title>
     <url>/2020/04/22/nc/</url>
     <content><![CDATA[<h3 id="反弹shell"><a href="#反弹shell" class="headerlink" title="反弹shell"></a>反弹shell</h3><p>内网shell反弹的本质是与公网服务器建立连接，将公网服务器传输过来的命令执行，并将结果返回。</p>
@@ -135,14 +237,20 @@
     <url>/2020/03/31/ddos/</url>
     <content><![CDATA[<ul>
 <li><a href="http://www.xmanshield.com/ddosquestion/" title="玄门盾DDoS防御">DDOS问答</a></li>
+<li><a href="http://kb.secking.com/index/article/show/id/23.html" title="DDOS攻击应急响应预案">DDOS攻击应急响应预案</a></li>
 </ul>
 <h3 id="UDP攻击-将IDC的入口带宽塞满"><a href="#UDP攻击-将IDC的入口带宽塞满" class="headerlink" title="UDP攻击,将IDC的入口带宽塞满"></a>UDP攻击,将IDC的入口带宽塞满</h3><p>防御方法：<br>1、直接丢弃UDP流量，因为源IP随机伪造难以追查，但大多数业务IP并不提供UDP服务，直接丢弃UDP流量即可。<br>2、出口IP切换到另一个公网IP<br>3、如果攻击者比较执着，即使换了公网IP他也立刻更改攻击目标的话，最好的解决办法就是找运营商帮忙做流量清洗<br>4、推荐本地DDOS防护设备+运营商清洗服务/云清洗服务</p>
-<p>静态页面也不能抗D，但可以提高抗攻击能力<br>cdn只能加速网站静态资源，动态资源/API直接回源</p>
+<p>静态页面也不能抗D，但可以提高抗攻击能力。D的一般是IP，不是域名。<br>cdn只能加速网站静态资源，动态资源/API直接回源</p>
 <p>非网站web业务，无法接入WAF防护<br>非网站业务只支持四层负载均衡转发，不支持七层防护（如WAF和CC防护）<br>对于游戏业务和视频直播业务来说，基本是UDP协议开发的</p>
 <a id="more"></a>
+
+
+<h3 id="术语"><a href="#术语" class="headerlink" title="术语"></a>术语</h3><p><strong>PPS攻击</strong>——入方向每秒多少个数据包（万PPS），如100wpps，包的速率(每秒的数据包个数，主要是消耗服务器，网关，路由等设备的CPU性能)。<strong>特点：量大包小</strong><br><strong>BPS攻击</strong>——入方向每秒多少比特数（Gbit/s），如100Gbps(每秒的带宽量，单位是小b，主要是消耗带宽，通常约定按bps表示强度)。<strong>特点：流量很大</strong></p>
+<p>出流量Response回包大小决定了消耗多少业务带宽，出流量突增，一般是CC攻击<br>入流量GET/POST/UDP等请求包大小、速率决定了DDoS攻击带宽，入流量突增，一般可能是流量攻击</p>
 <h3 id="常识"><a href="#常识" class="headerlink" title="常识"></a>常识</h3><p>服务器的上行带宽，出方向。<br>服务器的下行带宽，入方向。因为服务器的下行基本不限的，客户端上传文件，对服务器的带宽基本没有影响，取决于客户端本身网络的带宽。</p>
 <p>QPS是服务系统1s内接收客户端请求的一个并发处理能力。并发每秒的请求次数</p>
 <p>每个页面平均大小10+KB<br>1000~1500QPS，带宽大概100Mbps<br>3000QPS，带宽大概200Mbps<br>5000QPS，带宽大概400Mbps</p>
+<p>带宽和并发请求有关，和访问量无关<br>1万人<strong>同时在线</strong>访问你的站点，不代表带宽就很大。要看并发量，如有 1w 个并发请求，一个网页压缩后30kB左右，并发总共30 * 1w * 8 = 2.4G带宽。</p>
 ]]></content>
       <categories>
         <category>DDoS</category>
@@ -205,6 +313,36 @@
       </tags>
   </entry>
   <entry>
+    <title>浏览器同源限制，CORS实现跨域请求</title>
+    <url>/2020/03/04/cors/</url>
+    <content><![CDATA[<p>-<a href="https://ningyu1.github.io/site/post/92-cors-ajax/" title="凝雨">跨域踩坑经验总结（内涵：跨域知识科普）</a><br>-<a href="https://www.ruanyifeng.com/blog/2016/04/cors.html" title="阮一峰的网络日志">跨域资源共享 CORS 详解</a></p>
+<h3 id="什么情况下出现跨域"><a href="#什么情况下出现跨域" class="headerlink" title="什么情况下出现跨域"></a>什么情况下出现跨域</h3><p><img src="/images/cors.png" alt=""><br>浏览器有同源策略限制<br>前后端数据交互经常会碰到请求跨域<br>如果缺少了同源策略，浏览器很容易受到XSS、CSRF等攻击<br><strong>例外</strong><br>同源策略是浏览器需要遵循的标准，而如果是服务器向服务器的请求（后端–&gt;后端）就无需遵循同源策略<br>对于<code>&lt;a&gt;</code> <code>&lt;script&gt;</code> <code>&lt;img&gt;</code> <code>&lt;video&gt;</code> <code>&lt;link&gt;</code>这类属性带有src、href的标签，允许跨域加载</p>
+<a id="more"></a>
+
+<h3 id="跨域请求方式"><a href="#跨域请求方式" class="headerlink" title="跨域请求方式"></a>跨域请求方式</h3><h4 id="1、JSONP（废弃）"><a href="#1、JSONP（废弃）" class="headerlink" title="1、JSONP（废弃）"></a>1、JSONP（废弃）</h4><p>只支持GET请求（不支持POST），安全性差，不推荐</p>
+<h4 id="2、CORS-W3C标准-跨域资源共享"><a href="#2、CORS-W3C标准-跨域资源共享" class="headerlink" title="2、CORS W3C标准 跨域资源共享"></a>2、CORS W3C标准 跨域资源共享</h4><p>CORS需要服务器设置header <code>Access-Control-Allow-Origin</code> 白名单等等，安全性高，<strong>推荐使用</strong></p>
+<ul>
+<li><p>2.1 对于简单请求：<br>浏览器直接发出CORS请求。具体来说，就是在头信息之中，增加一个Origin字段。</p>
+<figure class="highlight http"><table><tr><td class="code"><pre><span class="line"><span class="keyword">GET</span> <span class="string">/cors</span> HTTP/1.1</span><br><span class="line"><span class="attribute">Origin</span>: http://www.cmft.com</span><br><span class="line"><span class="attribute">Host</span>: api.cmft.com</span><br><span class="line"><span class="attribute">Accept-Language</span>: en-US</span><br><span class="line"><span class="attribute">Connection</span>: keep-alive</span><br><span class="line"><span class="attribute">User-Agent</span>: Mozilla/5.0...</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>2.2 对于复杂请求：<br>非简单请求的CORS请求，会在正式通信之前，增加一次HTTP查询请求，称为”预检”请求OPTIONS</p>
+<figure class="highlight oxygene"><table><tr><td class="code"><pre><span class="line">OPTIONS /cors HTTP/<span class="number">1.1</span></span><br><span class="line">Origin: http:<span class="comment">//www.cmft.com</span></span><br><span class="line">Access-Control-Request-<span class="function"><span class="keyword">Method</span>:</span> PUT</span><br><span class="line">Access-Control-Request-Headers: X-Custom-Header</span><br><span class="line">Host: api.cmft.com</span><br><span class="line">Accept-Language: en-US</span><br><span class="line">Connection: keep-alive</span><br><span class="line">User-Agent: Mozilla/<span class="number">5.0</span>...</span><br></pre></td></tr></table></figure>
+<p>用来询问HOST，关键字段是Origin，表示请求来自哪个源。RESPONSE只有header，没有响应包。<br>整个CORS通信过程，都是浏览器自动完成，不需要用户参与<br><img src="/images/response.png" alt=""></p>
+</li>
+</ul>
+<p><font color=#DC143C>【Tips】即使设置了<code>Access-Control-Allow-Origin</code>，但CORS只对浏览器起作用，对curl或postman或普通程序不起作用，都是可访问的。</font></p>
+<h4 id="3、Nginx反向代理"><a href="#3、Nginx反向代理" class="headerlink" title="3、Nginx反向代理"></a>3、Nginx反向代理</h4><p>Nginx中转服务器，用于转发请求（NG与其他服务端之间的资源请求不会有跨域限制）</p>
+<p>例如<code>www.123.com/index.html</code>需要调用<code>www.456.com/server.php</code>，可以写一个接口<code>www.123.com/api/server.php</code>，由这个接口在后端去调用<code>www.456.com/server.php</code>并拿到返回值，然后再返回给index.html。用nginx把/api路径转发到其他域名那里，相当于绕过了浏览器端，自然就不存在跨域问题。</p>
+]]></content>
+      <categories>
+        <category>CORS</category>
+      </categories>
+      <tags>
+        <tag>跨域</tag>
+        <tag>CORS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Nginx</title>
     <url>/2020/03/04/nginx/</url>
     <content><![CDATA[<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><p><strong>启动nginx</strong>：<code>nginx</code><br><strong>关闭nginx</strong>：<code>nginx -s stop</code><br><strong>检测配置格式</strong>：<code>nginx -t</code><br><strong>重启nginx</strong>：<code>nginx -s reload</code></p>
@@ -227,36 +365,6 @@
       </categories>
       <tags>
         <tag>nginx</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>跨域请求</title>
-    <url>/2020/03/04/cors/</url>
-    <content><![CDATA[<p>-<a href="https://ningyu1.github.io/site/post/92-cors-ajax/" title="凝雨">跨域踩坑经验总结（内涵：跨域知识科普）</a><br>-<a href="https://www.ruanyifeng.com/blog/2016/04/cors.html" title="阮一峰的网络日志">跨域资源共享 CORS 详解</a></p>
-<h3 id="什么情况下出现跨域"><a href="#什么情况下出现跨域" class="headerlink" title="什么情况下出现跨域"></a>什么情况下出现跨域</h3><p><img src="/images/cors.png" alt=""><br>浏览器有同源策略限制<br>前后端数据交互经常会碰到请求跨域<br>如果缺少了同源策略，浏览器很容易受到XSS、CSRF等攻击<br>对于<code>&lt;a&gt;</code> <code>&lt;script&gt;</code> <code>&lt;img&gt;</code> <code>&lt;video&gt;</code> <code>&lt;link&gt;</code>这类属性带有src、href的标签，允许跨域加载<br>同源策略是浏览器需要遵循的标准，而如果是服务器向服务器的请求（后端–&gt;后端）就无需遵循同源策略</p>
-<a id="more"></a>
-<h3 id="跨域请求方式"><a href="#跨域请求方式" class="headerlink" title="跨域请求方式"></a>跨域请求方式</h3><p>1、JSONP（废弃）<br>只支持GET请求（不支持POST），安全性差，不推荐</p>
-<p>2、CORS W3C标准 跨域资源共享<br>CORS需要服务器设置header <code>Access-Control-Allow-Origin</code> 白名单等等，安全性高，<strong>推荐使用</strong></p>
-<ul>
-<li><p>2.1 对于简单请求：<br>浏览器直接发出CORS请求。具体来说，就是在头信息之中，增加一个Origin字段。</p>
-<figure class="highlight http"><table><tr><td class="code"><pre><span class="line"><span class="keyword">GET</span> <span class="string">/cors</span> HTTP/1.1</span><br><span class="line"><span class="attribute">Origin</span>: http://www.cmft.com</span><br><span class="line"><span class="attribute">Host</span>: api.cmft.com</span><br><span class="line"><span class="attribute">Accept-Language</span>: en-US</span><br><span class="line"><span class="attribute">Connection</span>: keep-alive</span><br><span class="line"><span class="attribute">User-Agent</span>: Mozilla/5.0...</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>2.2 对于复杂请求：<br>非简单请求的CORS请求，会在正式通信之前，增加一次HTTP查询请求，称为”预检”请求OPTIONS</p>
-<figure class="highlight oxygene"><table><tr><td class="code"><pre><span class="line">OPTIONS /cors HTTP/<span class="number">1.1</span></span><br><span class="line">Origin: http:<span class="comment">//www.cmft.com</span></span><br><span class="line">Access-Control-Request-<span class="function"><span class="keyword">Method</span>:</span> PUT</span><br><span class="line">Access-Control-Request-Headers: X-Custom-Header</span><br><span class="line">Host: api.cmft.com</span><br><span class="line">Accept-Language: en-US</span><br><span class="line">Connection: keep-alive</span><br><span class="line">User-Agent: Mozilla/<span class="number">5.0</span>...</span><br></pre></td></tr></table></figure>
-<p>用来询问HOST，关键字段是Origin，表示请求来自哪个源。RESPONSE只有header，没有响应包。<br>整个CORS通信过程，都是浏览器自动完成，不需要用户参与<br><img src="/images/response.png" alt=""></p>
-</li>
-</ul>
-<p><font color=#DC143C>【Tips】即使设置了<code>Access-Control-Allow-Origin</code>，但CORS只对浏览器起作用，对curl或postman或普通程序不起作用，都是可访问的。</font></p>
-<p>3、Nginx反向代理<br>Nginx中转服务器，用于转发请求（NG与其他服务端之间的资源请求不会有跨域限制）</p>
-<p>例如<code>www.123.com/index.html</code>需要调用<code>www.456.com/server.php</code>，可以写一个接口<code>www.123.com/api/server.php</code>，由这个接口在后端去调用<code>www.456.com/server.php</code>并拿到返回值，然后再返回给index.html。用nginx把/api路径转发到其他域名那里，相当于绕过了浏览器端，自然就不存在跨域问题。</p>
-<p>CSRF 跨域攻击</p>
-]]></content>
-      <categories>
-        <category>CORS</category>
-      </categories>
-      <tags>
-        <tag>跨域</tag>
-        <tag>CORS</tag>
       </tags>
   </entry>
   <entry>
@@ -374,7 +482,7 @@
     <content><![CDATA[<h3 id="DDos一般D的是流量"><a href="#DDos一般D的是流量" class="headerlink" title="DDos一般D的是流量"></a>DDos一般D的是流量</h3><h3 id="CC攻击针对域名，制造大量的链接"><a href="#CC攻击针对域名，制造大量的链接" class="headerlink" title="CC攻击针对域名，制造大量的链接"></a>CC攻击针对域名，制造大量的链接</h3><p>隐藏服务器真实IP地址是最好的方法。<br>服务器前加个CDN中转，或买个高防的盾机。域名解析DNS上解析的是CDN，子网站也映射给CDN</p>
 <a id="more"></a>
 <blockquote>
-<p>1、无论什么时候都要隐藏真实IP<br>2、购买CDN来抗DDoS不一定全程抗住，比较运营商会果断的屏蔽你的域名<br>3、DDoS是一个长久对抗的话题，尤其是应对大流量的攻击更是需要时间来磨，防守同样需要大量的资金注入，比如流量需要钱，盾机需要钱等等，主要看业务的损失来衡量需不需要投入大量的金钱去维护了。<br>4、回源是什么意思：当cdn缓存服务器没有客户端请求的资源，就会回我们的服务器上获取资源。回源地址可以是IP回源、域名回源。<br><code>客户端 ---( https)---&gt; CDN ---( https)---&gt; 源站（这个是跟随场景）</code><br><code>客户端 ---( https)---&gt; CDN ---( http)----&gt; 源站（这个是限定http）</code><br>5、CDN设置为http回源，CDN使用https就行了，不要用协议跟随（固定死CDN–&gt;源站走HTTP）。<br>6、源站域名和加速域名（用户看到的）不能一样，加速域名必须要在工信部备案，源站域名不要求备案，但需要公网能正常解析。<br>7、回源host（回源域名）是CDN请求源站时请求头中的host字段，请求源站上哪个目录web站点。可以是加速域名、源站域名、自定义URL<br>8、加速域名走https的话，需要把网站私钥给CDN服务商</p>
+<p>1、无论什么时候都要隐藏真实IP<br>2、购买CDN来抗DDoS不一定全程抗住，比较运营商会果断的屏蔽你的域名<br>3、DDoS是一个长久对抗的话题，尤其是应对大流量的攻击更是需要时间来磨，防守同样需要大量的资金注入，比如流量需要钱，盾机需要钱等等，主要看业务的损失来衡量需不需要投入大量的金钱去维护了。<br>4、回源是什么意思：当cdn缓存服务器没有客户端请求的资源，就会回我们的服务器上获取资源。回源地址可以是IP回源、域名回源。<br><code>客户端 ---( https)---&gt; CDN ---( https)---&gt; 源站（这个是跟随场景）</code><br><code>客户端 ---( https)---&gt; CDN ---( http)----&gt; 源站（这个是限定http）</code><br>5、CDN设置为http回源，CDN使用https就行了，不要用协议跟随（固定死CDN–&gt;源站走HTTP）。<br>6、源站域名和加速域名（用户看到的）不能一样，加速域名必须要在工信部备案，源站域名不要求备案，但需要公网能正常解析。<br>7、回源host（回源域名）是CDN请求源站时请求头中的host字段，请求源站上哪个目录web站点。可以是加速域名、源站域名、自定义URL。也可以不填写（但<strong>回源地址</strong>必须要配置，回源host可选）<br>8、加速域名走https的话，需要把网站私钥给CDN服务商</p>
 </blockquote>
 ]]></content>
       <categories>

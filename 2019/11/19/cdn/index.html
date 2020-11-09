@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="安全笔记">
 <meta property="og:description" content="DDos一般D的是流量CC攻击针对域名，制造大量的链接隐藏服务器真实IP地址是最好的方法。服务器前加个CDN中转，或买个高防的盾机。域名解析DNS上解析的是CDN，子网站也映射给CDN">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-11-20T11:03:02.676Z">
+<meta property="og:updated_time" content="2020-09-24T07:45:45.960Z">
 <meta name="twitter:card" content="summary">
 
 
@@ -392,7 +392,7 @@
         <h3 id="DDos一般D的是流量"><a href="#DDos一般D的是流量" class="headerlink" title="DDos一般D的是流量"></a>DDos一般D的是流量</h3><h3 id="CC攻击针对域名，制造大量的链接"><a href="#CC攻击针对域名，制造大量的链接" class="headerlink" title="CC攻击针对域名，制造大量的链接"></a>CC攻击针对域名，制造大量的链接</h3><p>隐藏服务器真实IP地址是最好的方法。<br>服务器前加个CDN中转，或买个高防的盾机。域名解析DNS上解析的是CDN，子网站也映射给CDN</p>
 <a id="more"></a>
 <blockquote>
-<p>1、无论什么时候都要隐藏真实IP<br>2、购买CDN来抗DDoS不一定全程抗住，比较运营商会果断的屏蔽你的域名<br>3、DDoS是一个长久对抗的话题，尤其是应对大流量的攻击更是需要时间来磨，防守同样需要大量的资金注入，比如流量需要钱，盾机需要钱等等，主要看业务的损失来衡量需不需要投入大量的金钱去维护了。<br>4、回源是什么意思：当cdn缓存服务器没有客户端请求的资源，就会回我们的服务器上获取资源。回源地址可以是IP回源、域名回源。<br><code>客户端 ---( https)---&gt; CDN ---( https)---&gt; 源站（这个是跟随场景）</code><br><code>客户端 ---( https)---&gt; CDN ---( http)----&gt; 源站（这个是限定http）</code><br>5、CDN设置为http回源，CDN使用https就行了，不要用协议跟随（固定死CDN–&gt;源站走HTTP）。<br>6、源站域名和加速域名（用户看到的）不能一样，加速域名必须要在工信部备案，源站域名不要求备案，但需要公网能正常解析。<br>7、回源host（回源域名）是CDN请求源站时请求头中的host字段，请求源站上哪个目录web站点。可以是加速域名、源站域名、自定义URL<br>8、加速域名走https的话，需要把网站私钥给CDN服务商</p>
+<p>1、无论什么时候都要隐藏真实IP<br>2、购买CDN来抗DDoS不一定全程抗住，比较运营商会果断的屏蔽你的域名<br>3、DDoS是一个长久对抗的话题，尤其是应对大流量的攻击更是需要时间来磨，防守同样需要大量的资金注入，比如流量需要钱，盾机需要钱等等，主要看业务的损失来衡量需不需要投入大量的金钱去维护了。<br>4、回源是什么意思：当cdn缓存服务器没有客户端请求的资源，就会回我们的服务器上获取资源。回源地址可以是IP回源、域名回源。<br><code>客户端 ---( https)---&gt; CDN ---( https)---&gt; 源站（这个是跟随场景）</code><br><code>客户端 ---( https)---&gt; CDN ---( http)----&gt; 源站（这个是限定http）</code><br>5、CDN设置为http回源，CDN使用https就行了，不要用协议跟随（固定死CDN–&gt;源站走HTTP）。<br>6、源站域名和加速域名（用户看到的）不能一样，加速域名必须要在工信部备案，源站域名不要求备案，但需要公网能正常解析。<br>7、回源host（回源域名）是CDN请求源站时请求头中的host字段，请求源站上哪个目录web站点。可以是加速域名、源站域名、自定义URL。也可以不填写（但<strong>回源地址</strong>必须要配置，回源host可选）<br>8、加速域名走https的话，需要把网站私钥给CDN服务商</p>
 </blockquote>
 
       
@@ -517,7 +517,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -528,7 +528,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -539,7 +539,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">37</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
