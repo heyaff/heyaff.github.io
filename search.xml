@@ -1,18 +1,179 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>API</title>
-    <url>/2020/11/17/api/</url>
-    <content><![CDATA[<p>Q：签名是在哪做？是为了啥？证明谁的身份？场景是什么？<br>A：签名主要证明数据没有被篡改，签名发起方和接收方算法保持一致</p>
-<p>Q：客户端请求服务器端，API请求怎么签名？<br>1、客户端内置appkey和secret，sign字段=MD5(key1value1key2value2…secret)进行MD5计算发给服务端<br>2、建议把appsecret放到NDK中编译成so文件，app启动后去读取<br>3、或者第一次APP安装启动时，下发secret</p>
-<p>Q：浏览器请求服务器端，API请求怎么签名？<br>A：js中保存appsecret有较高风险，建议采用随机分配令牌的方式，为每个访问端分配一个token保存在cookie中，通过cookie请求头(cookie:h5_token=xxx;sessionid=xxx)传回服务端，sign=MD5(key1value1key2value2…token)<br>A：- <a href="https://mp.weixin.qq.com/s?__biz=MzIwNjUxMTQyMA%3D%3D&chksm=9721cf1ca056460a644f61bb84c255eb7620ac1905e8652ffb1a869c5432aac77a81400f90bd&idx=1&lang=zh_CN&mid=2247484239&scene=21&sn=1530557bc16ad40616d6614017a872d7&token=205497283#wechat_redirect" title="小歪丶 Python爬虫与算法进阶">淘宝sign签名算法</a></p>
-<p>接口暴漏在公网，需实施安全鉴权机制，包括但不限于以下几种：<br>使用https协议通讯，防止敏感数据泄密和篡改；<br>设置身份认证和访问机制，非授权不能访问接口；<br>限制访问的源IP白名单，非授权IP不允许调用接口；<br>实现时间戳超时机制，过期失效，防止接口重放攻击；<br>设置接口参数过滤、限制，防止接口特殊参数注入引发的安全问题；<br>限制访问的数据范围，防止对方访问不相关数据；<br>限制满足业需求的最低访问频率，比如1万次/天，防止不限制次数的接口调用导致用户信息泄露。</p>
+    <title>HTTP/2协议</title>
+    <url>/2021/01/08/http2/</url>
+    <content><![CDATA[<h3 id="HTTP-2对比HTTP-1-1"><a href="#HTTP-2对比HTTP-1-1" class="headerlink" title="HTTP/2对比HTTP 1.1"></a>HTTP/2对比HTTP 1.1</h3><p>HTTP/2也被称为HTTP 2.0，相对于HTTP 1.1的新增多路复用、压缩HTTP头、划分请求优先级、服务端推送等特性，解决了在HTTP 1.1中一直存在的问题，优化了请求性能，同时兼容了HTTP 1.1的语义。</p>
+<h3 id="HTTP-2优势"><a href="#HTTP-2优势" class="headerlink" title="HTTP/2优势"></a>HTTP/2优势</h3><ul>
+<li>二进制协议：相比于HTTP 1.x基于文本的解析，HTTP/2将所有的传输信息分割为更小的消息和帧，并对它们采用二进制格式编码。基于二进制可以使协议有更多的扩展性，例如，引入帧来传输数据和指令。</li>
+<li>内容安全：HTTP/2基于HTTPS，具有安全特性。使用HTTP/2特性可以避免单纯使用HTTPS引起的性能下降问题。</li>
+<li>多路复用（MultiPlexing）：通过该功能，在一条连接上，您的浏览器可以同时发起无数个请求，并且响应可以同时返回。另外，多路复用中支持了流的优先级（Stream dependencies）设置，允许客户端告知服务器最优资源，可以优先传输。</li>
+<li>Header压缩（Header compression）：HTTP请求头带有大量信息，而且每次都要重复发送。HTTP/2采用HPACK格式进行压缩传输，通讯双方各自缓存一份头域索引表，相同的消息头只发送索引号，从而提高效率和速度。</li>
+</ul>
+<h3 id="HTTP的访问请求只能是HTTP-1-1，HTTPS下才会有H2"><a href="#HTTP的访问请求只能是HTTP-1-1，HTTPS下才会有H2" class="headerlink" title="HTTP的访问请求只能是HTTP/1.1，HTTPS下才会有H2"></a>HTTP的访问请求只能是HTTP/1.1，HTTPS下才会有H2</h3><h3 id="Nginx支持H2配置，但不支持后端应用也启用了H2"><a href="#Nginx支持H2配置，但不支持后端应用也启用了H2" class="headerlink" title="Nginx支持H2配置，但不支持后端应用也启用了H2"></a>Nginx支持H2配置，但不支持后端应用也启用了H2</h3><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">　　 <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">　　 <span class="attribute">listen</span> [::]:<span class="number">80</span>;</span><br><span class="line">　　 <span class="attribute">listen</span> <span class="number">443</span> ssl http2;</span><br><span class="line">　　 <span class="attribute">listen</span> [::]:<span class="number">443</span> ssl http2;</span><br><span class="line">　　 <span class="attribute">server_name</span> example.com;</span><br></pre></td></tr></table></figure>
+
+<h3 id="为啥抓包工具抓不到HTTP-2"><a href="#为啥抓包工具抓不到HTTP-2" class="headerlink" title="为啥抓包工具抓不到HTTP/2"></a>为啥抓包工具抓不到HTTP/2</h3><p>BURP_2020.6版本之后支持HTTP/2</p>
 ]]></content>
       <categories>
-        <category>API</category>
+        <category>QUIC</category>
       </categories>
       <tags>
-        <tag>接口</tag>
+        <tag>HTTP/2</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Burp Suite工具</title>
+    <url>/2021/01/08/burp/</url>
+    <content><![CDATA[<h3 id="最新Burp下载地址"><a href="#最新Burp下载地址" class="headerlink" title="最新Burp下载地址"></a>最新Burp下载地址</h3><p><a href="https://www.ddosi.com/b309/">https://www.ddosi.com/b309/</a></p>
+<h3 id="Java版本必须10以上"><a href="#Java版本必须10以上" class="headerlink" title="Java版本必须10以上"></a>Java版本必须10以上</h3><h3 id="Burp-2020-6开始支持HTTP-2"><a href="#Burp-2020-6开始支持HTTP-2" class="headerlink" title="Burp_2020.6开始支持HTTP/2"></a>Burp_2020.6开始支持HTTP/2</h3><h3 id="只需要三个文件Burp-start-vbs-burpsuite-pro-v2020-jar-BurpSuiteLoader-v2020-jar"><a href="#只需要三个文件Burp-start-vbs-burpsuite-pro-v2020-jar-BurpSuiteLoader-v2020-jar" class="headerlink" title="只需要三个文件Burp_start.vbs,burpsuite_pro_v2020.jar,BurpSuiteLoader_v2020.jar"></a>只需要三个文件<code>Burp_start.vbs</code>,<code>burpsuite_pro_v2020.jar</code>,<code>BurpSuiteLoader_v2020.jar</code></h3>]]></content>
+      <categories>
+        <category>抓包工具</category>
+      </categories>
+      <tags>
+        <tag>Burp</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SQL语句</title>
+    <url>/2021/01/04/sql/</url>
+    <content><![CDATA[<h3 id="SQL计算累计和-sum-over"><a href="#SQL计算累计和-sum-over" class="headerlink" title="SQL计算累计和 sum() over"></a><a href="https://www.cnblogs.com/mingdashu/p/12100734.html">SQL计算累计和 sum() over</a></h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">累计求和sum() over(order by 其他列名1,其他列名2...)</span><br><span class="line"></span><br><span class="line">sum(计数的列名) over()			统计所有行数，计算求和</span><br><span class="line"></span><br><span class="line">sum(计数的列名) over(order by 列名1)	根据列名1，order by排序后的总和</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="一个SQL片段"><a href="#一个SQL片段" class="headerlink" title="一个SQL片段"></a>一个SQL片段</h3><p>with <em>别名</em> as (select * from table)</p>
+<h3 id="多个片段"><a href="#多个片段" class="headerlink" title="多个片段"></a>多个片段</h3><p>with <em>别名1</em> as (<br>    xxxx<br>),<br><em>别名2</em> as(<br>    xxxx<br>)</p>
+<h3 id="时间-日期"><a href="#时间-日期" class="headerlink" title="时间/日期"></a>时间/日期</h3><figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line">+ <span class="type">interval</span> <span class="string">'1 day'</span>			<span class="comment">----加减1天</span></span><br><span class="line"></span><br><span class="line">列名::<span class="type">timestamp</span>				<span class="comment">----转成timestamp格式</span></span><br><span class="line">CAST(列名 <span class="keyword">as</span> <span class="type">timestamp</span>)			<span class="comment">----转成timestamp格式</span></span><br><span class="line"></span><br><span class="line">date_trunc(<span class="string">'week'</span>,列名)			<span class="comment">----列名类型timestamp，返回每年/每月的第一天，每周的星期一</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> date_trunc(<span class="string">'week'</span>,create_time),count(列名) <span class="keyword">FROM</span> 表名 <span class="keyword">GROUP</span> <span class="keyword">BY</span> date_trunc(<span class="string">'week'</span>,create_time)		<span class="comment">----统计每周的数据量</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">to_char(列名,<span class="string">'YYYY-MM-DD'</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="拼接字段"><a href="#拼接字段" class="headerlink" title="拼接字段"></a>拼接字段</h3><p>CONCAT(‘工号为:’,列名,’的员工’,count(xxx))</p>
+]]></content>
+      <categories>
+        <category>SQL</category>
+      </categories>
+      <tags>
+        <tag>统计报表</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>分布式系统技术栈</title>
+    <url>/2020/12/31/jishu/</url>
+    <content><![CDATA[<p>抛出问题：<br>一个对外提供服务的大型分布式系统，用户访问这个系统，做一些操作，产生需要存储的数据，在这个过程中，有哪些组件、协议和调用？</p>
+<p><strong>请求</strong><br>Web浏览器、APP客户端、SDK组件</p>
+<p><strong>负载均衡</strong><br>在分布式系统中，为了高并发、高可用，一般是多个节点服务器提供相同的服务，由load balance选择哪个节点来提供服务</p>
+<p><strong>系统调用</strong><br>节点服务器开始处理用户的请求，简单请求，可能是有缓存的，即分布式缓存。如果缓存没有，那么去数据库拉取数据。<br>复杂请求，即系统A需要调用系统B的服务，但是，每个应用都手写socket是一件冗杂、低效的事情，因此需要应用层的封装，因此有了HTTP接口。如果系统愈加复杂，大量的HTTP接口也是一件困难的事情，因此进一步的抽象，就是RPC（remote produce call），远程调用就跟本地过程调用一样方便，屏蔽了网络通信等诸多细节</p>
+<p>总结：socket—–HTTP接口—–RPC</p>
+<p><strong>注册中心</strong><br>一个请求包含多个操作，其实就是涉及到多个服务，分布式系统中有大量的服务，每个服务又是多个节点组成。那么一个服务怎么找到另一个服务（的某个节点呢）？<br>通信是需要地址的，怎么获取这个地址，最简单的办法就是配置文件写死，或者写入到数据库，但这些方法在节点数据巨大、节点动态增删的时候都不大方便，这个时候就需要服务注册与发现：提供服务的节点向一个协调中心注册自己的地址，使用服务的节点去协调中心拉取地址。</p>
+<p>从上可以看见，协调中心提供了中心化的服务：以一组节点提供类似单点的服务，使用非常广泛，比如命令服务、分布式锁。协调中心最出名的就是zookeeper，chubby。</p>
+<p><strong>消息队列</strong><br>回到用户请求这个点，请求操作会产生一些数据、日志，其他一些系统可能会对这些消息感兴趣，比如个性化推荐、监控等，这里就抽象出了两个概念，消息的生产者与消费者。那么生产者怎么将消息发送给消费者呢，RPC并不是一个很好的选择，因为RPC肯定得指定消息发给谁，但实际的情况是生产者并不清楚、也不关心谁会消费这个消息，这个时候消息队列就出马了。简单来说，生产者只用往消息队列里面发就行了，队列会将消息按主题（topic）分发给关注这个主题的消费者。消息队列起到了异步处理、应用解耦的作用。</p>
+<p><strong>分布式计算</strong><br>上面提到，用户操作会产生一些数据，这些数据忠实记录了用户的操作习惯、喜好，是各行各业最宝贵的财富。比如各种推荐、广告投放、自动识别。这就催生了分布式计算平台，比如Hadoop，Storm等，用来处理这些海量的数据。</p>
+<p><strong>分布式存储</strong><br>最后，用户的操作完成之后，用户的数据需要持久化，但数据量很大，大到按个节点无法存储，那么这个时候就需要分布式存储：将数据进行划分放在不同的节点上，同时，为了防止数据的丢失，每一份数据会保存多分。传统的关系型数据库是单点存储，为了在应用层透明的情况下分库分表，会引用额外的代理层。而对于NoSql，一般天然支持分布式。</p>
+<p><img src="/images/fenbushi.png" alt="分布式架构图"></p>
+<h3 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h3><p>Nginx：高性能、高并发的web服务器；功能包括负载均衡、反向代理、静态内容缓存、访问控制；工作在应用层<br>LVS： Linux virtual server，基于集群技术和Linux操作系统实现一个高性能、高可用的服务器；工作在网络层</p>
+<h3 id="webserver"><a href="#webserver" class="headerlink" title="webserver"></a>webserver</h3><p>Java：Tomcat，Apache，Jboss<br>Python：gunicorn、uwsgi、twisted、webpy、tornado</p>
+<h3 id="service"><a href="#service" class="headerlink" title="service"></a>service</h3><p>SOA、微服务、spring boot，django</p>
+<h3 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h3><p>docker，kubernetes</p>
+<h3 id="cache"><a href="#cache" class="headerlink" title="cache"></a>cache</h3><p>memcache、redis等</p>
+<h3 id="协调中心"><a href="#协调中心" class="headerlink" title="协调中心"></a>协调中心</h3><p>zookeeper、etcd等</p>
+<h3 id="RPC框架"><a href="#RPC框架" class="headerlink" title="RPC框架"></a>RPC框架</h3><p>dubbo<br>dubbo是阿里开源的Java语言开发的高性能RPC框架，在阿里系的诸多架构中，都使用了dubbo + spring boot</p>
+<h3 id="消息队列"><a href="#消息队列" class="headerlink" title="消息队列"></a>消息队列</h3><p>kafka、rabbitMQ、rocketMQ<br>消息队列的应用场景：异步处理、应用解耦、流量削锋和消息通讯</p>
+<h3 id="实时数据平台"><a href="#实时数据平台" class="headerlink" title="实时数据平台"></a>实时数据平台</h3><p>storm</p>
+<h3 id="离线数据平台"><a href="#离线数据平台" class="headerlink" title="离线数据平台"></a>离线数据平台</h3><p>hadoop、spark</p>
+<h3 id="db"><a href="#db" class="headerlink" title="db"></a>db</h3><p>mysql、oracle、MongoDB、HBase</p>
+<h3 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h3><p>elasticsearch</p>
+<h3 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h3><p>rsyslog、elk、flume</p>
+]]></content>
+      <categories>
+        <category>技术栈</category>
+      </categories>
+      <tags>
+        <tag>分布式系统</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>nmap</title>
+    <url>/2020/12/29/nmap/</url>
+    <content><![CDATA[<h3 id="PN-No-ping扫描"><a href="#PN-No-ping扫描" class="headerlink" title="PN No ping扫描"></a>PN No ping扫描</h3><p>如果远程主机有防火墙IDS和IPS系统，你可以使用-PN命令来确保不ping远程主机，因为有时候防火墙会禁用ping<br>禁ping，TCP端口扫描命令：<br><code>nmap -sT -Pn 目标IP</code></p>
+<h3 id="curl添加请求头，-v可回显响应头"><a href="#curl添加请求头，-v可回显响应头" class="headerlink" title="curl添加请求头，-v可回显响应头"></a>curl添加请求头，-v可回显响应头</h3><figure class="highlight livescript"><table><tr><td class="code"><pre><span class="line">curl -X GET <span class="string">"https://xxx.com"</span> <span class="string">\</span></span><br><span class="line">     -H <span class="string">"Cookie: xxx"</span> <span class="string">\</span></span><br><span class="line">     -H <span class="string">"Referer: https://xxx.com:1111/xxx"</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>nmap</category>
+      </categories>
+      <tags>
+        <tag>端口扫描</tag>
+        <tag>curl</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>流量&带宽</title>
+    <url>/2020/12/08/flow/</url>
+    <content><![CDATA[<h3 id="云服务器10Mb带宽，假如一个月天天全部跑满，那跑的流量大约是-10M-8-一个月的秒数-≈3TB"><a href="#云服务器10Mb带宽，假如一个月天天全部跑满，那跑的流量大约是-10M-8-一个月的秒数-≈3TB" class="headerlink" title="云服务器10Mb带宽，假如一个月天天全部跑满，那跑的流量大约是 10M/8*(一个月的秒数)≈3TB"></a>云服务器10Mb带宽，假如一个月天天全部跑满，那跑的流量大约是 10M/8*(一个月的秒数)≈3TB</h3><p>实际上，大部分时间是跑不满甚至大部分带宽是闲置的。<br>计算方法：10M带宽下载速度峰值为1280KB/S，一天是86400秒，那么一天产生的公网出流量大小为105GB左右，计算方法如下：</p>
+<p>1280KB/S * 86400 = 110592000KB = 108000MB = 105.5GB</p>
+<h3 id="带宽是小b，流量是大B。普通用户下载接触的是流量（大B）"><a href="#带宽是小b，流量是大B。普通用户下载接触的是流量（大B）" class="headerlink" title="带宽是小b，流量是大B。普通用户下载接触的是流量（大B）"></a>带宽是小b，流量是大B。普通用户下载接触的是流量（大B）</h3><h3 id="机房、运营商收费：进-出流量取较大的值，只收一个方向的钱，是按峰值带宽跟你收费的"><a href="#机房、运营商收费：进-出流量取较大的值，只收一个方向的钱，是按峰值带宽跟你收费的" class="headerlink" title="机房、运营商收费：进/出流量取较大的值，只收一个方向的钱，是按峰值带宽跟你收费的"></a>机房、运营商收费：进/出流量取较大的值，只收一个方向的钱，是按峰值带宽跟你收费的</h3><p>机房收费标准：假如机房访问峰值（可能就持续不到半个小时）超过 50G，为了保证用户体验，那必须升级带宽（不升级就会被限速、高峰期丢包），升级带宽当然是加钱了（账单会让你热泪盈眶）。</p>
+<h3 id="阿里云、华为云等收费：只收出云的流量-带宽，入云的不收费。"><a href="#阿里云、华为云等收费：只收出云的流量-带宽，入云的不收费。" class="headerlink" title="阿里云、华为云等收费：只收出云的流量/带宽，入云的不收费。"></a>阿里云、华为云等收费：只收出云的流量/带宽，入云的不收费。</h3><p>流量流入云服务器是免费的（如：用户上传流量是免费的），流量流出云服务器是收费的。<br>阿里云服务器流量收费只统计公网出方向的流量，内网流量不收费，用户上传文件到服务器产生的流量也是不计入收费的。</p>
+<h3 id="流量收费"><a href="#流量收费" class="headerlink" title="流量收费"></a>流量收费</h3><p>流量少建议按流量计算，也适用于流量波动较大的应用场景<br>优点：防止突然爆发的流量产生较高费用，推荐小客户<br>缺点：<br>1、CC类的流量攻击，也算费用<br>2、不承诺带宽，流量计费套餐也是有一个带宽峰值的，并不是无限制。有这个带宽峰值，业务就可能会受到限制</p>
+<h3 id="带宽收费"><a href="#带宽收费" class="headerlink" title="带宽收费"></a>带宽收费</h3><p>适用于业务场景对于网络带宽要求比较稳定的客户<br>优点：独享带宽给到用户，无论带宽是否有有流量，流量是否跑满，都需要付费，推荐大客户<br>缺点：</p>
+<h3 id="所以使用流量计费模式可以以更低的价格撬动更大的带宽值，但是如果流量太大，也会产生较高的流量费用"><a href="#所以使用流量计费模式可以以更低的价格撬动更大的带宽值，但是如果流量太大，也会产生较高的流量费用" class="headerlink" title="所以使用流量计费模式可以以更低的价格撬动更大的带宽值，但是如果流量太大，也会产生较高的流量费用"></a>所以使用流量计费模式可以以更低的价格撬动更大的带宽值，但是如果流量太大，也会产生较高的流量费用</h3>]]></content>
+      <categories>
+        <category>带宽</category>
+      </categories>
+      <tags>
+        <tag>流量</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SNI</title>
+    <url>/2020/11/30/sni/</url>
+    <content><![CDATA[<ul>
+<li><a href="https://wwww.lvmoo.com/933.love" title="凯の秘密基地">浅谈SNI兼容性导致HTTPS出错问题</a></li>
+<li><a href="https://bbs.appnode.com/thread-877.htm">为什么SSL测试结果会显示两个RSA证书？</a></li>
+</ul>
+<h3 id="SNI背景介绍"><a href="#SNI背景介绍" class="headerlink" title="SNI背景介绍"></a>SNI背景介绍</h3><p><strong>SNI</strong> (Server Name Indication)主要解决一台服务器只能使用一个证书(一个域名)的缺点，随着服务器对虚拟主机的支持，一个服务器上可以为多个域名提供服务。有 SNI 机制后，可以在同一个IP 下绑定多个证书，但是客户端在请求时需要先带上域名，这样服务端才能找到对应的 SSL 证书，因此SNI必须得到支持才能满足需求<br><img src="/images/SNI-1.png" alt="支持SNI的客户端获取到的server证书"><br><img src="/images/SNI-2.png" alt="不支持SNI的客户端获取到的server证书"></p>
+<h3 id="命令行测试"><a href="#命令行测试" class="headerlink" title="命令行测试"></a>命令行测试</h3><p>模拟支持SNI的浏览器获取到的证书，使用以下命令测试：<br><code>openssl s_client -connect www.appnode.com:443 -servername www.appnode.com -showcerts</code></p>
+<p>模拟不支持SNI的浏览器获取到的证书，使用以下命令测试：<br><code>openssl s_client -connect www.appnode.com:443 -showcerts</code></p>
+<h3 id="对于不支持-SNI-的客户端"><a href="#对于不支持-SNI-的客户端" class="headerlink" title="对于不支持 SNI 的客户端"></a>对于不支持 SNI 的客户端</h3><ul>
+<li>建议客户端升级或使用新版本的浏览器（如Chrome、Firefox等）</li>
+<li>如果是微信、支付宝第三方回调，需要让其调用源站IP，绕过Web应用防火墙</li>
+</ul>
+]]></content>
+      <categories>
+        <category>SNI</category>
+      </categories>
+      <tags>
+        <tag>SNI</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>HIDS工作点</title>
+    <url>/2020/11/30/hids/</url>
+    <content><![CDATA[<h3 id="HIDS干啥用的"><a href="#HIDS干啥用的" class="headerlink" title="HIDS干啥用的"></a>HIDS干啥用的</h3><p>管理资产/脆弱性/主机状态/合规基线检测<br>webshell检测<br>弱口令检测<br>登录异常检测<br>反弹shell检测<br>后门检测<br>本地提权检测<br>挖矿、勒索检测<br>主机漏洞管理<br>开放端口检测</p>
+<p>恶意文件/程序/木马/病毒检测（特征+沙箱技术，在本地检测or传到服务端检测）</p>
+<h3 id="业界HIDS仅告警检测，处理动作无，不会拦截删除主机上的文件-病毒"><a href="#业界HIDS仅告警检测，处理动作无，不会拦截删除主机上的文件-病毒" class="headerlink" title="业界HIDS仅告警检测，处理动作无，不会拦截删除主机上的文件/病毒"></a>业界HIDS仅告警检测，处理动作无，不会拦截删除主机上的文件/病毒</h3><p>HIDS告警信息的聚合 是必须的<br>经验来说，检测出的木马/病毒较少</p>
+<h3 id="Cgroup问题"><a href="#Cgroup问题" class="headerlink" title="Cgroup问题"></a>Cgroup问题</h3><p>cgroup强制限制硬件资源，如CPU、内存、设备和网络。<br>轻量级agent基于cgroup实现资源限制<br>Agent进程资源限制的Cgroup，触发几次CentOS7.2的内核Bug，导致机器不断重启</p>
+]]></content>
+      <categories>
+        <category>HIDS</category>
+      </categories>
+      <tags>
+        <tag>HIDS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>WAF安全运营</title>
+    <url>/2020/11/12/waf/</url>
+    <content><![CDATA[<ul>
+<li><a href="https://mp.weixin.qq.com/s/BiH23k7xAeuwb5wwaOEKVw" title="安全研究与实践">体系化的WAF安全运营实践</a></li>
+</ul>
+<h3 id="WAF指标"><a href="#WAF指标" class="headerlink" title="WAF指标"></a>WAF指标</h3><p>误报率=误报数量/检测到的攻击数量<br>漏报率=漏报数量/攻击总量<br>MTTD=安全威胁平均检测时间<br>MTTR=安全威胁平均响应时间<br>WAF覆盖率=已接入WAF域名数量/需接入WAF域名数量<br>拦截开启率=已开启拦截模式的域名数量/已接入WAF域名数量</p>
+<p><img src="/images/waf_fenlei.PNG" alt="攻击类型"><br><img src="/images/waf_total.PNG" alt="攻击数量"></p>
+<h3 id="测试说明"><a href="#测试说明" class="headerlink" title="测试说明"></a>测试说明</h3><p>黑样本220w，白样本30w，漏报率=1-拦截量/攻击总量（黑样本）<br>自研WAF——黑样本：漏报率≈25%，白样本：误报率≈0%<br>阿里云 &ensp;&nbsp;——黑样本：漏报率≈5%，&ensp;白样本：误报率≈0%<br>腾讯云 &ensp;&nbsp;——黑样本：漏报率≈29%，白样本：误报率≈0%</p>
+<p>实际生产，WAF每天拦截上千万次请求</p>
+<h3 id="WAF接入自动化"><a href="#WAF接入自动化" class="headerlink" title="WAF接入自动化"></a>WAF接入自动化</h3><p>新上线业务自动化接入WAF<br>在公司的统一接入层上做WAF，统一入口，不在<br>要求在2ms以内返回检测结果</p>
+<h3 id="联动"><a href="#联动" class="headerlink" title="联动"></a>联动</h3><p>xSRC、蓝军、入侵检测、漏洞扫描系统等，提供WAF的策略优化更新</p>
+<h3 id="Idea"><a href="#Idea" class="headerlink" title="Idea"></a>Idea</h3><p>WAF也提供开放平台，支持各业务团队来制定阻断策略，展示自己名下的WAF攻击日志</p>
+]]></content>
+      <categories>
+        <category>WAF指标</category>
+      </categories>
+      <tags>
+        <tag>WAF指标</tag>
       </tags>
   </entry>
   <entry>
@@ -25,6 +186,21 @@
       </categories>
       <tags>
         <tag>安全架构</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>API</title>
+    <url>/2020/10/17/api/</url>
+    <content><![CDATA[<p>Q：签名是在哪做？是为了啥？证明谁的身份？场景是什么？<br>A：签名主要证明数据没有被篡改，签名发起方和接收方算法保持一致</p>
+<p>Q：客户端请求服务器端，API请求怎么签名？<br>1、客户端内置appkey和secret，sign字段=MD5(key1value1key2value2…secret)进行MD5计算发给服务端<br>2、建议把appsecret放到NDK中编译成so文件，app启动后去读取<br>3、或者第一次APP安装启动时，下发secret</p>
+<p>Q：浏览器请求服务器端，API请求怎么签名？<br>A：js中保存appsecret有较高风险，建议采用随机分配令牌的方式，为每个访问端分配一个token保存在cookie中，通过cookie请求头(cookie:h5_token=xxx;sessionid=xxx)传回服务端，sign=MD5(key1value1key2value2…token)<br>A：- <a href="https://mp.weixin.qq.com/s?__biz=MzIwNjUxMTQyMA%3D%3D&chksm=9721cf1ca056460a644f61bb84c255eb7620ac1905e8652ffb1a869c5432aac77a81400f90bd&idx=1&lang=zh_CN&mid=2247484239&scene=21&sn=1530557bc16ad40616d6614017a872d7&token=205497283#wechat_redirect" title="小歪丶 Python爬虫与算法进阶">淘宝sign签名算法</a></p>
+<p>接口暴漏在公网，需实施安全鉴权机制，包括但不限于以下几种：<br>使用https协议通讯，防止敏感数据泄密和篡改；<br>设置身份认证和访问机制，非授权不能访问接口；<br>限制访问的源IP白名单，非授权IP不允许调用接口；<br>实现时间戳超时机制，过期失效，防止接口重放攻击；<br>设置接口参数过滤、限制，防止接口特殊参数注入引发的安全问题；<br>限制访问的数据范围，防止对方访问不相关数据；<br>限制满足业需求的最低访问频率，比如1万次/天，防止不限制次数的接口调用导致用户信息泄露。</p>
+]]></content>
+      <categories>
+        <category>API</category>
+      </categories>
+      <tags>
+        <tag>接口</tag>
       </tags>
   </entry>
   <entry>
@@ -168,9 +344,10 @@
 <p>缺点：<br>1、验证信息存在数据库中，每次都要根据token查询userid，增加数据库开销<br>2、token一旦被泄露，很容易跨站请求伪造</p>
 <h3 id="JWT"><a href="#JWT" class="headerlink" title="JWT"></a>JWT</h3><p>JWT是token的升级，利用userId生成Token，该token可直接被用于认证。适用于分布式站点的单点登录场景</p>
 <p>JWT示例：</p>
-<figure class="highlight gcode"><table><tr><td class="code"><pre><span class="line">eyJ<span class="number">0</span>eXAxIjoiMTIz<span class="symbol">NCIsImFsZzIiOiJhZG1</span>pbiIsI<span class="symbol">nR5</span>cCI<span class="number">6</span>IkpX<span class="attr">VCIsImFsZyI6</span>IkhTMjU<span class="number">2</span>I<span class="symbol">n0</span>.eyJ<span class="attr">Vc2</span>VySWQiOjEyMywiVX<span class="symbol">Nlck5</span>hbWUiOiJhZ<span class="name">G1</span>pbiIsImV<span class="number">4</span>cCI<span class="number">6</span>MTU<span class="number">1</span>MjI<span class="number">4</span><span class="symbol">Njc0</span><span class="symbol">Ni44</span><span class="symbol">Nzc0</span>MDE<span class="number">4</span>fQ.pEgdmFAy<span class="number">73</span>walFo<span class="symbol">nEm2</span>zbx<span class="name">g46</span>Oth<span class="number">3</span>dlT<span class="number">02</span>HR<span class="number">9</span>iVzXa<span class="number">8</span></span><br><span class="line"></span><br><span class="line">your<span class="number">-256</span>-bit-secret：GQDstcKsx<span class="number">0</span><span class="symbol">NHjPOuXOYg5</span>MbeJ<span class="number">1</span>XT<span class="number">0</span>uFiwDVvVBrk</span><br></pre></td></tr></table></figure>
+<figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line">eyJ0eXAxIjoiMTIzNCIsImFsZzIiOiJhZG1pbiIsInR5cCI6IkpXVCIsImFsZyI6IkhTMjU2In0.eyJVc2VySWQiOjEyMywiVXNlck5hbWUiOiJhZG1pbiIsImV4cCI6MTU1MjI4Njc0Ni44Nzc0MDE<span class="symbol">4f</span>Q.pEgdmFAy73walFonEm2zbxg46Oth3dlT02HR9iVzXa8</span><br><span class="line"></span><br><span class="line">your<span class="number">-256</span>-<span class="keyword">bit-secret：GQDstcKsx0NHjPOuXOYg5MbeJ1XT0uFiwDVvVBrk</span></span><br><span class="line"><span class="keyword"></span></span><br><span class="line"><span class="keyword">JWT一般放在HTTP </span>header头</span><br><span class="line"><span class="symbol">Authorization:</span> <span class="keyword">Bearer </span>Authorization: <span class="keyword">Bearer </span>eyJ0eXAxIjoiM*...&lt;snip&gt;...*T02HR9iVzXa8</span><br></pre></td></tr></table></figure>
 <p>说明：签发生成jwt需要密钥your-256-bit-secret，这个存储在服务器端，不要泄露，在不知道密钥的情况下，是不能进行解密的，secret就是用来进行jwt的签发和jwt的验证，当然这些都是在服务器端做的事情。所以，它就是你服务端的私钥，在任何场景都不应该流露出去。一旦客户端得知这个secret, 那就意味着客户端可以伪造他人id越权攻击了。</p>
 <p><img src="/images/JWT.jpg" alt="JWT调用"><br>JWT是无状态的，不需要服务器端保存会话信息，直接存储在客户端上localstorage</p>
+<p>JWT不是用来替代session的，可使用JWT存类似session id之类的信息。正常的解决方案是JWT中存一些用户ID之类的信息，其他敏感信息还是用缓存服务器较好</p>
 ]]></content>
       <categories>
         <category>JWT</category>
@@ -247,6 +424,17 @@
 
 <h3 id="术语"><a href="#术语" class="headerlink" title="术语"></a>术语</h3><p><strong>PPS攻击</strong>——入方向每秒多少个数据包（万PPS），如100wpps，包的速率(每秒的数据包个数，主要是消耗服务器，网关，路由等设备的CPU性能)。<strong>特点：量大包小</strong><br><strong>BPS攻击</strong>——入方向每秒多少比特数（Gbit/s），如100Gbps(每秒的带宽量，单位是小b，主要是消耗带宽，通常约定按bps表示强度)。<strong>特点：流量很大</strong></p>
 <p>出流量Response回包大小决定了消耗多少业务带宽，出流量突增，一般是CC攻击<br>入流量GET/POST/UDP等请求包大小、速率决定了DDoS攻击带宽，入流量突增，一般可能是流量攻击</p>
+<h3 id="DDoS应急预案"><a href="#DDoS应急预案" class="headerlink" title="DDoS应急预案"></a>DDoS应急预案</h3><ol>
+<li>流量型(直接)—–流量未超过链路带宽—–本地清洗</li>
+<li>流量型(直接)—–流量超过链路带宽—–通知运营商清洗||临时扩容||云清洗—–本地清洗<br> 针对SYN、ACK、UDP、ICMP等类型的flood攻击：<ul>
+<li>一般情况下：本地清洗设备的防御算法都可以轻松应对。比如说首包丢弃、IP溯源等。</li>
+<li>特殊情况下：可以再此基础上增加一些限速，至少就可以保证在遭受攻击的时候保持业务基本的可用性。</li>
+<li>如果通过排查发现发生攻击源IP具有地域特征，可以根据地域进行限制(大量来自国外的攻击尤其适用)。</li>
+</ul>
+</li>
+<li>流量型(反射)—–流量未超过链路带宽—–本地清洗</li>
+<li>CC/HTTP慢速—–本地清洗—–本地清洗效果不佳后—–云清洗</li>
+</ol>
 <h3 id="常识"><a href="#常识" class="headerlink" title="常识"></a>常识</h3><p>服务器的上行带宽，出方向。<br>服务器的下行带宽，入方向。因为服务器的下行基本不限的，客户端上传文件，对服务器的带宽基本没有影响，取决于客户端本身网络的带宽。</p>
 <p>QPS是服务系统1s内接收客户端请求的一个并发处理能力。并发每秒的请求次数</p>
 <p>每个页面平均大小10+KB<br>1000~1500QPS，带宽大概100Mbps<br>3000QPS，带宽大概200Mbps<br>5000QPS，带宽大概400Mbps</p>
@@ -285,19 +473,6 @@
       </categories>
       <tags>
         <tag>zabbix</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>HIDS工作点</title>
-    <url>/2020/03/10/hids/</url>
-    <content><![CDATA[<h3 id="HIDS干啥用的"><a href="#HIDS干啥用的" class="headerlink" title="HIDS干啥用的"></a>HIDS干啥用的</h3><p>管理资产/脆弱性/主机状态/合规基线检测<br>webshell检测<br>弱口令检测<br>登录异常检测<br>反弹shell检测<br>后门检测<br>本地提权检测<br>挖矿、勒索检测<br>主机漏洞管理<br>开放端口检测</p>
-<p>恶意文件/程序/木马/病毒检测（特征+沙箱技术，在本地检测or传到服务端检测）</p>
-<h3 id="业界HIDS仅告警检测，处理动作无，不会拦截删除主机上的文件-病毒"><a href="#业界HIDS仅告警检测，处理动作无，不会拦截删除主机上的文件-病毒" class="headerlink" title="业界HIDS仅告警检测，处理动作无，不会拦截删除主机上的文件/病毒"></a>业界HIDS仅告警检测，处理动作无，不会拦截删除主机上的文件/病毒</h3>]]></content>
-      <categories>
-        <category>HIDS</category>
-      </categories>
-      <tags>
-        <tag>HIDS</tag>
       </tags>
   </entry>
   <entry>

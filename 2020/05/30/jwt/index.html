@@ -90,7 +90,7 @@
 <meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;AppSecret%E5%AE%89%E5%85%A8%E5%9C%BA%E6%99%AF.jpg">
 <meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;Oauth2.0%E7%A4%BA%E6%84%8F%E5%9B%BE.jpg">
 <meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;JWT.jpg">
-<meta property="og:updated_time" content="2020-06-12T09:59:57.811Z">
+<meta property="og:updated_time" content="2021-01-05T08:35:31.015Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;AppSecret%E5%AE%89%E5%85%A8%E5%9C%BA%E6%99%AF.jpg">
 
@@ -414,9 +414,10 @@
 <p>缺点：<br>1、验证信息存在数据库中，每次都要根据token查询userid，增加数据库开销<br>2、token一旦被泄露，很容易跨站请求伪造</p>
 <h3 id="JWT"><a href="#JWT" class="headerlink" title="JWT"></a>JWT</h3><p>JWT是token的升级，利用userId生成Token，该token可直接被用于认证。适用于分布式站点的单点登录场景</p>
 <p>JWT示例：</p>
-<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">eyJ<span class="number">0</span>eXAxIjoiMTIz<span class="symbol">NCIsImFsZzIiOiJhZG1</span>pbiIsI<span class="symbol">nR5</span>cCI<span class="number">6</span>IkpX<span class="attr">VCIsImFsZyI6</span>IkhTMjU<span class="number">2</span>I<span class="symbol">n0</span>.eyJ<span class="attr">Vc2</span>VySWQiOjEyMywiVX<span class="symbol">Nlck5</span>hbWUiOiJhZ<span class="name">G1</span>pbiIsImV<span class="number">4</span>cCI<span class="number">6</span>MTU<span class="number">1</span>MjI<span class="number">4</span><span class="symbol">Njc0</span><span class="symbol">Ni44</span><span class="symbol">Nzc0</span>MDE<span class="number">4</span>fQ.pEgdmFAy<span class="number">73</span>walFo<span class="symbol">nEm2</span>zbx<span class="name">g46</span>Oth<span class="number">3</span>dlT<span class="number">02</span>HR<span class="number">9</span>iVzXa<span class="number">8</span></span><br><span class="line"></span><br><span class="line">your<span class="number">-256</span>-bit-secret：GQDstcKsx<span class="number">0</span><span class="symbol">NHjPOuXOYg5</span>MbeJ<span class="number">1</span>XT<span class="number">0</span>uFiwDVvVBrk</span><br></pre></td></tr></table></figure>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">eyJ0eXAxIjoiMTIzNCIsImFsZzIiOiJhZG1pbiIsInR5cCI6IkpXVCIsImFsZyI6IkhTMjU2In0.eyJVc2VySWQiOjEyMywiVXNlck5hbWUiOiJhZG1pbiIsImV4cCI6MTU1MjI4Njc0Ni44Nzc0MDE<span class="symbol">4f</span>Q.pEgdmFAy73walFonEm2zbxg46Oth3dlT02HR9iVzXa8</span><br><span class="line"></span><br><span class="line">your<span class="number">-256</span>-<span class="keyword">bit-secret：GQDstcKsx0NHjPOuXOYg5MbeJ1XT0uFiwDVvVBrk</span></span><br><span class="line"><span class="keyword"></span></span><br><span class="line"><span class="keyword">JWT一般放在HTTP </span>header头</span><br><span class="line"><span class="symbol">Authorization:</span> <span class="keyword">Bearer </span>Authorization: <span class="keyword">Bearer </span>eyJ0eXAxIjoiM*...&lt;snip&gt;...*T02HR9iVzXa8</span><br></pre></td></tr></table></figure>
 <p>说明：签发生成jwt需要密钥your-256-bit-secret，这个存储在服务器端，不要泄露，在不知道密钥的情况下，是不能进行解密的，secret就是用来进行jwt的签发和jwt的验证，当然这些都是在服务器端做的事情。所以，它就是你服务端的私钥，在任何场景都不应该流露出去。一旦客户端得知这个secret, 那就意味着客户端可以伪造他人id越权攻击了。</p>
 <p><img src="/images/JWT.jpg" alt="JWT调用"><br>JWT是无状态的，不需要服务器端保存会话信息，直接存储在客户端上localstorage</p>
+<p>JWT不是用来替代session的，可使用JWT存类似session id之类的信息。正常的解决方案是JWT中存一些用户ID之类的信息，其他敏感信息还是用缓存服务器较好</p>
 
       
     </div>
@@ -542,7 +543,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">37</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -553,7 +554,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">38</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -564,7 +565,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-count">45</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -617,7 +618,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

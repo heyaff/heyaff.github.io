@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="安全笔记">
 <meta property="og:description" content="DDOS问答 DDOS攻击应急响应预案  UDP攻击,将IDC的入口带宽塞满防御方法：1、直接丢弃UDP流量，因为源IP随机伪造难以追查，但大多数业务IP并不提供UDP服务，直接丢弃UDP流量即可。2、出口IP切换到另一个公网IP3、如果攻击者比较执着，即使换了公网IP他也立刻更改攻击目标的话，最好的解决办法就是找运营商帮忙做流量清洗4、推荐本地DDOS防护设备+运营商清洗服务&#x2F;云清洗服务 静态">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-10-10T08:20:47.309Z">
+<meta property="og:updated_time" content="2020-12-18T09:42:26.609Z">
 <meta name="twitter:card" content="summary">
 
 
@@ -401,6 +401,17 @@
 
 <h3 id="术语"><a href="#术语" class="headerlink" title="术语"></a>术语</h3><p><strong>PPS攻击</strong>——入方向每秒多少个数据包（万PPS），如100wpps，包的速率(每秒的数据包个数，主要是消耗服务器，网关，路由等设备的CPU性能)。<strong>特点：量大包小</strong><br><strong>BPS攻击</strong>——入方向每秒多少比特数（Gbit/s），如100Gbps(每秒的带宽量，单位是小b，主要是消耗带宽，通常约定按bps表示强度)。<strong>特点：流量很大</strong></p>
 <p>出流量Response回包大小决定了消耗多少业务带宽，出流量突增，一般是CC攻击<br>入流量GET/POST/UDP等请求包大小、速率决定了DDoS攻击带宽，入流量突增，一般可能是流量攻击</p>
+<h3 id="DDoS应急预案"><a href="#DDoS应急预案" class="headerlink" title="DDoS应急预案"></a>DDoS应急预案</h3><ol>
+<li>流量型(直接)—–流量未超过链路带宽—–本地清洗</li>
+<li>流量型(直接)—–流量超过链路带宽—–通知运营商清洗||临时扩容||云清洗—–本地清洗<br> 针对SYN、ACK、UDP、ICMP等类型的flood攻击：<ul>
+<li>一般情况下：本地清洗设备的防御算法都可以轻松应对。比如说首包丢弃、IP溯源等。</li>
+<li>特殊情况下：可以再此基础上增加一些限速，至少就可以保证在遭受攻击的时候保持业务基本的可用性。</li>
+<li>如果通过排查发现发生攻击源IP具有地域特征，可以根据地域进行限制(大量来自国外的攻击尤其适用)。</li>
+</ul>
+</li>
+<li>流量型(反射)—–流量未超过链路带宽—–本地清洗</li>
+<li>CC/HTTP慢速—–本地清洗—–本地清洗效果不佳后—–云清洗</li>
+</ol>
 <h3 id="常识"><a href="#常识" class="headerlink" title="常识"></a>常识</h3><p>服务器的上行带宽，出方向。<br>服务器的下行带宽，入方向。因为服务器的下行基本不限的，客户端上传文件，对服务器的带宽基本没有影响，取决于客户端本身网络的带宽。</p>
 <p>QPS是服务系统1s内接收客户端请求的一个并发处理能力。并发每秒的请求次数</p>
 <p>每个页面平均大小10+KB<br>1000~1500QPS，带宽大概100Mbps<br>3000QPS，带宽大概200Mbps<br>5000QPS，带宽大概400Mbps</p>
@@ -528,7 +539,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">37</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -539,7 +550,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">38</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -550,7 +561,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-count">45</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -583,7 +594,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#UDP攻击-将IDC的入口带宽塞满"><span class="nav-number">1.</span> <span class="nav-text">UDP攻击,将IDC的入口带宽塞满</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#术语"><span class="nav-number">2.</span> <span class="nav-text">术语</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常识"><span class="nav-number">3.</span> <span class="nav-text">常识</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#UDP攻击-将IDC的入口带宽塞满"><span class="nav-number">1.</span> <span class="nav-text">UDP攻击,将IDC的入口带宽塞满</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#术语"><span class="nav-number">2.</span> <span class="nav-text">术语</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DDoS应急预案"><span class="nav-number">3.</span> <span class="nav-text">DDoS应急预案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常识"><span class="nav-number">4.</span> <span class="nav-text">常识</span></a></li></ol></div>
             
 
           </div>
@@ -603,7 +614,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
