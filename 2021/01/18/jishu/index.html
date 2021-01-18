@@ -83,12 +83,12 @@
 <meta name="keywords" content="分布式系统">
 <meta property="og:type" content="article">
 <meta property="og:title" content="分布式系统技术栈">
-<meta property="og:url" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;2020&#x2F;12&#x2F;31&#x2F;jishu&#x2F;index.html">
+<meta property="og:url" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;2021&#x2F;01&#x2F;18&#x2F;jishu&#x2F;index.html">
 <meta property="og:site_name" content="安全笔记">
 <meta property="og:description" content="抛出问题：一个对外提供服务的大型分布式系统，用户访问这个系统，做一些操作，产生需要存储的数据，在这个过程中，有哪些组件、协议和调用？ 请求Web浏览器、APP客户端、SDK组件 负载均衡在分布式系统中，为了高并发、高可用，一般是多个节点服务器提供相同的服务，由load balance选择哪个节点来提供服务 系统调用节点服务器开始处理用户的请求，简单请求，可能是有缓存的，即分布式缓存。如果缓存没有，">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;fenbushi.png">
-<meta property="og:updated_time" content="2020-12-31T08:23:07.152Z">
+<meta property="og:updated_time" content="2021-01-18T11:50:59.767Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;fenbushi.png">
 
@@ -120,7 +120,7 @@
 
 
 
-  <link rel="canonical" href="http://heyaff.github.io/2020/12/31/jishu/"/>
+  <link rel="canonical" href="http://heyaff.github.io/2021/01/18/jishu/"/>
 
 
 
@@ -297,7 +297,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://heyaff.github.io/2020/12/31/jishu/">
+    <link itemprop="mainEntityOfPage" href="http://heyaff.github.io/2021/01/18/jishu/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="heyaff">
@@ -326,8 +326,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-12-31T16:23:07+08:00">
-                2020-12-31
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-01-18T19:50:59+08:00">
+                2021-01-18
               </time>
             
 
@@ -395,7 +395,7 @@
 <p><strong>请求</strong><br>Web浏览器、APP客户端、SDK组件</p>
 <p><strong>负载均衡</strong><br>在分布式系统中，为了高并发、高可用，一般是多个节点服务器提供相同的服务，由load balance选择哪个节点来提供服务</p>
 <p><strong>系统调用</strong><br>节点服务器开始处理用户的请求，简单请求，可能是有缓存的，即分布式缓存。如果缓存没有，那么去数据库拉取数据。<br>复杂请求，即系统A需要调用系统B的服务，但是，每个应用都手写socket是一件冗杂、低效的事情，因此需要应用层的封装，因此有了HTTP接口。如果系统愈加复杂，大量的HTTP接口也是一件困难的事情，因此进一步的抽象，就是RPC（remote produce call），远程调用就跟本地过程调用一样方便，屏蔽了网络通信等诸多细节</p>
-<p>总结：socket—–HTTP接口—–RPC</p>
+<p>总结：socket—–HTTP接口—–RPC<a id="more"></a></p>
 <p><strong>注册中心</strong><br>一个请求包含多个操作，其实就是涉及到多个服务，分布式系统中有大量的服务，每个服务又是多个节点组成。那么一个服务怎么找到另一个服务（的某个节点呢）？<br>通信是需要地址的，怎么获取这个地址，最简单的办法就是配置文件写死，或者写入到数据库，但这些方法在节点数据巨大、节点动态增删的时候都不大方便，这个时候就需要服务注册与发现：提供服务的节点向一个协调中心注册自己的地址，使用服务的节点去协调中心拉取地址。</p>
 <p>从上可以看见，协调中心提供了中心化的服务：以一组节点提供类似单点的服务，使用非常广泛，比如命令服务、分布式锁。协调中心最出名的就是zookeeper，chubby。</p>
 <p><strong>消息队列</strong><br>回到用户请求这个点，请求操作会产生一些数据、日志，其他一些系统可能会对这些消息感兴趣，比如个性化推荐、监控等，这里就抽象出了两个概念，消息的生产者与消费者。那么生产者怎么将消息发送给消费者呢，RPC并不是一个很好的选择，因为RPC肯定得指定消息发给谁，但实际的情况是生产者并不清楚、也不关心谁会消费这个消息，这个时候消息队列就出马了。简单来说，生产者只用往消息队列里面发就行了，队列会将消息按主题（topic）分发给关注这个主题的消费者。消息队列起到了异步处理、应用解耦的作用。</p>
@@ -445,8 +445,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/12/29/nmap/" rel="next" title="nmap">
-                <i class="fa fa-chevron-left"></i> nmap
+              <a href="/2021/01/08/burp/" rel="next" title="Burp Suite工具">
+                <i class="fa fa-chevron-left"></i> Burp Suite工具
               </a>
             
           </div>
@@ -454,10 +454,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2021/01/04/sql/" rel="prev" title="SQL语句">
-                SQL语句 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>

@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="体系化的WAF安全运营实践  WAF指标误报率=误报数量&#x2F;检测到的攻击数量漏报率=漏报数量&#x2F;攻击总量MTTD=安全威胁平均检测时间MTTR=安全威胁平均响应时间WAF覆盖率=已接入WAF域名数量&#x2F;需接入WAF域名数量拦截开启率=已开启拦截模式的域名数量&#x2F;已接入WAF域名数量  测试说明黑样本220w，白样本30w，漏报率=1-拦截量&#x2F;攻击总量（黑样本）自研WAF——黑样本：漏报率≈25%，白样本">
+<meta name="description" content="体系化的WAF安全运营实践  WAF指标误报率=误报数量&#x2F;检测到的攻击数量漏报率=漏报数量&#x2F;攻击总量MTTD=安全威胁平均检测时间MTTR=安全威胁平均响应时间WAF覆盖率=已接入WAF域名数量&#x2F;需接入WAF域名数量拦截开启率=已开启拦截模式的域名数量&#x2F;已接入WAF域名数量">
 <meta name="keywords" content="WAF指标">
 <meta property="og:type" content="article">
 <meta property="og:title" content="WAF安全运营">
 <meta property="og:url" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;2020&#x2F;11&#x2F;12&#x2F;waf&#x2F;index.html">
 <meta property="og:site_name" content="安全笔记">
-<meta property="og:description" content="体系化的WAF安全运营实践  WAF指标误报率=误报数量&#x2F;检测到的攻击数量漏报率=漏报数量&#x2F;攻击总量MTTD=安全威胁平均检测时间MTTR=安全威胁平均响应时间WAF覆盖率=已接入WAF域名数量&#x2F;需接入WAF域名数量拦截开启率=已开启拦截模式的域名数量&#x2F;已接入WAF域名数量  测试说明黑样本220w，白样本30w，漏报率=1-拦截量&#x2F;攻击总量（黑样本）自研WAF——黑样本：漏报率≈25%，白样本">
+<meta property="og:description" content="体系化的WAF安全运营实践  WAF指标误报率=误报数量&#x2F;检测到的攻击数量漏报率=漏报数量&#x2F;攻击总量MTTD=安全威胁平均检测时间MTTR=安全威胁平均响应时间WAF覆盖率=已接入WAF域名数量&#x2F;需接入WAF域名数量拦截开启率=已开启拦截模式的域名数量&#x2F;已接入WAF域名数量">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;waf_fenlei.PNG">
 <meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;waf_total.PNG">
-<meta property="og:updated_time" content="2020-12-08T12:36:50.882Z">
+<meta property="og:updated_time" content="2021-01-18T11:52:40.652Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;waf_fenlei.PNG">
 
@@ -395,7 +395,7 @@
         <ul>
 <li><a href="https://mp.weixin.qq.com/s/BiH23k7xAeuwb5wwaOEKVw" title="安全研究与实践">体系化的WAF安全运营实践</a></li>
 </ul>
-<h3 id="WAF指标"><a href="#WAF指标" class="headerlink" title="WAF指标"></a>WAF指标</h3><p>误报率=误报数量/检测到的攻击数量<br>漏报率=漏报数量/攻击总量<br>MTTD=安全威胁平均检测时间<br>MTTR=安全威胁平均响应时间<br>WAF覆盖率=已接入WAF域名数量/需接入WAF域名数量<br>拦截开启率=已开启拦截模式的域名数量/已接入WAF域名数量</p>
+<h3 id="WAF指标"><a href="#WAF指标" class="headerlink" title="WAF指标"></a>WAF指标</h3><p>误报率=误报数量/检测到的攻击数量<br>漏报率=漏报数量/攻击总量<br>MTTD=安全威胁平均检测时间<br>MTTR=安全威胁平均响应时间<br>WAF覆盖率=已接入WAF域名数量/需接入WAF域名数量<br>拦截开启率=已开启拦截模式的域名数量/已接入WAF域名数量<a id="more"></a></p>
 <p><img src="/images/waf_fenlei.PNG" alt="攻击类型"><br><img src="/images/waf_total.PNG" alt="攻击数量"></p>
 <h3 id="测试说明"><a href="#测试说明" class="headerlink" title="测试说明"></a>测试说明</h3><p>黑样本220w，白样本30w，漏报率=1-拦截量/攻击总量（黑样本）<br>自研WAF——黑样本：漏报率≈25%，白样本：误报率≈0%<br>阿里云 &ensp;&nbsp;——黑样本：漏报率≈5%，&ensp;白样本：误报率≈0%<br>腾讯云 &ensp;&nbsp;——黑样本：漏报率≈29%，白样本：误报率≈0%</p>
 <p>实际生产，WAF每天拦截上千万次请求</p>
@@ -442,8 +442,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2020/11/30/hids/" rel="prev" title="HIDS工作点">
-                HIDS工作点 <i class="fa fa-chevron-right"></i>
+              <a href="/2020/11/30/sni/" rel="prev" title="SNI">
+                SNI <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>

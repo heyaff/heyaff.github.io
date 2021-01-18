@@ -79,15 +79,15 @@
 
 
 
-<meta name="description" content="Q：前端加密敏感数据，密钥存放在哪里？不让硬编码在JS中，那放哪？A：前端加密password等敏感字段，是用后端的公钥加密的，公钥可以硬编码在js中。A：前端随机产生一个key，用来AES加密数据，然后用后端公钥加密key，一起传给后端。 Q：密钥硬编码在代码中，有安全风险，那密钥存在哪里？后端的代码可以硬编码么？A：后端硬编码不在公网上传输，其实也是安全的，但不推荐。 Q：已经使用了HTTPS">
+<meta name="description" content="Q：前端加密敏感数据，密钥存放在哪里？不让硬编码在JS中，那放哪？A：前端加密password等敏感字段，是用后端的公钥加密的，公钥可以硬编码在js中。A：前端随机产生一个key，用来AES加密数据，然后用后端公钥加密key，一起传给后端。">
 <meta name="keywords" content="密钥管理">
 <meta property="og:type" content="article">
 <meta property="og:title" content="KMS密钥管理">
 <meta property="og:url" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;2020&#x2F;10&#x2F;10&#x2F;kms&#x2F;index.html">
 <meta property="og:site_name" content="安全笔记">
-<meta property="og:description" content="Q：前端加密敏感数据，密钥存放在哪里？不让硬编码在JS中，那放哪？A：前端加密password等敏感字段，是用后端的公钥加密的，公钥可以硬编码在js中。A：前端随机产生一个key，用来AES加密数据，然后用后端公钥加密key，一起传给后端。 Q：密钥硬编码在代码中，有安全风险，那密钥存在哪里？后端的代码可以硬编码么？A：后端硬编码不在公网上传输，其实也是安全的，但不推荐。 Q：已经使用了HTTPS">
+<meta property="og:description" content="Q：前端加密敏感数据，密钥存放在哪里？不让硬编码在JS中，那放哪？A：前端加密password等敏感字段，是用后端的公钥加密的，公钥可以硬编码在js中。A：前端随机产生一个key，用来AES加密数据，然后用后端公钥加密key，一起传给后端。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-10-10T08:21:08.205Z">
+<meta property="og:updated_time" content="2021-01-18T11:57:04.805Z">
 <meta name="twitter:card" content="summary">
 
 
@@ -324,7 +324,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-10-10T16:21:08+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-10-10T00:00:00+08:00">
                 2020-10-10
               </time>
             
@@ -389,7 +389,7 @@
       
 
       
-        <p>Q：前端加密敏感数据，密钥存放在哪里？不让硬编码在JS中，那放哪？<br>A：前端加密password等敏感字段，是用后端的公钥加密的，公钥可以硬编码在js中。<br>A：前端随机产生一个key，用来AES加密数据，然后用后端公钥加密key，一起传给后端。</p>
+        <p>Q：前端加密敏感数据，密钥存放在哪里？不让硬编码在JS中，那放哪？<br>A：前端加密password等敏感字段，是用后端的公钥加密的，公钥可以硬编码在js中。<br>A：前端随机产生一个key，用来AES加密数据，然后用后端公钥加密key，一起传给后端。<a id="more"></a></p>
 <p>Q：密钥硬编码在代码中，有安全风险，那密钥存在哪里？后端的代码可以硬编码么？<br>A：后端硬编码不在公网上传输，其实也是安全的，但不推荐。</p>
 <p>Q：已经使用了HTTPS，前端加密是否有意义？<br>A：HTTPS并不是端到端（End to End），而往往中间夹杂着代理，有客户端代理也有服务端代理，他们自然就可以看到用户https明文流量，其中也包含用户的明文密码。一旦前端加密了用户密码，即使有代理的存在，依然无法获取明文密码。</p>
 <p>Q：前端应用中的API密钥如何保存？<br>A：应该使用后端获取API的结果，返回给前端。</p>

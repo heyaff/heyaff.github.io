@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="安全笔记">
 <meta property="og:description" content="Q：签名是在哪做？是为了啥？证明谁的身份？场景是什么？A：签名主要证明数据没有被篡改，签名发起方和接收方算法保持一致 Q：客户端请求服务器端，API请求怎么签名？1、客户端内置appkey和secret，sign字段=MD5(key1value1key2value2…secret)进行MD5计算发给服务端2、建议把appsecret放到NDK中编译成so文件，app启动后去读取3、或者第一次APP">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-11-16T07:13:54.167Z">
+<meta property="og:updated_time" content="2021-01-18T11:50:39.219Z">
 <meta name="twitter:card" content="summary">
 
 
@@ -390,7 +390,7 @@
 
       
         <p>Q：签名是在哪做？是为了啥？证明谁的身份？场景是什么？<br>A：签名主要证明数据没有被篡改，签名发起方和接收方算法保持一致</p>
-<p>Q：客户端请求服务器端，API请求怎么签名？<br>1、客户端内置appkey和secret，sign字段=MD5(key1value1key2value2…secret)进行MD5计算发给服务端<br>2、建议把appsecret放到NDK中编译成so文件，app启动后去读取<br>3、或者第一次APP安装启动时，下发secret</p>
+<p>Q：客户端请求服务器端，API请求怎么签名？<br>1、客户端内置appkey和secret，sign字段=MD5(key1value1key2value2…secret)进行MD5计算发给服务端<br>2、建议把appsecret放到NDK中编译成so文件，app启动后去读取<br>3、或者第一次APP安装启动时，下发secret<a id="more"></a></p>
 <p>Q：浏览器请求服务器端，API请求怎么签名？<br>A：js中保存appsecret有较高风险，建议采用随机分配令牌的方式，为每个访问端分配一个token保存在cookie中，通过cookie请求头(cookie:h5_token=xxx;sessionid=xxx)传回服务端，sign=MD5(key1value1key2value2…token)<br>A：- <a href="https://mp.weixin.qq.com/s?__biz=MzIwNjUxMTQyMA%3D%3D&chksm=9721cf1ca056460a644f61bb84c255eb7620ac1905e8652ffb1a869c5432aac77a81400f90bd&idx=1&lang=zh_CN&mid=2247484239&scene=21&sn=1530557bc16ad40616d6614017a872d7&token=205497283#wechat_redirect" title="小歪丶 Python爬虫与算法进阶">淘宝sign签名算法</a></p>
 <p>接口暴漏在公网，需实施安全鉴权机制，包括但不限于以下几种：<br>使用https协议通讯，防止敏感数据泄密和篡改；<br>设置身份认证和访问机制，非授权不能访问接口；<br>限制访问的源IP白名单，非授权IP不允许调用接口；<br>实现时间戳超时机制，过期失效，防止接口重放攻击；<br>设置接口参数过滤、限制，防止接口特殊参数注入引发的安全问题；<br>限制访问的数据范围，防止对方访问不相关数据；<br>限制满足业需求的最低访问频率，比如1万次/天，防止不限制次数的接口调用导致用户信息泄露。</p>
 
