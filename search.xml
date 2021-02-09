@@ -1,38 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>分布式系统技术栈</title>
-    <url>/2021/01/18/jishu/</url>
-    <content><![CDATA[<p>抛出问题：<br>一个对外提供服务的大型分布式系统，用户访问这个系统，做一些操作，产生需要存储的数据，在这个过程中，有哪些组件、协议和调用？</p>
-<p><strong>请求</strong><br>Web浏览器、APP客户端、SDK组件</p>
-<p><strong>负载均衡</strong><br>在分布式系统中，为了高并发、高可用，一般是多个节点服务器提供相同的服务，由load balance选择哪个节点来提供服务</p>
-<p><strong>系统调用</strong><br>节点服务器开始处理用户的请求，简单请求，可能是有缓存的，即分布式缓存。如果缓存没有，那么去数据库拉取数据。<br>复杂请求，即系统A需要调用系统B的服务，但是，每个应用都手写socket是一件冗杂、低效的事情，因此需要应用层的封装，因此有了HTTP接口。如果系统愈加复杂，大量的HTTP接口也是一件困难的事情，因此进一步的抽象，就是RPC（remote produce call），远程调用就跟本地过程调用一样方便，屏蔽了网络通信等诸多细节</p>
-<p>总结：socket—–HTTP接口—–RPC<a id="more"></a></p>
-<p><strong>注册中心</strong><br>一个请求包含多个操作，其实就是涉及到多个服务，分布式系统中有大量的服务，每个服务又是多个节点组成。那么一个服务怎么找到另一个服务（的某个节点呢）？<br>通信是需要地址的，怎么获取这个地址，最简单的办法就是配置文件写死，或者写入到数据库，但这些方法在节点数据巨大、节点动态增删的时候都不大方便，这个时候就需要服务注册与发现：提供服务的节点向一个协调中心注册自己的地址，使用服务的节点去协调中心拉取地址。</p>
-<p>从上可以看见，协调中心提供了中心化的服务：以一组节点提供类似单点的服务，使用非常广泛，比如命令服务、分布式锁。协调中心最出名的就是zookeeper，chubby。</p>
-<p><strong>消息队列</strong><br>回到用户请求这个点，请求操作会产生一些数据、日志，其他一些系统可能会对这些消息感兴趣，比如个性化推荐、监控等，这里就抽象出了两个概念，消息的生产者与消费者。那么生产者怎么将消息发送给消费者呢，RPC并不是一个很好的选择，因为RPC肯定得指定消息发给谁，但实际的情况是生产者并不清楚、也不关心谁会消费这个消息，这个时候消息队列就出马了。简单来说，生产者只用往消息队列里面发就行了，队列会将消息按主题（topic）分发给关注这个主题的消费者。消息队列起到了异步处理、应用解耦的作用。</p>
-<p><strong>分布式计算</strong><br>上面提到，用户操作会产生一些数据，这些数据忠实记录了用户的操作习惯、喜好，是各行各业最宝贵的财富。比如各种推荐、广告投放、自动识别。这就催生了分布式计算平台，比如Hadoop，Storm等，用来处理这些海量的数据。</p>
-<p><strong>分布式存储</strong><br>最后，用户的操作完成之后，用户的数据需要持久化，但数据量很大，大到按个节点无法存储，那么这个时候就需要分布式存储：将数据进行划分放在不同的节点上，同时，为了防止数据的丢失，每一份数据会保存多分。传统的关系型数据库是单点存储，为了在应用层透明的情况下分库分表，会引用额外的代理层。而对于NoSql，一般天然支持分布式。</p>
-<p><img src="/images/fenbushi.png" alt="分布式架构图"></p>
-<h3 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h3><p>Nginx：高性能、高并发的web服务器；功能包括负载均衡、反向代理、静态内容缓存、访问控制；工作在应用层<br>LVS： Linux virtual server，基于集群技术和Linux操作系统实现一个高性能、高可用的服务器；工作在网络层</p>
-<h3 id="webserver"><a href="#webserver" class="headerlink" title="webserver"></a>webserver</h3><p>Java：Tomcat，Apache，Jboss<br>Python：gunicorn、uwsgi、twisted、webpy、tornado</p>
-<h3 id="service"><a href="#service" class="headerlink" title="service"></a>service</h3><p>SOA、微服务、spring boot，django</p>
-<h3 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h3><p>docker，kubernetes</p>
-<h3 id="cache"><a href="#cache" class="headerlink" title="cache"></a>cache</h3><p>memcache、redis等</p>
-<h3 id="协调中心"><a href="#协调中心" class="headerlink" title="协调中心"></a>协调中心</h3><p>zookeeper、etcd等</p>
-<h3 id="RPC框架"><a href="#RPC框架" class="headerlink" title="RPC框架"></a>RPC框架</h3><p>dubbo<br>dubbo是阿里开源的Java语言开发的高性能RPC框架，在阿里系的诸多架构中，都使用了dubbo + spring boot</p>
-<h3 id="消息队列"><a href="#消息队列" class="headerlink" title="消息队列"></a>消息队列</h3><p>kafka、rabbitMQ、rocketMQ<br>消息队列的应用场景：异步处理、应用解耦、流量削锋和消息通讯</p>
-<h3 id="实时数据平台"><a href="#实时数据平台" class="headerlink" title="实时数据平台"></a>实时数据平台</h3><p>storm</p>
-<h3 id="离线数据平台"><a href="#离线数据平台" class="headerlink" title="离线数据平台"></a>离线数据平台</h3><p>hadoop、spark</p>
-<h3 id="db"><a href="#db" class="headerlink" title="db"></a>db</h3><p>mysql、oracle、MongoDB、HBase</p>
-<h3 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h3><p>elasticsearch</p>
-<h3 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h3><p>rsyslog、elk、flume</p>
+    <title>SQLMAP常用命令</title>
+    <url>/2021/01/18/sqlmap/</url>
+    <content><![CDATA[<h3 id="注入点位置，加"><a href="#注入点位置，加" class="headerlink" title="注入点位置，加*"></a>注入点位置，加*</h3><p>–batch 不会询问你输入 全部默认确定<br>-v        sql详细输出级别，等级3会显示payload</p>
+<h3 id="常见命令"><a href="#常见命令" class="headerlink" title="常见命令"></a>常见命令</h3><figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">python sqlmap<span class="selector-class">.py</span> -r demo<span class="selector-class">.txt</span> --dbs --batch -v <span class="number">3</span></span><br><span class="line"></span><br><span class="line">python sqlmap<span class="selector-class">.py</span> -r demo<span class="selector-class">.txt</span> --tables -D 库名</span><br><span class="line"></span><br><span class="line">python sqlmap<span class="selector-class">.py</span> -r demo<span class="selector-class">.txt</span> --<span class="attribute">columns</span> -T 表名 -D 库名</span><br><span class="line"></span><br><span class="line">python sqlmap<span class="selector-class">.py</span> -r demo<span class="selector-class">.txt</span> --dump -C 列名<span class="number">1</span>,列名<span class="number">2</span> -T 表名 -D 库名</span><br><span class="line"></span><br><span class="line">python sqlmap<span class="selector-class">.py</span> -r demo<span class="selector-class">.txt</span> --dump-all -T 表名 -D 库名</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+
 ]]></content>
       <categories>
-        <category>技术栈</category>
+        <category>SQLMAP</category>
       </categories>
       <tags>
-        <tag>分布式系统</tag>
+        <tag>SQLMAP</tag>
       </tags>
   </entry>
   <entry>
@@ -48,7 +28,7 @@
       </tags>
   </entry>
   <entry>
-    <title>HTTP/2协议</title>
+    <title>HTTP/2 & QUIC 协议</title>
     <url>/2021/01/08/http2/</url>
     <content><![CDATA[<h3 id="HTTP-2对比HTTP-1-1"><a href="#HTTP-2对比HTTP-1-1" class="headerlink" title="HTTP/2对比HTTP 1.1"></a>HTTP/2对比HTTP 1.1</h3><p>HTTP/2也被称为HTTP 2.0，相对于HTTP 1.1的新增多路复用、压缩HTTP头、划分请求优先级、服务端推送等特性，解决了在HTTP 1.1中一直存在的问题，优化了请求性能，同时兼容了HTTP 1.1的语义。<a id="more"></a></p>
 <h3 id="HTTP-2优势"><a href="#HTTP-2优势" class="headerlink" title="HTTP/2优势"></a>HTTP/2优势</h3><ul>
@@ -60,6 +40,24 @@
 <h3 id="HTTP的访问请求只能是HTTP-1-1，HTTPS下才会有H2"><a href="#HTTP的访问请求只能是HTTP-1-1，HTTPS下才会有H2" class="headerlink" title="HTTP的访问请求只能是HTTP/1.1，HTTPS下才会有H2"></a>HTTP的访问请求只能是HTTP/1.1，HTTPS下才会有H2</h3><h3 id="Nginx支持H2配置，但不支持后端应用也启用了H2"><a href="#Nginx支持H2配置，但不支持后端应用也启用了H2" class="headerlink" title="Nginx支持H2配置，但不支持后端应用也启用了H2"></a>Nginx支持H2配置，但不支持后端应用也启用了H2</h3><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">　　 <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">　　 <span class="attribute">listen</span> [::]:<span class="number">80</span>;</span><br><span class="line">　　 <span class="attribute">listen</span> <span class="number">443</span> ssl http2;</span><br><span class="line">　　 <span class="attribute">listen</span> [::]:<span class="number">443</span> ssl http2;</span><br><span class="line">　　 <span class="attribute">server_name</span> example.com;</span><br></pre></td></tr></table></figure>
 
 <h3 id="为啥抓包工具抓不到HTTP-2"><a href="#为啥抓包工具抓不到HTTP-2" class="headerlink" title="为啥抓包工具抓不到HTTP/2"></a>为啥抓包工具抓不到HTTP/2</h3><p>BURP_2020.6版本之后支持HTTP/2</p>
+<h3 id="QUIC基于UDP协议，属于传输层"><a href="#QUIC基于UDP协议，属于传输层" class="headerlink" title="QUIC基于UDP协议，属于传输层"></a>QUIC基于UDP协议，属于传输层</h3><ul>
+<li>1RTT/0RTT</li>
+<li>TLS1.3传输层安全协议</li>
+<li>连接迁移，使用UUID标识每一次连接，当手机切换网络，自身IP变化的场景，对于TCP连接（源目IP+源目端口）就会失效，需重新建立连接。但只要UUID不变，QUIC就不需要重新握手，继续传输数据</li>
+<li></li>
+</ul>
+<h3 id="QUIC缺点"><a href="#QUIC缺点" class="headerlink" title="QUIC缺点"></a>QUIC缺点</h3><ul>
+<li>推广慢，运营商/公司一般会对53端口（DNS）以外的UDP流量拦截或限流</li>
+<li>UDP放大攻击，攻击者控制肉机向受害者投放大量的UDP流量</li>
+</ul>
+<h3 id="HTTP-3，基于QUIC协议的HTTP（HTTP-over-QUIC）命名为HTTP-3"><a href="#HTTP-3，基于QUIC协议的HTTP（HTTP-over-QUIC）命名为HTTP-3" class="headerlink" title="HTTP/3，基于QUIC协议的HTTP（HTTP-over-QUIC）命名为HTTP/3"></a>HTTP/3，基于QUIC协议的HTTP（HTTP-over-QUIC）命名为HTTP/3</h3><p>QUIC协议不止用于HTTP，也可用于其他</p>
+<h3 id="客户端开启HTTP-3"><a href="#客户端开启HTTP-3" class="headerlink" title="客户端开启HTTP/3"></a>客户端开启HTTP/3</h3><p>最新版Chrome 83+、Firefox 75+已支持QUIC，但是都需要手动开启，主要原因HTTP/3还在草案阶段</p>
+<ul>
+<li>Firefox——<code>about:config</code>中network.http.http3.enabled = true</li>
+<li>Chrome——<code>chrome://flags</code>中enable-quic</li>
+</ul>
+<p>步骤一：关闭当前Chrome<br>步骤二：在电脑命令行下启动Chrome<br>Windows 环境：C:\Program Files (x86)\Google\Chrome\Application&gt;chrome.exe –enable-quic –quic-version=h3-29</p>
+<p>macOS 环境 ：/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome –enable-quic –quic-version=h3-29</p>
 ]]></content>
       <categories>
         <category>QUIC</category>
@@ -88,13 +86,184 @@
       </tags>
   </entry>
   <entry>
+    <title>分布式系统技术栈</title>
+    <url>/2020/12/31/jishu/</url>
+    <content><![CDATA[<p><a href="https://www.cnblogs.com/xybaby/p/7787034.html">什么是分布式系统，如何学习分布式系统</a><br>抛出问题：<br>一个对外提供服务的大型分布式系统，用户访问这个系统，做一些操作，产生需要存储的数据，在这个过程中，有哪些组件、协议和调用？<a id="more"></a></p>
+<p><strong>请求</strong><br>Web浏览器、APP客户端、SDK组件</p>
+<p><strong>负载均衡</strong><br>在分布式系统中，为了高并发、高可用，一般是多个节点服务器提供相同的服务，由load balance选择哪个节点来提供服务</p>
+<p><strong>系统调用</strong><br>节点服务器开始处理用户的请求，简单请求，可能是有缓存的，即分布式缓存。如果缓存没有，那么去数据库拉取数据。<br>复杂请求，即系统A需要调用系统B的服务，但是，每个应用都手写socket是一件冗杂、低效的事情，因此需要应用层的封装，因此有了HTTP接口。如果系统愈加复杂，大量的HTTP接口也是一件困难的事情，因此进一步的抽象，就是RPC（remote produce call），远程调用就跟本地过程调用一样方便，屏蔽了网络通信等诸多细节(一般公司使用dubbo框架实现RPC远程调用)。</p>
+<p>总结：socket—–HTTP接口—–RPC</p>
+<p><strong>注册中心</strong><br>一个请求包含多个操作，其实就是涉及到多个服务，分布式系统中有大量的服务，每个服务又是多个节点组成。那么一个服务怎么找到另一个服务（的某个节点呢）？<br>通信是需要地址的，怎么获取这个地址，最简单的办法就是配置文件写死，或者写入到数据库，但这些方法在节点数据巨大、节点动态增删的时候都不大方便，这个时候就需要服务注册与发现：提供服务的节点向一个协调中心注册自己的地址，使用服务的节点去协调中心拉取地址。</p>
+<p>从上可以看见，协调中心提供了中心化的服务：以一组节点提供类似单点的服务，使用非常广泛，比如命令服务、分布式锁。协调中心最出名的就是zookeeper，chubby。</p>
+<p><strong>消息队列</strong><br>回到用户请求这个点，请求操作会产生一些数据、日志，其他一些系统可能会对这些消息感兴趣，比如个性化推荐、监控等，这里就抽象出了两个概念，消息的生产者与消费者。那么生产者怎么将消息发送给消费者呢，RPC并不是一个很好的选择，因为RPC肯定得指定消息发给谁，但实际的情况是生产者并不清楚、也不关心谁会消费这个消息，这个时候消息队列就出马了。简单来说，生产者只用往消息队列里面发就行了，队列会将消息按主题（topic）分发给关注这个主题的消费者。消息队列起到了异步处理、应用解耦的作用。</p>
+<p><strong>分布式计算</strong><br>上面提到，用户操作会产生一些数据，这些数据忠实记录了用户的操作习惯、喜好，是各行各业最宝贵的财富。比如各种推荐、广告投放、自动识别。这就催生了分布式计算平台，比如Hadoop，Storm等，用来处理这些海量的数据。</p>
+<p><strong>分布式存储</strong><br>最后，用户的操作完成之后，用户的数据需要持久化，但数据量很大，大到按个节点无法存储，那么这个时候就需要分布式存储：将数据进行划分放在不同的节点上，同时，为了防止数据的丢失，每一份数据会保存多分。传统的关系型数据库是单点存储，为了在应用层透明的情况下分库分表，会引用额外的代理层。而对于NoSql，一般天然支持分布式。</p>
+<p><img src="/images/fenbushi.png" alt="分布式架构图"></p>
+<table>
+<thead>
+<tr>
+<th align="center">组件</th>
+<th align="center">技术栈</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">负载均衡</td>
+<td align="center">Nginx</td>
+<td align="center">负载均衡、反向代理、静态内容缓存，工作在应用层</td>
+</tr>
+<tr>
+<td align="center">负载均衡</td>
+<td align="center">LVS</td>
+<td align="center">高性能、高可用的服务器，工作在网络层</td>
+</tr>
+<tr>
+<td align="center">WEB server</td>
+<td align="center">Java：Tomcat、Apache、Jboss、Weblogic</td>
+<td align="center">Weblogic收费</td>
+</tr>
+<tr>
+<td align="center">service</td>
+<td align="center">SOA</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">service</td>
+<td align="center">微服务</td>
+<td align="center">主要是后端服务拆分</td>
+</tr>
+<tr>
+<td align="center">service</td>
+<td align="center">spring boot</td>
+<td align="center">后端</td>
+</tr>
+<tr>
+<td align="center">service</td>
+<td align="center">django</td>
+<td align="center">后端</td>
+</tr>
+<tr>
+<td align="center">-</td>
+<td align="center">VUE</td>
+<td align="center">前端</td>
+</tr>
+<tr>
+<td align="center">容器</td>
+<td align="center">docker</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">容器</td>
+<td align="center">k8s</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">cache</td>
+<td align="center">memchache</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">cache</td>
+<td align="center">redis</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">协调中心</td>
+<td align="center">zookeeper</td>
+<td align="center">java开发的，被Apache很多项目采用</td>
+</tr>
+<tr>
+<td align="center">协调中心</td>
+<td align="center">etcd</td>
+<td align="center">在分布式环境下的key/value存储服务，用于共享配置信息或服务发现，主要是被K8s采用</td>
+</tr>
+<tr>
+<td align="center">RPC框架</td>
+<td align="center">dubbo</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">消息队列</td>
+<td align="center">kafka</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">消息队列</td>
+<td align="center">rabbitMQ</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">消息队列</td>
+<td align="center">rocketMQ</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">实时数据</td>
+<td align="center">storm</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">离线数据平台</td>
+<td align="center">Hadoop</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">离线数据平台</td>
+<td align="center">spark</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">dbproxy</td>
+<td align="center">cobar</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">DB</td>
+<td align="center">MySQL、Oracle、MongoDB、HBase</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">搜索</td>
+<td align="center">elasticsearch</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">日志</td>
+<td align="center">rsyslog</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">日志</td>
+<td align="center">elk</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">日志</td>
+<td align="center">flume</td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<p>Kafka-ZooKeeper分布式消息队列系统架构：<br><img src="/images/kafka-zk.png" alt="分布式架构图"></p>
+]]></content>
+      <categories>
+        <category>技术栈</category>
+      </categories>
+      <tags>
+        <tag>分布式系统</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>nmap</title>
     <url>/2020/12/29/nmap/</url>
     <content><![CDATA[<h3 id="PN-No-ping扫描"><a href="#PN-No-ping扫描" class="headerlink" title="PN No ping扫描"></a>PN No ping扫描</h3><p>如果远程主机有防火墙IDS和IPS系统，你可以使用-PN命令来确保不ping远程主机，因为有时候防火墙会禁用ping<br>禁ping，TCP端口扫描命令：<br><code>nmap -sT -Pn 目标IP</code></p>
-<h3 id="curl添加请求头，-v可回显响应头"><a href="#curl添加请求头，-v可回显响应头" class="headerlink" title="curl添加请求头，-v可回显响应头"></a>curl添加请求头，-v可回显响应头</h3><figure class="highlight livescript"><table><tr><td class="code"><pre><span class="line">curl -X GET <span class="string">"https://xxx.com"</span> <span class="string">\</span></span><br><span class="line">     -H <span class="string">"Cookie: xxx"</span> <span class="string">\</span></span><br><span class="line">     -H <span class="string">"Referer: https://xxx.com:1111/xxx"</span></span><br></pre></td></tr></table></figure>
+<h3 id="CURL命令"><a href="#CURL命令" class="headerlink" title="CURL命令"></a>CURL命令<a id="more"></a></h3><ul>
+<li>添加请求头<figure class="highlight livescript"><table><tr><td class="code"><pre><span class="line">curl -X GET <span class="string">"https://xxx.com"</span> <span class="string">\</span></span><br><span class="line">     -H <span class="string">"Cookie: xxx"</span> <span class="string">\</span></span><br><span class="line">     -H <span class="string">"Referer: https://xxx.com:1111/xxx"</span></span><br></pre></td></tr></table></figure></li>
+<li>POST添加请求body -d<br><code>curl https://xxx.com -X POST -d &#39;id=1&amp;user=hehe&#39;</code></li>
+</ul>
 ]]></content>
       <categories>
         <category>nmap</category>
+        <category>curl</category>
       </categories>
       <tags>
         <tag>端口扫描</tag>
@@ -207,14 +376,43 @@
     <title>KMS密钥管理</title>
     <url>/2020/10/10/kms/</url>
     <content><![CDATA[<p>Q：前端加密敏感数据，密钥存放在哪里？不让硬编码在JS中，那放哪？<br>A：前端加密password等敏感字段，是用后端的公钥加密的，公钥可以硬编码在js中。<br>A：前端随机产生一个key，用来AES加密数据，然后用后端公钥加密key，一起传给后端。<a id="more"></a></p>
-<p>Q：密钥硬编码在代码中，有安全风险，那密钥存在哪里？后端的代码可以硬编码么？<br>A：后端硬编码不在公网上传输，其实也是安全的，但不推荐。</p>
+<p>Q：密钥硬编码在代码中，有安全风险，那密钥存在哪里？后端的代码可以硬编码么？<br>A：后端硬编码不在公网上传输，其实也是安全的，但不推荐，不合规。</p>
 <p>Q：已经使用了HTTPS，前端加密是否有意义？<br>A：HTTPS并不是端到端（End to End），而往往中间夹杂着代理，有客户端代理也有服务端代理，他们自然就可以看到用户https明文流量，其中也包含用户的明文密码。一旦前端加密了用户密码，即使有代理的存在，依然无法获取明文密码。</p>
 <p>Q：前端应用中的API密钥如何保存？<br>A：应该使用后端获取API的结果，返回给前端。</p>
-<h3 id="KMS"><a href="#KMS" class="headerlink" title="KMS"></a>KMS</h3><p><strong>敏感信息加密</strong>是密钥管理服务（KMS）核心的能力，适用于保护小型敏感数据（小于4KB），如<big>密钥、证书、配置文件</big>等。</p>
-<p>采用对称加密的方式，业务方将敏感数据明文调用KMS进行加密，返回密文存储。将密文部署在应用服务器上，应用使用时，调用KMS解密在内存中，明文没有落地。<br>主要防止某一个环节禁止存放明文数据，故采用调KMS进行解密。</p>
-<p>接收方调KMS产生公钥，发给发送者，接收方收到公钥加密的信息，调KMS中对应的私钥解密，这图啥？</p>
-<p>KMS没有保存明文数据，解密时将密文解密到内存，保证明文不落盘</p>
-<p>KMS常见对小数据加密，若对海量的数据加密，“信封加密”场景</p>
+<h3 id="KMS"><a href="#KMS" class="headerlink" title="KMS"></a>KMS</h3><p>目的：<br>禁止业务调用方，本地私自<strong>明文存储</strong>敏感信息（如密钥）。并非应用执行加密算法时对密钥的加密（在内存中是明文密钥）</p>
+<p><img src="/images/KMS.png" alt="KMS架构"><br>密钥分级</p>
+<ul>
+<li>数据密钥DEK：三级密钥，用来加密明文数据的密钥</li>
+<li>主密钥CMK：二级密钥，用来加密<strong>数据密钥</strong>的密钥</li>
+<li>根密钥RootKey：一级密钥，用来加密<strong>主密钥</strong>的密钥</li>
+</ul>
+<h4 id="术语"><a href="#术语" class="headerlink" title="术语"></a>术语</h4><p>HSM：加密机，一般是芯片硬件，提供根密钥生成和保管<br>KMS：后台程序，负责从硬件安全模块HSM获取/保存根密钥（内存），派生算法生成主密钥/数据密钥，主密钥加密持久化保存在数据库中（数据密钥可存储可不存储，阿里云是不存储的）<br>SDK：给业务系统客户端使用，集成KMS API组件，其中的加解密模块就是OpenSSL封装起来的库</p>
+<p>KMS负责加密所有租户的主密钥，租户不知道256位值，只看到主密钥的UUID</p>
+<h4 id="场景1——直接加密"><a href="#场景1——直接加密" class="headerlink" title="场景1——直接加密"></a>场景1——直接加密</h4><ul>
+<li>对配置文件的加密</li>
+<li>对SSL私钥的加密</li>
+</ul>
+<p><strong>敏感信息直接加密</strong>是密钥管理服务（KMS）核心的能力，适用于保护小型敏感数据（小于4KB），如<big>密钥、证书、配置文件</big>等。</p>
+<p>采用对称加密的方式，业务方将敏感数据明文调用KMS进行加密，返回密文存储。将密文部署在应用服务器上，应用使用时，调用KMS解密在内存中，明文没有落地。<br>主要防止某一个环节禁止存放明文数据，故采用调KMS进行加密。</p>
+<h4 id="场景2——信封加密"><a href="#场景2——信封加密" class="headerlink" title="场景2——信封加密"></a>场景2——信封加密</h4><ul>
+<li>对业务数据文件的加密</li>
+<li>对服务器上的磁盘数据加密</li>
+</ul>
+<p><img src="/images/KMS_encrypt.png" alt="加密SDK使用场景"></p>
+<p>业务系统A已集成KMS的SDK<br>i.通过KMS控制台，或者调用CreateKey接口，创建一个用户主密钥。<br>ii.调用GenerateDataKey接口创建一个数据密钥。KMS会返回一个明文的数据密钥和一个密文的数据密钥。<br>iii.使用明文的数据密钥加密文件，产生密文文件，然后销毁内存中的明文密钥。<br>iv.用户将密文数据密钥和密文文件一同存储到持久化存储设备或服务中。</p>
+<p>综述，租户的主密钥保存在KMS数据库中，加密主密钥的根密钥保存在HSM硬件中。</p>
+<h4 id="KMS问答"><a href="#KMS问答" class="headerlink" title="KMS问答"></a>KMS问答</h4><p>Q：根密钥在哪存储？主密钥在哪存储？数据密钥在哪存储？<br>A：根密钥在HSM的硬件芯片中，主密钥在KMS的数据库中加密存储，数据密钥在应用系统本地加密存储。<br>A：KMS不会存储你的数据密钥，当然也不会存储根密钥，使用根密钥时是在内存中的，不会落地。<br>A：业务系统加载使用数据密钥时，是在内存中的，明文，不会落地。<br>A：凡是落地的密钥，都要加密，禁止明文存储。</p>
+<p>Q：主密钥会在客户端内存中么？<br>A：主密钥永远不会离开KMS+HSM，故不会在业务系统的内存中。即业务系统永远不知道CMK，只知道UUID。</p>
+<p>Q：调用方永远不知道明文数据块？<br>A：KMS只是负责帮你加密或托管密钥，明文数据毕竟是你提供的，只是避免明文存储，间接的人为看到。</p>
+<p>Q：数据密钥DEK怎么生成的？<br>A：第一种通过KMS的主密钥CMK生成，但KMS不会存储、管理你的DEK<br>A：第二种应用系统本地生成，然后发给KMS让它加密</p>
+<p>Q：数据密钥保存在KMS中？<br>A：第一种，DEK明文+DEK密文由KMS生成后返回给调用方应用系统的内存中，明文用完请尽快删除，密文落盘。<br>A：第二种，DEK明文是OpenSSL随机生成的，也在内存中。<br>A：Google的最佳实践是第二种。应用系统本地生成DEK，自行加密文件，再调用KMS对DEK加密，最后文件和加密的DEK保存在一起。<br>A：另类玩法：一个部门一个CMK，一个应用系统一个DEK，都在KMS中落盘存储，部门/应用系统只知道自己的CMK_ID和DEK_ID。</p>
+<p>Q：主密钥直接加密和信封加密的区别？<br>A：看你传不传输待加密的数据文件</p>
+<p>Q：主密钥直接加密业务方提供的数据，有啥缺点？</p>
+<ul>
+<li>主密钥加密的东西，支持最大4KB的数据</li>
+<li>信封加密降低了网络负载，可提供巨大的性能优势</li>
+<li>将需要加密的数据通过网络传输到KMS后端，传输过程中的安全风险问题（相比只传输密钥）</li>
+</ul>
 ]]></content>
       <categories>
         <category>KMS</category>
@@ -570,30 +768,6 @@
       </tags>
   </entry>
   <entry>
-    <title>容器安全</title>
-    <url>/2020/01/07/container/</url>
-    <content><![CDATA[<p><img src="/images/%E5%AE%89%E5%85%A8%E5%AE%B9%E5%99%A8.png" alt="安全容器"></p>
-<p>利用镜像创建一个容器<br>开发：使用一个标准镜像构建一套开发容器。<br>运维：开发完后，运维直接使用这个容器来部署代码</p>
-<p>Docker：创建容器<br>K8S：编排容器<br>一个镜像可以启动（run）多个容器，一个容器可以理解为一个虚拟环境。</p>
-<p>一台主机可以同时运行几千个Docker容器</p>
-<p>K8s容器集群管理系统：启动容器，自动化部署、扩展和管理容器，回收容器。<br>K8S负责管理容器跑在哪个机器上，监控容器的存在，控制容器与外界通讯。</p>
-<p>docker pull 镜像<br>docker run 镜像<br>dock build构建镜像</p>
-<p>每个Pod都有一个唯一的IP</p>
-<p>Node是Pod真正运行的主机</p>
-<p>一个server包括多个pod</p>
-<p>不要在单个容器里面运行多个进程</p>
-<p>不要把认证口令存在镜像中，用环境变量比较好</p>
-<p>不要将数据储存在容器中</p>
-]]></content>
-      <categories>
-        <category>容器</category>
-        <category>云平台</category>
-      </categories>
-      <tags>
-        <tag>容器安全</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>SPF防范假冒邮件</title>
     <url>/2020/01/07/spf/</url>
     <content><![CDATA[<p>如果你购买的域名，没有配置SPF值，则黑客可以冒充你的域名后缀发送邮件。</p>
@@ -614,6 +788,32 @@
       </tags>
   </entry>
   <entry>
+    <title>容器安全</title>
+    <url>/2020/01/07/container/</url>
+    <content><![CDATA[<p><img src="/images/%E5%AE%89%E5%85%A8%E5%AE%B9%E5%99%A8.png" alt="安全容器"></p>
+<h3 id="云原生"><a href="#云原生" class="headerlink" title="云原生"></a>云原生</h3><p>云原生（Cloud Native）是一套技术体系和方法论。云（Cloud）表示应用程序位于云中，而不是传统的数据中心；原生（Native）表示应用程序从设计之初即考虑到云的环境，原生为云而设计，在云上以最佳状态运行，充分利用和发挥云平台的弹性和分布式优势。</p>
+<p>云原生的代表技术包括容器、服务网格（Service Mesh）、微服务（Microservice）、不可变基础设施和声明式API。</p>
+<h3 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h3><p>利用镜像创建一个容器<br>开发：使用一个标准镜像构建一套开发容器。<br>运维：开发完后，运维直接使用这个容器来部署代码<a id="more"></a></p>
+<p>Docker：创建容器<br>K8S：编排容器<br>一个镜像可以启动（run）多个容器，一个容器可以理解为一个虚拟环境。</p>
+<p>一台主机可以同时运行几千个Docker容器</p>
+<p>K8s容器集群管理系统：启动容器，自动化部署、扩展和管理容器，回收容器。<br>K8S负责管理容器跑在哪个机器上，监控容器的存在，控制容器与外界通讯。</p>
+<p>docker pull 镜像<br>docker run 镜像<br>dock build构建镜像</p>
+<p>每个Pod都有一个唯一的IP</p>
+<p>Node是Pod真正运行的主机</p>
+<p>一个server包括多个pod</p>
+<p>不要在单个容器里面运行多个进程</p>
+<p>不要把认证口令存在镜像中，用环境变量比较好</p>
+<p>不要将数据储存在容器中</p>
+]]></content>
+      <categories>
+        <category>容器</category>
+        <category>云平台</category>
+      </categories>
+      <tags>
+        <tag>容器安全</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>keepalived</title>
     <url>/2019/11/28/keepalived/</url>
     <content><![CDATA[<p><img src="/images/keepalived.jpg" alt=""></p>
@@ -628,7 +828,7 @@
   <entry>
     <title>sso</title>
     <url>/2019/11/28/sso/</url>
-    <content><![CDATA[<p><img src="/images/sso.png" alt=""></p>
+    <content><![CDATA[<p><img src="/images/sso.png" alt=""><a id="more"></a></p>
 <h3 id="鉴权-黑猫-UM（统一模板，控制子菜单权限）"><a href="#鉴权-黑猫-UM（统一模板，控制子菜单权限）" class="headerlink" title="鉴权:黑猫/UM（统一模板，控制子菜单权限）"></a>鉴权:黑猫/UM（统一模板，控制子菜单权限）</h3><h3 id="SSO-统一认证系统-单点登录"><a href="#SSO-统一认证系统-单点登录" class="headerlink" title="SSO:统一认证系统/单点登录"></a>SSO:统一认证系统/单点登录</h3><p>实现效果：访问A系统，右上角点击登录，跳转到SSO认证页面，认证通过后，返回A系统。又访问B系统，无须登录可访问B。<br><img src="/images/sso1.jpg" alt="SSO流程图"><br>8、应用A拿到user的Token，要发给SSO去校验，不校验直接返回页面给user，是不安全的。校验Token是SSO的活，因为是它生成的Token<br>9、SSO校验Token是否真实，返回True/False给应用A。应用A将用户信息存在session中，当用户下次访问应用A时，应用A检测session中是否存在，如果存在将不会再访问SSO</p>
 <h3 id="AD：域账号（存储用户的账号-密码）"><a href="#AD：域账号（存储用户的账号-密码）" class="headerlink" title="AD：域账号（存储用户的账号/密码）"></a>AD：域账号（存储用户的账号/密码）</h3><p>若C系统不接SSO，直接用AD登录C系统自带的登陆页面，登录成功后，访问D系统，依然还得登录= =!</p>
 ]]></content>

@@ -79,15 +79,15 @@
 
 
 
-<meta name="description" content="PN No ping扫描如果远程主机有防火墙IDS和IPS系统，你可以使用-PN命令来确保不ping远程主机，因为有时候防火墙会禁用ping禁ping，TCP端口扫描命令：nmap -sT -Pn 目标IP curl添加请求头，-v可回显响应头123curl -X GET &quot;https:&#x2F;&#x2F;xxx.com&quot; \     -H &quot;Cookie: xxx&quot; \     -H &quot;Referer: htt">
+<meta name="description" content="PN No ping扫描如果远程主机有防火墙IDS和IPS系统，你可以使用-PN命令来确保不ping远程主机，因为有时候防火墙会禁用ping禁ping，TCP端口扫描命令：nmap -sT -Pn 目标IP CURL命令">
 <meta name="keywords" content="端口扫描,curl">
 <meta property="og:type" content="article">
 <meta property="og:title" content="nmap">
 <meta property="og:url" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;2020&#x2F;12&#x2F;29&#x2F;nmap&#x2F;index.html">
 <meta property="og:site_name" content="安全笔记">
-<meta property="og:description" content="PN No ping扫描如果远程主机有防火墙IDS和IPS系统，你可以使用-PN命令来确保不ping远程主机，因为有时候防火墙会禁用ping禁ping，TCP端口扫描命令：nmap -sT -Pn 目标IP curl添加请求头，-v可回显响应头123curl -X GET &quot;https:&#x2F;&#x2F;xxx.com&quot; \     -H &quot;Cookie: xxx&quot; \     -H &quot;Referer: htt">
+<meta property="og:description" content="PN No ping扫描如果远程主机有防火墙IDS和IPS系统，你可以使用-PN命令来确保不ping远程主机，因为有时候防火墙会禁用ping禁ping，TCP端口扫描命令：nmap -sT -Pn 目标IP CURL命令">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2021-01-13T09:24:30.958Z">
+<meta property="og:updated_time" content="2021-01-18T12:29:12.196Z">
 <meta name="twitter:card" content="summary">
 
 
@@ -354,6 +354,17 @@
 
                 
                 
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/nmap/curl/" itemprop="url" rel="index">
+                    <span itemprop="name">curl</span>
+                  </a>
+                </span>
+
+                
+                
               
             </span>
           
@@ -390,7 +401,10 @@
 
       
         <h3 id="PN-No-ping扫描"><a href="#PN-No-ping扫描" class="headerlink" title="PN No ping扫描"></a>PN No ping扫描</h3><p>如果远程主机有防火墙IDS和IPS系统，你可以使用-PN命令来确保不ping远程主机，因为有时候防火墙会禁用ping<br>禁ping，TCP端口扫描命令：<br><code>nmap -sT -Pn 目标IP</code></p>
-<h3 id="curl添加请求头，-v可回显响应头"><a href="#curl添加请求头，-v可回显响应头" class="headerlink" title="curl添加请求头，-v可回显响应头"></a>curl添加请求头，-v可回显响应头</h3><figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET <span class="string">"https://xxx.com"</span> <span class="string">\</span></span><br><span class="line">     -H <span class="string">"Cookie: xxx"</span> <span class="string">\</span></span><br><span class="line">     -H <span class="string">"Referer: https://xxx.com:1111/xxx"</span></span><br></pre></td></tr></table></figure>
+<h3 id="CURL命令"><a href="#CURL命令" class="headerlink" title="CURL命令"></a>CURL命令<a id="more"></a></h3><ul>
+<li>添加请求头<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET <span class="string">"https://xxx.com"</span> <span class="string">\</span></span><br><span class="line">     -H <span class="string">"Cookie: xxx"</span> <span class="string">\</span></span><br><span class="line">     -H <span class="string">"Referer: https://xxx.com:1111/xxx"</span></span><br></pre></td></tr></table></figure></li>
+<li>POST添加请求body -d<br><code>curl https://xxx.com -X POST -d &#39;id=1&amp;user=hehe&#39;</code></li>
+</ul>
 
       
     </div>
@@ -433,8 +447,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2021/01/04/sql/" rel="prev" title="SQL语句">
-                SQL语句 <i class="fa fa-chevron-right"></i>
+              <a href="/2020/12/31/jishu/" rel="prev" title="分布式系统技术栈">
+                分布式系统技术栈 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -516,7 +530,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-count">38</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -527,7 +541,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-count">40</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -538,7 +552,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-count">46</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -571,7 +585,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#PN-No-ping扫描"><span class="nav-number">1.</span> <span class="nav-text">PN No ping扫描</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#curl添加请求头，-v可回显响应头"><span class="nav-number">2.</span> <span class="nav-text">curl添加请求头，-v可回显响应头</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#PN-No-ping扫描"><span class="nav-number">1.</span> <span class="nav-text">PN No ping扫描</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CURL命令"><span class="nav-number">2.</span> <span class="nav-text">CURL命令</span></a></li></ol></div>
             
 
           </div>
