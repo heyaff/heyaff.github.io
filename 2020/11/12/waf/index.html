@@ -89,7 +89,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;waf_fenlei.PNG">
 <meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;waf_total.PNG">
-<meta property="og:updated_time" content="2021-01-18T11:52:40.652Z">
+<meta property="og:updated_time" content="2021-02-18T07:01:03.733Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;waf_fenlei.PNG">
 
@@ -399,7 +399,8 @@
 <p><img src="/images/waf_fenlei.PNG" alt="攻击类型"><br><img src="/images/waf_total.PNG" alt="攻击数量"></p>
 <h3 id="测试说明"><a href="#测试说明" class="headerlink" title="测试说明"></a>测试说明</h3><p>黑样本220w，白样本30w，漏报率=1-拦截量/攻击总量（黑样本）<br>自研WAF——黑样本：漏报率≈25%，白样本：误报率≈0%<br>阿里云 &ensp;&nbsp;——黑样本：漏报率≈5%，&ensp;白样本：误报率≈0%<br>腾讯云 &ensp;&nbsp;——黑样本：漏报率≈29%，白样本：误报率≈0%</p>
 <p>实际生产，WAF每天拦截上千万次请求</p>
-<h3 id="WAF接入自动化"><a href="#WAF接入自动化" class="headerlink" title="WAF接入自动化"></a>WAF接入自动化</h3><p>新上线业务自动化接入WAF<br>在公司的统一接入层上做WAF，统一入口，不在<br>要求在2ms以内返回检测结果</p>
+<h3 id="WAF接入自动化"><a href="#WAF接入自动化" class="headerlink" title="WAF接入自动化"></a>WAF接入自动化</h3><p>新上线业务自动化接入WAF<br>在公司的统一接入层网关上做WAF，统一入口，网关转发给WAF在公司内网，延迟很低。(转发和检测可在1ms内完成。)<br>WAF是so文件部署在NG中</p>
+<h3 id="WAF规则引擎"><a href="#WAF规则引擎" class="headerlink" title="WAF规则引擎"></a>WAF规则引擎</h3><p>优先经过正则引擎，再经过大数据深度学习引擎，互为补充</p>
 <h3 id="联动"><a href="#联动" class="headerlink" title="联动"></a>联动</h3><p>xSRC、蓝军、入侵检测、漏洞扫描系统等，提供WAF的策略优化更新</p>
 <h3 id="Idea"><a href="#Idea" class="headerlink" title="Idea"></a>Idea</h3><p>WAF也提供开放平台，支持各业务团队来制定阻断策略，展示自己名下的WAF攻击日志</p>
 
@@ -580,7 +581,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#WAF指标"><span class="nav-number">1.</span> <span class="nav-text">WAF指标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试说明"><span class="nav-number">2.</span> <span class="nav-text">测试说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WAF接入自动化"><span class="nav-number">3.</span> <span class="nav-text">WAF接入自动化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#联动"><span class="nav-number">4.</span> <span class="nav-text">联动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Idea"><span class="nav-number">5.</span> <span class="nav-text">Idea</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#WAF指标"><span class="nav-number">1.</span> <span class="nav-text">WAF指标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试说明"><span class="nav-number">2.</span> <span class="nav-text">测试说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WAF接入自动化"><span class="nav-number">3.</span> <span class="nav-text">WAF接入自动化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WAF规则引擎"><span class="nav-number">4.</span> <span class="nav-text">WAF规则引擎</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#联动"><span class="nav-number">5.</span> <span class="nav-text">联动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Idea"><span class="nav-number">6.</span> <span class="nav-text">Idea</span></a></li></ol></div>
             
 
           </div>

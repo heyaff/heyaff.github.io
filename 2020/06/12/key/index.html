@@ -87,8 +87,10 @@
 <meta property="og:site_name" content="安全笔记">
 <meta property="og:description" content="对象存储AK&#x2F;SK安全AccessKey和SecretKey不能泄露，不能给第三方，相当于你的账号凭证。或AK（AccessKeyID&#x2F;AccessKeySecret）表示密钥对 1234561、不应该用主账号的AK&#x2F;SK，应该创建子账号AK&#x2F;SK并赋予最小存储桶权限2、推荐不同的桶，创建不同的AK&#x2F;SK3、AK&#x2F;SK不应该明文存储4、AK&#x2F;SK不应该放在客户端上，只应该在后端5、客户端（Andr">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-07-27T13:02:35.714Z">
+<meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;STS.png">
+<meta property="og:updated_time" content="2021-02-19T07:52:03.702Z">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;STS.png">
 
 
 
@@ -392,7 +394,8 @@
         <h3 id="对象存储AK-SK安全"><a href="#对象存储AK-SK安全" class="headerlink" title="对象存储AK/SK安全"></a>对象存储AK/SK安全</h3><p>AccessKey和SecretKey不能泄露，不能给第三方，相当于你的账号凭证。或AK（AccessKeyID/AccessKeySecret）表示密钥对</p>
 <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>、不应该用主账号的AK/SK，应该创建子账号AK/SK并赋予最小存储桶权限</span><br><span class="line"><span class="number">2</span>、推荐不同的桶，创建不同的AK/SK</span><br><span class="line"><span class="number">3</span>、AK/SK不应该明文存储</span><br><span class="line"><span class="number">4</span>、AK/SK不应该放在客户端上，只应该在后端</span><br><span class="line"><span class="number">5</span>、客户端（Android、IOS、Web）要直接访问对象存储，需先向后端服务器请求加签的URL</span><br><span class="line"><span class="number">6</span>、临时的访问凭证（给第三方用），用主账号的AK/SK调用STS产生一个临时的AK/SK，发给第三方</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
-<h3 id="API接口签名验证-开放平台——App-key-App-secret"><a href="#API接口签名验证-开放平台——App-key-App-secret" class="headerlink" title="API接口签名验证/开放平台——App_key+App_secret"></a>API接口签名验证/开放平台——App_key+App_secret</h3><p>app_key：同账号<br>app_secret：同密码, 表示你真的拥有这个权限<br>用来申请一个token，access token过期失效</p>
+<p><img src="/images/STS.png" alt="STS临时账号授权"></p>
+<h3 id="API接口签名验证-开放平台鉴权"><a href="#API接口签名验证-开放平台鉴权" class="headerlink" title="API接口签名验证/开放平台鉴权"></a>API接口签名验证/开放平台鉴权</h3><p>app_key：同账号<br>app_secret：同密码, 表示你真的拥有这个权限<br>用来申请一个token，access token过期失效</p>
 <h4 id="调用第三方的key-secret，保存在客户端APP还是服务器端？"><a href="#调用第三方的key-secret，保存在客户端APP还是服务器端？" class="headerlink" title="调用第三方的key/secret，保存在客户端APP还是服务器端？"></a>调用第三方的key/secret，保存在客户端APP还是服务器端？</h4><p>推荐保存在服务器端，客户端储存密钥一定是不安全的</p>
 <figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#### 调第三方接口，是客户端调还是服务端调？</span><br><span class="line">理想情况：</span><br><span class="line"><span class="number">1</span>、客户端用App_id去调WX、weibo、AliPay，拿到<span class="keyword">code</span></span><br><span class="line"><span class="number">2</span>、服务端用<span class="keyword">code</span>也去调第三方接口，获取access_token，返回给客户端</span><br><span class="line">#### 存在服务端，调用麻烦，传输secret？</span><br><span class="line">是的，发送key/secret给客户端，同HTTPS握手阶段一样，产生一个随机会话密钥，加密发给APP，APP解密后再去调第三方接口</span><br><span class="line"></span><br><span class="line">TIPs：第三方secret不是在使用过程中直接传送，而是用来运算的（签名校验）。建议服务端去运算返回APP，让APP直接使用</span><br></pre></td></tr></table></figure>
 
@@ -578,7 +581,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#对象存储AK-SK安全"><span class="nav-number">1.</span> <span class="nav-text">对象存储AK/SK安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#API接口签名验证-开放平台——App-key-App-secret"><span class="nav-number">2.</span> <span class="nav-text">API接口签名验证/开放平台——App_key+App_secret</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#调用第三方的key-secret，保存在客户端APP还是服务器端？"><span class="nav-number">2.1.</span> <span class="nav-text">调用第三方的key/secret，保存在客户端APP还是服务器端？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#结论"><span class="nav-number">2.2.</span> <span class="nav-text">结论</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#对象存储AK-SK安全"><span class="nav-number">1.</span> <span class="nav-text">对象存储AK/SK安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#API接口签名验证-开放平台鉴权"><span class="nav-number">2.</span> <span class="nav-text">API接口签名验证/开放平台鉴权</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#调用第三方的key-secret，保存在客户端APP还是服务器端？"><span class="nav-number">2.1.</span> <span class="nav-text">调用第三方的key/secret，保存在客户端APP还是服务器端？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#结论"><span class="nav-number">2.2.</span> <span class="nav-text">结论</span></a></li></ol></li></ol></div>
             
 
           </div>

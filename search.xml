@@ -42,9 +42,9 @@
 <h3 id="为啥抓包工具抓不到HTTP-2"><a href="#为啥抓包工具抓不到HTTP-2" class="headerlink" title="为啥抓包工具抓不到HTTP/2"></a>为啥抓包工具抓不到HTTP/2</h3><p>BURP_2020.6版本之后支持HTTP/2</p>
 <h3 id="QUIC基于UDP协议，属于传输层"><a href="#QUIC基于UDP协议，属于传输层" class="headerlink" title="QUIC基于UDP协议，属于传输层"></a>QUIC基于UDP协议，属于传输层</h3><ul>
 <li>1RTT/0RTT</li>
+<li>QUIC的1个RTT就是用来获取服务端的公钥，缓存到客户端，后续0-RTT</li>
 <li>TLS1.3传输层安全协议</li>
 <li>连接迁移，使用UUID标识每一次连接，当手机切换网络，自身IP变化的场景，对于TCP连接（源目IP+源目端口）就会失效，需重新建立连接。但只要UUID不变，QUIC就不需要重新握手，继续传输数据</li>
-<li></li>
 </ul>
 <h3 id="QUIC缺点"><a href="#QUIC缺点" class="headerlink" title="QUIC缺点"></a>QUIC缺点</h3><ul>
 <li>推广慢，运营商/公司一般会对53端口（DNS）以外的UDP流量拦截或限流</li>
@@ -334,7 +334,8 @@
 <p><img src="/images/waf_fenlei.PNG" alt="攻击类型"><br><img src="/images/waf_total.PNG" alt="攻击数量"></p>
 <h3 id="测试说明"><a href="#测试说明" class="headerlink" title="测试说明"></a>测试说明</h3><p>黑样本220w，白样本30w，漏报率=1-拦截量/攻击总量（黑样本）<br>自研WAF——黑样本：漏报率≈25%，白样本：误报率≈0%<br>阿里云 &ensp;&nbsp;——黑样本：漏报率≈5%，&ensp;白样本：误报率≈0%<br>腾讯云 &ensp;&nbsp;——黑样本：漏报率≈29%，白样本：误报率≈0%</p>
 <p>实际生产，WAF每天拦截上千万次请求</p>
-<h3 id="WAF接入自动化"><a href="#WAF接入自动化" class="headerlink" title="WAF接入自动化"></a>WAF接入自动化</h3><p>新上线业务自动化接入WAF<br>在公司的统一接入层上做WAF，统一入口，不在<br>要求在2ms以内返回检测结果</p>
+<h3 id="WAF接入自动化"><a href="#WAF接入自动化" class="headerlink" title="WAF接入自动化"></a>WAF接入自动化</h3><p>新上线业务自动化接入WAF<br>在公司的统一接入层网关上做WAF，统一入口，网关转发给WAF在公司内网，延迟很低。(转发和检测可在1ms内完成。)<br>WAF是so文件部署在NG中</p>
+<h3 id="WAF规则引擎"><a href="#WAF规则引擎" class="headerlink" title="WAF规则引擎"></a>WAF规则引擎</h3><p>优先经过正则引擎，再经过大数据深度学习引擎，互为补充</p>
 <h3 id="联动"><a href="#联动" class="headerlink" title="联动"></a>联动</h3><p>xSRC、蓝军、入侵检测、漏洞扫描系统等，提供WAF的策略优化更新</p>
 <h3 id="Idea"><a href="#Idea" class="headerlink" title="Idea"></a>Idea</h3><p>WAF也提供开放平台，支持各业务团队来制定阻断策略，展示自己名下的WAF攻击日志</p>
 ]]></content>
@@ -363,7 +364,10 @@
     <content><![CDATA[<p>Q：签名是在哪做？是为了啥？证明谁的身份？场景是什么？<br>A：签名主要证明数据没有被篡改，签名发起方和接收方算法保持一致</p>
 <p>Q：客户端请求服务器端，API请求怎么签名？<br>1、客户端内置appkey和secret，sign字段=MD5(key1value1key2value2…secret)进行MD5计算发给服务端<br>2、建议把appsecret放到NDK中编译成so文件，app启动后去读取<br>3、或者第一次APP安装启动时，下发secret<a id="more"></a></p>
 <p>Q：浏览器请求服务器端，API请求怎么签名？<br>A：js中保存appsecret有较高风险，建议采用随机分配令牌的方式，为每个访问端分配一个token保存在cookie中，通过cookie请求头(cookie:h5_token=xxx;sessionid=xxx)传回服务端，sign=MD5(key1value1key2value2…token)<br>A：- <a href="https://mp.weixin.qq.com/s?__biz=MzIwNjUxMTQyMA%3D%3D&chksm=9721cf1ca056460a644f61bb84c255eb7620ac1905e8652ffb1a869c5432aac77a81400f90bd&idx=1&lang=zh_CN&mid=2247484239&scene=21&sn=1530557bc16ad40616d6614017a872d7&token=205497283#wechat_redirect" title="小歪丶 Python爬虫与算法进阶">淘宝sign签名算法</a></p>
+<p>Q：APP签名机制？<br>A：开发者把自己的公钥上传到苹果，苹果给每个开发者颁发证书，在IOS上安装APP时，苹果会校验证书签名</p>
 <p>接口暴漏在公网，需实施安全鉴权机制，包括但不限于以下几种：<br>使用https协议通讯，防止敏感数据泄密和篡改；<br>设置身份认证和访问机制，非授权不能访问接口；<br>限制访问的源IP白名单，非授权IP不允许调用接口；<br>实现时间戳超时机制，过期失效，防止接口重放攻击；<br>设置接口参数过滤、限制，防止接口特殊参数注入引发的安全问题；<br>限制访问的数据范围，防止对方访问不相关数据；<br>限制满足业需求的最低访问频率，比如1万次/天，防止不限制次数的接口调用导致用户信息泄露。</p>
+<p><a href="https://opendocs.alipay.com/open/common/105912" title="支付宝应用安全开发指南">第三方应用安全开发指南</a></p>
+<object data="/pdf/开放平台第三方应用安全开发指南.pdf" type="application/pdf" width="100%" height="677px">
 ]]></content>
       <categories>
         <category>API</category>
@@ -387,7 +391,7 @@
 <li>根密钥RootKey：一级密钥，用来加密<strong>主密钥</strong>的密钥</li>
 </ul>
 <h4 id="术语"><a href="#术语" class="headerlink" title="术语"></a>术语</h4><p>HSM：加密机，一般是芯片硬件，提供根密钥生成和保管<br>KMS：后台程序，负责从硬件安全模块HSM获取/保存根密钥（内存），派生算法生成主密钥/数据密钥，主密钥加密持久化保存在数据库中（数据密钥可存储可不存储，阿里云是不存储的）<br>SDK：给业务系统客户端使用，集成KMS API组件，其中的加解密模块就是OpenSSL封装起来的库</p>
-<p>KMS负责加密所有租户的主密钥，租户不知道256位值，只看到主密钥的UUID</p>
+<h4 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h4><p>主密钥CMK，租户永远不知道其256位值，只看到主密钥的UUID。当然可以创建多个CMK，一个CMK可以加密多个DEK。KMS的作用就是替各个业务系统加密DEK，安全的存储CMK。</p>
 <h4 id="场景1——直接加密"><a href="#场景1——直接加密" class="headerlink" title="场景1——直接加密"></a>场景1——直接加密</h4><ul>
 <li>对配置文件的加密</li>
 <li>对SSL私钥的加密</li>
@@ -401,11 +405,11 @@
 <p><img src="/images/KMS_encrypt.png" alt="加密SDK使用场景"></p>
 <p>业务系统A已集成KMS的SDK<br>i.通过KMS控制台，或者调用CreateKey接口，创建一个用户主密钥。<br>ii.调用GenerateDataKey接口创建一个数据密钥。KMS会返回一个明文的数据密钥和一个密文的数据密钥。<br>iii.使用明文的数据密钥加密文件，产生密文文件，然后销毁内存中的明文密钥。<br>iv.用户将密文数据密钥和密文文件一同存储到持久化存储设备或服务中。</p>
 <p>综述，租户的主密钥保存在KMS数据库中，加密主密钥的根密钥保存在HSM硬件中。</p>
-<h4 id="KMS问答"><a href="#KMS问答" class="headerlink" title="KMS问答"></a>KMS问答</h4><p>Q：根密钥在哪存储？主密钥在哪存储？数据密钥在哪存储？<br>A：根密钥在HSM的硬件芯片中，主密钥在KMS的数据库中加密存储，数据密钥在应用系统本地加密存储。<br>A：KMS不会存储你的数据密钥，当然也不会存储根密钥，使用根密钥时是在内存中的，不会落地。<br>A：业务系统加载使用数据密钥时，是在内存中的，明文，不会落地。<br>A：凡是落地的密钥，都要加密，禁止明文存储。</p>
-<p>Q：主密钥会在客户端内存中么？<br>A：主密钥永远不会离开KMS+HSM，故不会在业务系统的内存中。即业务系统永远不知道CMK，只知道UUID。</p>
+<h4 id="KMS问答"><a href="#KMS问答" class="headerlink" title="KMS问答"></a>KMS问答</h4><p>Q：根密钥在哪存储？主密钥在哪存储？数据密钥在哪存储？<br>A：根密钥在HSM的硬件芯片中，主密钥在KMS的数据库中加密存储，数据密钥在应用系统本地加密存储。<br>A：KMS不会存储你的数据密钥，当然也不会存储根密钥，使用根密钥时是在硬件内存中的，不会落地。<br>A：业务系统加载使用数据密钥时，是在内存中的，明文，不会落地。（当然你非要明文落地，也没人管你）<br>A：凡是落地的密钥，都要加密，禁止明文存储。</p>
+<p>Q：主密钥会在客户端内存中么？<br>A：主密钥永远不会离开KMS+HSM，故不会在业务系统的内存中。即业务系统永远不知道CMK，只知道UUID。<br>A：如果业务系统自己生成一个密钥，上传到了KMS中。可以指定这个密钥是CMK，只是委托KMS用根密钥加下密。当然一般场景下，这个密钥是DEK，只是委托KMS用主密钥加下密。</p>
 <p>Q：调用方永远不知道明文数据块？<br>A：KMS只是负责帮你加密或托管密钥，明文数据毕竟是你提供的，只是避免明文存储，间接的人为看到。</p>
 <p>Q：数据密钥DEK怎么生成的？<br>A：第一种通过KMS的主密钥CMK生成，但KMS不会存储、管理你的DEK<br>A：第二种应用系统本地生成，然后发给KMS让它加密</p>
-<p>Q：数据密钥保存在KMS中？<br>A：第一种，DEK明文+DEK密文由KMS生成后返回给调用方应用系统的内存中，明文用完请尽快删除，密文落盘。<br>A：第二种，DEK明文是OpenSSL随机生成的，也在内存中。<br>A：Google的最佳实践是第二种。应用系统本地生成DEK，自行加密文件，再调用KMS对DEK加密，最后文件和加密的DEK保存在一起。<br>A：另类玩法：一个部门一个CMK，一个应用系统一个DEK，都在KMS中落盘存储，部门/应用系统只知道自己的CMK_ID和DEK_ID。</p>
+<p>Q：数据密钥保存在KMS中？<br>A：第一种，DEK明文+DEK密文由KMS生成后返回给调用方应用系统的内存中，明文用完请尽快删除，密文+DEK密文落盘。<br>A：第二种，DEK明文是OpenSSL随机生成的，当然也在业务系统的内存中。<br>A：Google的最佳实践是第二种。应用系统本地生成DEK，自行加密文件，再调用KMS对DEK加密，最后加密的文件和加密的DEK保存在一起。<br>A：另类玩法：一个部门一个CMK，一个应用系统一个DEK，都在KMS中落盘存储，部门/应用系统只知道自己的CMK_ID和DEK_ID。</p>
 <p>Q：主密钥直接加密和信封加密的区别？<br>A：看你传不传输待加密的数据文件</p>
 <p>Q：主密钥直接加密业务方提供的数据，有啥缺点？</p>
 <ul>
@@ -500,7 +504,8 @@
     <content><![CDATA[<h3 id="对象存储AK-SK安全"><a href="#对象存储AK-SK安全" class="headerlink" title="对象存储AK/SK安全"></a>对象存储AK/SK安全</h3><p>AccessKey和SecretKey不能泄露，不能给第三方，相当于你的账号凭证。或AK（AccessKeyID/AccessKeySecret）表示密钥对</p>
 <figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>、不应该用主账号的AK/SK，应该创建子账号AK/SK并赋予最小存储桶权限</span><br><span class="line"><span class="number">2</span>、推荐不同的桶，创建不同的AK/SK</span><br><span class="line"><span class="number">3</span>、AK/SK不应该明文存储</span><br><span class="line"><span class="number">4</span>、AK/SK不应该放在客户端上，只应该在后端</span><br><span class="line"><span class="number">5</span>、客户端（Android、IOS、Web）要直接访问对象存储，需先向后端服务器请求加签的URL</span><br><span class="line"><span class="number">6</span>、临时的访问凭证（给第三方用），用主账号的AK/SK调用STS产生一个临时的AK/SK，发给第三方</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
-<h3 id="API接口签名验证-开放平台——App-key-App-secret"><a href="#API接口签名验证-开放平台——App-key-App-secret" class="headerlink" title="API接口签名验证/开放平台——App_key+App_secret"></a>API接口签名验证/开放平台——App_key+App_secret</h3><p>app_key：同账号<br>app_secret：同密码, 表示你真的拥有这个权限<br>用来申请一个token，access token过期失效</p>
+<p><img src="/images/STS.png" alt="STS临时账号授权"></p>
+<h3 id="API接口签名验证-开放平台鉴权"><a href="#API接口签名验证-开放平台鉴权" class="headerlink" title="API接口签名验证/开放平台鉴权"></a>API接口签名验证/开放平台鉴权</h3><p>app_key：同账号<br>app_secret：同密码, 表示你真的拥有这个权限<br>用来申请一个token，access token过期失效</p>
 <h4 id="调用第三方的key-secret，保存在客户端APP还是服务器端？"><a href="#调用第三方的key-secret，保存在客户端APP还是服务器端？" class="headerlink" title="调用第三方的key/secret，保存在客户端APP还是服务器端？"></a>调用第三方的key/secret，保存在客户端APP还是服务器端？</h4><p>推荐保存在服务器端，客户端储存密钥一定是不安全的</p>
 <figure class="highlight clean"><table><tr><td class="code"><pre><span class="line">#### 调第三方接口，是客户端调还是服务端调？</span><br><span class="line">理想情况：</span><br><span class="line"><span class="number">1</span>、客户端用App_id去调WX、weibo、AliPay，拿到<span class="keyword">code</span></span><br><span class="line"><span class="number">2</span>、服务端用<span class="keyword">code</span>也去调第三方接口，获取access_token，返回给客户端</span><br><span class="line">#### 存在服务端，调用麻烦，传输secret？</span><br><span class="line">是的，发送key/secret给客户端，同HTTPS握手阶段一样，产生一个随机会话密钥，加密发给APP，APP解密后再去调第三方接口</span><br><span class="line"></span><br><span class="line">TIPs：第三方secret不是在使用过程中直接传送，而是用来运算的（签名校验）。建议服务端去运算返回APP，让APP直接使用</span><br></pre></td></tr></table></figure>
 

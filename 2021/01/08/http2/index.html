@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="安全笔记">
 <meta property="og:description" content="HTTP&#x2F;2对比HTTP 1.1HTTP&#x2F;2也被称为HTTP 2.0，相对于HTTP 1.1的新增多路复用、压缩HTTP头、划分请求优先级、服务端推送等特性，解决了在HTTP 1.1中一直存在的问题，优化了请求性能，同时兼容了HTTP 1.1的语义。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2021-01-19T09:42:00.790Z">
+<meta property="og:updated_time" content="2021-02-18T07:12:23.913Z">
 <meta name="twitter:card" content="summary">
 
 
@@ -401,9 +401,9 @@
 <h3 id="为啥抓包工具抓不到HTTP-2"><a href="#为啥抓包工具抓不到HTTP-2" class="headerlink" title="为啥抓包工具抓不到HTTP/2"></a>为啥抓包工具抓不到HTTP/2</h3><p>BURP_2020.6版本之后支持HTTP/2</p>
 <h3 id="QUIC基于UDP协议，属于传输层"><a href="#QUIC基于UDP协议，属于传输层" class="headerlink" title="QUIC基于UDP协议，属于传输层"></a>QUIC基于UDP协议，属于传输层</h3><ul>
 <li>1RTT/0RTT</li>
+<li>QUIC的1个RTT就是用来获取服务端的公钥，缓存到客户端，后续0-RTT</li>
 <li>TLS1.3传输层安全协议</li>
 <li>连接迁移，使用UUID标识每一次连接，当手机切换网络，自身IP变化的场景，对于TCP连接（源目IP+源目端口）就会失效，需重新建立连接。但只要UUID不变，QUIC就不需要重新握手，继续传输数据</li>
-<li></li>
 </ul>
 <h3 id="QUIC缺点"><a href="#QUIC缺点" class="headerlink" title="QUIC缺点"></a>QUIC缺点</h3><ul>
 <li>推广慢，运营商/公司一般会对53端口（DNS）以外的UDP流量拦截或限流</li>

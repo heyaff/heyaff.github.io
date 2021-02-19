@@ -89,7 +89,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;KMS.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;KMS_encrypt.png">
-<meta property="og:updated_time" content="2021-02-09T07:12:04.560Z">
+<meta property="og:updated_time" content="2021-02-18T02:55:48.410Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;KMS.png">
 
@@ -404,7 +404,7 @@
 <li>根密钥RootKey：一级密钥，用来加密<strong>主密钥</strong>的密钥</li>
 </ul>
 <h4 id="术语"><a href="#术语" class="headerlink" title="术语"></a>术语</h4><p>HSM：加密机，一般是芯片硬件，提供根密钥生成和保管<br>KMS：后台程序，负责从硬件安全模块HSM获取/保存根密钥（内存），派生算法生成主密钥/数据密钥，主密钥加密持久化保存在数据库中（数据密钥可存储可不存储，阿里云是不存储的）<br>SDK：给业务系统客户端使用，集成KMS API组件，其中的加解密模块就是OpenSSL封装起来的库</p>
-<p>KMS负责加密所有租户的主密钥，租户不知道256位值，只看到主密钥的UUID</p>
+<h4 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h4><p>主密钥CMK，租户永远不知道其256位值，只看到主密钥的UUID。当然可以创建多个CMK，一个CMK可以加密多个DEK。KMS的作用就是替各个业务系统加密DEK，安全的存储CMK。</p>
 <h4 id="场景1——直接加密"><a href="#场景1——直接加密" class="headerlink" title="场景1——直接加密"></a>场景1——直接加密</h4><ul>
 <li>对配置文件的加密</li>
 <li>对SSL私钥的加密</li>
@@ -418,11 +418,11 @@
 <p><img src="/images/KMS_encrypt.png" alt="加密SDK使用场景"></p>
 <p>业务系统A已集成KMS的SDK<br>i.通过KMS控制台，或者调用CreateKey接口，创建一个用户主密钥。<br>ii.调用GenerateDataKey接口创建一个数据密钥。KMS会返回一个明文的数据密钥和一个密文的数据密钥。<br>iii.使用明文的数据密钥加密文件，产生密文文件，然后销毁内存中的明文密钥。<br>iv.用户将密文数据密钥和密文文件一同存储到持久化存储设备或服务中。</p>
 <p>综述，租户的主密钥保存在KMS数据库中，加密主密钥的根密钥保存在HSM硬件中。</p>
-<h4 id="KMS问答"><a href="#KMS问答" class="headerlink" title="KMS问答"></a>KMS问答</h4><p>Q：根密钥在哪存储？主密钥在哪存储？数据密钥在哪存储？<br>A：根密钥在HSM的硬件芯片中，主密钥在KMS的数据库中加密存储，数据密钥在应用系统本地加密存储。<br>A：KMS不会存储你的数据密钥，当然也不会存储根密钥，使用根密钥时是在内存中的，不会落地。<br>A：业务系统加载使用数据密钥时，是在内存中的，明文，不会落地。<br>A：凡是落地的密钥，都要加密，禁止明文存储。</p>
-<p>Q：主密钥会在客户端内存中么？<br>A：主密钥永远不会离开KMS+HSM，故不会在业务系统的内存中。即业务系统永远不知道CMK，只知道UUID。</p>
+<h4 id="KMS问答"><a href="#KMS问答" class="headerlink" title="KMS问答"></a>KMS问答</h4><p>Q：根密钥在哪存储？主密钥在哪存储？数据密钥在哪存储？<br>A：根密钥在HSM的硬件芯片中，主密钥在KMS的数据库中加密存储，数据密钥在应用系统本地加密存储。<br>A：KMS不会存储你的数据密钥，当然也不会存储根密钥，使用根密钥时是在硬件内存中的，不会落地。<br>A：业务系统加载使用数据密钥时，是在内存中的，明文，不会落地。（当然你非要明文落地，也没人管你）<br>A：凡是落地的密钥，都要加密，禁止明文存储。</p>
+<p>Q：主密钥会在客户端内存中么？<br>A：主密钥永远不会离开KMS+HSM，故不会在业务系统的内存中。即业务系统永远不知道CMK，只知道UUID。<br>A：如果业务系统自己生成一个密钥，上传到了KMS中。可以指定这个密钥是CMK，只是委托KMS用根密钥加下密。当然一般场景下，这个密钥是DEK，只是委托KMS用主密钥加下密。</p>
 <p>Q：调用方永远不知道明文数据块？<br>A：KMS只是负责帮你加密或托管密钥，明文数据毕竟是你提供的，只是避免明文存储，间接的人为看到。</p>
 <p>Q：数据密钥DEK怎么生成的？<br>A：第一种通过KMS的主密钥CMK生成，但KMS不会存储、管理你的DEK<br>A：第二种应用系统本地生成，然后发给KMS让它加密</p>
-<p>Q：数据密钥保存在KMS中？<br>A：第一种，DEK明文+DEK密文由KMS生成后返回给调用方应用系统的内存中，明文用完请尽快删除，密文落盘。<br>A：第二种，DEK明文是OpenSSL随机生成的，也在内存中。<br>A：Google的最佳实践是第二种。应用系统本地生成DEK，自行加密文件，再调用KMS对DEK加密，最后文件和加密的DEK保存在一起。<br>A：另类玩法：一个部门一个CMK，一个应用系统一个DEK，都在KMS中落盘存储，部门/应用系统只知道自己的CMK_ID和DEK_ID。</p>
+<p>Q：数据密钥保存在KMS中？<br>A：第一种，DEK明文+DEK密文由KMS生成后返回给调用方应用系统的内存中，明文用完请尽快删除，密文+DEK密文落盘。<br>A：第二种，DEK明文是OpenSSL随机生成的，当然也在业务系统的内存中。<br>A：Google的最佳实践是第二种。应用系统本地生成DEK，自行加密文件，再调用KMS对DEK加密，最后加密的文件和加密的DEK保存在一起。<br>A：另类玩法：一个部门一个CMK，一个应用系统一个DEK，都在KMS中落盘存储，部门/应用系统只知道自己的CMK_ID和DEK_ID。</p>
 <p>Q：主密钥直接加密和信封加密的区别？<br>A：看你传不传输待加密的数据文件</p>
 <p>Q：主密钥直接加密业务方提供的数据，有啥缺点？</p>
 <ul>
@@ -608,7 +608,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#KMS"><span class="nav-number">1.</span> <span class="nav-text">KMS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#术语"><span class="nav-number">1.1.</span> <span class="nav-text">术语</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#场景1——直接加密"><span class="nav-number">1.2.</span> <span class="nav-text">场景1——直接加密</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#场景2——信封加密"><span class="nav-number">1.3.</span> <span class="nav-text">场景2——信封加密</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#KMS问答"><span class="nav-number">1.4.</span> <span class="nav-text">KMS问答</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#KMS"><span class="nav-number">1.</span> <span class="nav-text">KMS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#术语"><span class="nav-number">1.1.</span> <span class="nav-text">术语</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#用途"><span class="nav-number">1.2.</span> <span class="nav-text">用途</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#场景1——直接加密"><span class="nav-number">1.3.</span> <span class="nav-text">场景1——直接加密</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#场景2——信封加密"><span class="nav-number">1.4.</span> <span class="nav-text">场景2——信封加密</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#KMS问答"><span class="nav-number">1.5.</span> <span class="nav-text">KMS问答</span></a></li></ol></li></ol></div>
             
 
           </div>
