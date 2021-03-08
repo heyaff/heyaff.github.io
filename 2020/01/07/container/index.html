@@ -79,16 +79,16 @@
 
 
 
-<meta name="description" content="云原生云原生（Cloud Native）是一套技术体系和方法论。云（Cloud）表示应用程序位于云中，而不是传统的数据中心；原生（Native）表示应用程序从设计之初即考虑到云的环境，原生为云而设计，在云上以最佳状态运行，充分利用和发挥云平台的弹性和分布式优势。 云原生的代表技术包括容器、服务网格（Service Mesh）、微服务（Microservice）、不可变基础设施和声明式API。 容">
+<meta name="description" content="-Docker——从入门到实践 云原生云原生（Cloud Native）是一套技术体系和方法论。云（Cloud）表示应用程序位于云中，而不是传统的数据中心；原生（Native）表示应用程序从设计之初即考虑到云的环境，原生为云而设计，在云上以最佳状态运行，充分利用和发挥云平台的弹性和分布式优势。 云原生的代表技术包括容器、服务网格（Service Mesh）、微服务（Microservice）、不可">
 <meta name="keywords" content="容器安全">
 <meta property="og:type" content="article">
 <meta property="og:title" content="容器安全">
 <meta property="og:url" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;2020&#x2F;01&#x2F;07&#x2F;container&#x2F;index.html">
 <meta property="og:site_name" content="安全笔记">
-<meta property="og:description" content="云原生云原生（Cloud Native）是一套技术体系和方法论。云（Cloud）表示应用程序位于云中，而不是传统的数据中心；原生（Native）表示应用程序从设计之初即考虑到云的环境，原生为云而设计，在云上以最佳状态运行，充分利用和发挥云平台的弹性和分布式优势。 云原生的代表技术包括容器、服务网格（Service Mesh）、微服务（Microservice）、不可变基础设施和声明式API。 容">
+<meta property="og:description" content="-Docker——从入门到实践 云原生云原生（Cloud Native）是一套技术体系和方法论。云（Cloud）表示应用程序位于云中，而不是传统的数据中心；原生（Native）表示应用程序从设计之初即考虑到云的环境，原生为云而设计，在云上以最佳状态运行，充分利用和发挥云平台的弹性和分布式优势。 云原生的代表技术包括容器、服务网格（Service Mesh）、微服务（Microservice）、不可">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;%E5%AE%89%E5%85%A8%E5%AE%B9%E5%99%A8.png">
-<meta property="og:updated_time" content="2021-02-08T06:22:31.704Z">
+<meta property="og:updated_time" content="2021-02-22T12:48:25.851Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;%E5%AE%89%E5%85%A8%E5%AE%B9%E5%99%A8.png">
 
@@ -402,20 +402,29 @@
       
 
       
-        <p><img src="/images/%E5%AE%89%E5%85%A8%E5%AE%B9%E5%99%A8.png" alt="安全容器"></p>
+        <p><img src="/images/%E5%AE%89%E5%85%A8%E5%AE%B9%E5%99%A8.png" alt="安全容器"><br>-<a href=""https://yeasy.gitbook.io/docker_practice/basic_concept/image"">Docker——从入门到实践</a></p>
 <h3 id="云原生"><a href="#云原生" class="headerlink" title="云原生"></a>云原生</h3><p>云原生（Cloud Native）是一套技术体系和方法论。云（Cloud）表示应用程序位于云中，而不是传统的数据中心；原生（Native）表示应用程序从设计之初即考虑到云的环境，原生为云而设计，在云上以最佳状态运行，充分利用和发挥云平台的弹性和分布式优势。</p>
-<p>云原生的代表技术包括容器、服务网格（Service Mesh）、微服务（Microservice）、不可变基础设施和声明式API。</p>
-<h3 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h3><p>利用镜像创建一个容器<br>开发：使用一个标准镜像构建一套开发容器。<br>运维：开发完后，运维直接使用这个容器来部署代码<a id="more"></a></p>
-<p>Docker：创建容器<br>K8S：编排容器<br>一个镜像可以启动（run）多个容器，一个容器可以理解为一个虚拟环境。</p>
-<p>一台主机可以同时运行几千个Docker容器</p>
+<p>云原生的代表技术包括容器、服务网格（Service Mesh）、微服务（Microservice）、不可变基础设施和声明式API。<a id="more"></a></p>
+<h3 id="镜像"><a href="#镜像" class="headerlink" title="镜像"></a>镜像</h3><p>镜像打包实践<br>通常一个业务系统应拆分成2~3个容器：<br>数据存储容器+应用程序容器+(缓存容器)</p>
+<p>一般不会把整个应用及其依赖的服务打到一个镜像，用一个容器来跑。常见的做法是database和webserver用独立的镜像，独立的容器来跑，然后用docker-compose或者k8s之类的工具将一批容器组织成一个应用单元</p>
+<h3 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h3><p>镜像run起来就是一个容器，一个容器就是一个进程，运行在属于自己的“命名空间”。<br>一个镜像可以启动（run）多个容器<br>一台主机可以同时运行几千个Docker容器</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#从镜像仓库拉取镜像到本地</span></span><br><span class="line">docker pull 镜像</span><br><span class="line"></span><br><span class="line"><span class="comment">#构建镜像（也就是定制属于自己的镜像）</span></span><br><span class="line"><span class="comment">#在Dockerfile文件所在目录执行</span></span><br><span class="line">dock build</span><br><span class="line"></span><br><span class="line"><span class="comment">#有了镜像后，镜像run起来就是一个容器</span></span><br><span class="line">docker run 镜像</span><br></pre></td></tr></table></figure>
+
+
+<p>开发：使用一个标准镜像来构建一套开发容器。<br>运维：开发完后，运维直接使用这个容器来部署代码</p>
+<p>Docker：创建容器<br>K8S：编排容器</p>
 <p>K8s容器集群管理系统：启动容器，自动化部署、扩展和管理容器，回收容器。<br>K8S负责管理容器跑在哪个机器上，监控容器的存在，控制容器与外界通讯。</p>
-<p>docker pull 镜像<br>docker run 镜像<br>dock build构建镜像</p>
 <p>每个Pod都有一个唯一的IP</p>
 <p>Node是Pod真正运行的主机</p>
 <p>一个server包括多个pod</p>
 <p>不要在单个容器里面运行多个进程</p>
 <p>不要把认证口令存在镜像中，用环境变量比较好</p>
-<p>不要将数据储存在容器中</p>
+<p>不要将数据储存在容器中，容器销毁了里面的数据也没了，要将数据写入xxxx</p>
+<h3 id="Q-amp-A"><a href="#Q-amp-A" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h3><p>Q：一个容器，一个镜像，谁的概念大？<br>A：镜像和容器的关系，类似“类”和“实例”，镜像是静态的定义，容器是镜像运行时的实体</p>
+<p>Q：Dockerfile是干啥用的？<br>A：是个文本文件，用来清晰的记录镜像的构建过程，即在基础镜像之上，执行哪些命令才能制作成你的镜像</p>
+<p>Q：制作自己的镜像，有哪些方法？<br>A：<br>1、通过创建Dockerfile，执行docker build命令自动编译生成镜像，✲推荐✲<br>2、通过run一个镜像，在这个容器内敲些命令、操作，最后执行docker commit命令提交，打包生成镜像（俗称黑箱镜像，就是除了制作镜像的人知道执行过什么命令、怎么生成的镜像，别人根本无从得知）</p>
+<p>image 是二进制文件。</p>
+<p>Q：war、jar包会打包进基础镜像中吗？还是制作成一个单独的镜像？<br>A：</p>
 
       
     </div>
@@ -539,7 +548,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-count">39</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -550,7 +559,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">40</span>
+                  <span class="site-state-item-count">41</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -561,7 +570,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-count">47</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -594,7 +603,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#云原生"><span class="nav-number">1.</span> <span class="nav-text">云原生</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#容器"><span class="nav-number">2.</span> <span class="nav-text">容器</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#云原生"><span class="nav-number">1.</span> <span class="nav-text">云原生</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#镜像"><span class="nav-number">2.</span> <span class="nav-text">镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#容器"><span class="nav-number">3.</span> <span class="nav-text">容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q-amp-A"><span class="nav-number">4.</span> <span class="nav-text">Q&amp;A</span></a></li></ol></div>
             
 
           </div>

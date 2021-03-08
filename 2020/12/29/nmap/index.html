@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="安全笔记">
 <meta property="og:description" content="PN No ping扫描如果远程主机有防火墙IDS和IPS系统，你可以使用-PN命令来确保不ping远程主机，因为有时候防火墙会禁用ping禁ping，TCP端口扫描命令：nmap -sT -Pn 目标IP CURL命令">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2021-01-18T12:29:12.196Z">
+<meta property="og:updated_time" content="2021-02-22T06:44:37.273Z">
 <meta name="twitter:card" content="summary">
 
 
@@ -405,6 +405,13 @@
 <li>添加请求头<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET <span class="string">"https://xxx.com"</span> <span class="string">\</span></span><br><span class="line">     -H <span class="string">"Cookie: xxx"</span> <span class="string">\</span></span><br><span class="line">     -H <span class="string">"Referer: https://xxx.com:1111/xxx"</span></span><br></pre></td></tr></table></figure></li>
 <li>POST添加请求body -d<br><code>curl https://xxx.com -X POST -d &#39;id=1&amp;user=hehe&#39;</code></li>
 </ul>
+<h3 id="Linux下awk命令"><a href="#Linux下awk命令" class="headerlink" title="Linux下awk命令"></a>Linux下awk命令</h3><p>用来截取文本中的片段，类似excel的分列</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#使用多个分隔符.先使用空格分割，然后对分割结果再使用","分割，输出第1 2 5列</span></span><br><span class="line">awk -F <span class="string">'[ ,]'</span>  <span class="string">'&#123;print $1,$2,$5&#125;'</span>   log.txt</span><br><span class="line"></span><br><span class="line"><span class="comment">#使用","分列后，统计第7 9列出现的次数，输出最多的TOP 10</span></span><br><span class="line">cat log.txt | awk -F <span class="string">','</span> <span class="string">'&#123;print $7,$9&#125;'</span> | sort | uniq -c | sort -k1nr | head <span class="number">-10</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
 
       
     </div>
@@ -530,7 +537,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-count">39</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -541,7 +548,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">40</span>
+                  <span class="site-state-item-count">41</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -552,7 +559,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-count">47</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -585,7 +592,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#PN-No-ping扫描"><span class="nav-number">1.</span> <span class="nav-text">PN No ping扫描</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CURL命令"><span class="nav-number">2.</span> <span class="nav-text">CURL命令</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#PN-No-ping扫描"><span class="nav-number">1.</span> <span class="nav-text">PN No ping扫描</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CURL命令"><span class="nav-number">2.</span> <span class="nav-text">CURL命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux下awk命令"><span class="nav-number">3.</span> <span class="nav-text">Linux下awk命令</span></a></li></ol></div>
             
 
           </div>
