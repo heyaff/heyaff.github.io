@@ -88,7 +88,8 @@
 <meta property="og:description" content="办公安全1、齐治堡垒机给正式员工，按部门创建跳板机，区分测试和生产。开发员工禁止通过堡垒机访问生产服务器，排障的话，由运维协助，有日志平台外包使用Jumpserver 2、金科办公网禁止Github访问，禁止pan、mail访问，脱离办公网由Macfee加黑名单">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;diting.png">
-<meta property="og:updated_time" content="2021-03-01T08:47:59.966Z">
+<meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AF%86%E7%A0%81%E5%8A%A0%E5%AF%86%E6%96%B9%E6%A1%88.png">
+<meta property="og:updated_time" content="2021-03-15T09:34:42.166Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;diting.png">
 
@@ -401,15 +402,15 @@
 <p>2、windows登陆账号分配申请人域账号为管理员，Linux登陆账号也是域账号，域账号的权限（amy/ops/root）统一由CAE获取控制，员工自行在上面申请</p>
 <p>3、访问控制</p>
 <h3 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h3><p>1、金科服务器默认不能访问外网，走外网必须经过DMZ，数据中心的外网由防火墙出口访问控制</p>
-<p>2、测试SIT环境，开发DEV环境，测试/开发员工可以在CAE申请root权限，有审计功能，同一时间只能锁定一个用户</p>
+<p>2、测试SIT环境，开发DEV环境，测试/开发员工可以在CAE上查询rhlog、root的密码，有时长限制和审计功能，同一时间只能锁定一个用户，生产机器的密码他们没权限查看</p>
 <p>3、外包没有CAE权限，所以外包的堡垒机没有root权限</p>
 <p>4、测试/开发员工禁止堡垒机访问任何生产服务器</p>
-<p>5、运维不负责开发测试机器，只负责交付中间件、数据库等服务。</p>
-<h3 id="系统"><a href="#系统" class="headerlink" title="系统"></a>系统</h3><p>1、CAE密码管理系统，接管数据中心Linux账号、密码，脚本下发（如非标部署），不支持windows<br>2、CAE提供全网主机命令通道支持工具和脚本执行，配置文件推送。可以满足登录主机的日常部署操作使用。类似OP的追风脚本下发平台<br>3、配置中心禁止出现明文密码<br>4、VPN权限仅限运维中心开通，堡垒机仅限公司员工使用，禁止第三方申请</p>
+<p>5、运维不负责开发测试机器，只负责交付中间件、数据库等服务</p>
+<h3 id="系统"><a href="#系统" class="headerlink" title="系统"></a>系统</h3><p>1、CAE密码管理系统，接管数据中心Linux账号、密码，脚本下发（如非标部署），不支持windows<br>2、CAE提供全网主机命令通道支持工具和脚本执行，配置文件推送。可以满足登录主机的日常部署操作使用。类似OP的追风脚本下发平台<br>3、登录齐治堡垒机操作：在浏览器中访问堡垒机URL，登陆进去选择一台跳板机，在跳板机中SSH目标机器，密码从CAE获取。不同于JumpServer直接帮你免密登录<br>4、Guacamole支持web界面管理RDP、VNC、SSH协议。GateOne只支持web界面管理SSH协议，即不支持windows系统。<br>5、配置中心禁止出现明文密码<br>6、VPN权限仅限运维中心开通，堡垒机仅限公司员工使用，禁止第三方申请</p>
 <h3 id="配置文件明文密码-V1-0"><a href="#配置文件明文密码-V1-0" class="headerlink" title="配置文件明文密码 V1.0"></a>配置文件明文密码 V1.0</h3><p>金科的数据库密码加密流程：<br>1、运维通过加密工具生成RSA密钥对，公钥共享给DBA<br>2、DBA创建数据库账号密码，用RSA公钥加密后，发给研发人员<br>3、运维人员将RSA私钥放在生产服务器中某个路径下，通知给研发人员<br>4、研发人员把密文、工具路径写入配置文件</p>
 <p>达到的效果：<br>配置文件禁止明文密码<br>开发看不到明文密码，私钥不在项目代码中，所以也无法解密<br>DB的明文密码，除了DBA没人知道（读取明文密码只在内存中）</p>
-<h3 id="配置文件明文密码-V1-1"><a href="#配置文件明文密码-V1-1" class="headerlink" title="配置文件明文密码 V1.1"></a>配置文件明文密码 V1.1</h3><p>中间过渡方案，将V1.0中的加密工具替换成KMS系统，依然是口令硬编码</p>
-<p>1、运维在KMS控制台创建RSA密钥对，获取对应KeyID<br>2、DBA在运维平台，创建数据库账号密码<br>3、运维平台调用API，将KeyID+明文口令传递给KMS，KMS执行公钥加密后，返回口令密文<br>4、研发人员拿到KeyID+口令密文，写入配置文件<br>5、业务服务启动时，将KeyID+口令密文传递给KMS，返回明文口令在内存中</p>
+<h3 id="配置文件明文密码-V1-1"><a href="#配置文件明文密码-V1-1" class="headerlink" title="配置文件明文密码 V1.1"></a>配置文件明文密码 V1.1</h3><p>中间过渡方案，将V1.0中的加密工具替换成KMS系统，但依然是口令硬编码</p>
+<p>1、运维在KMS控制台创建RSA密钥对，获取对应KeyID<br>2、DBA在运维平台，创建数据库账号密码<br>3、运维平台调用API，将KeyID+明文口令传递给KMS，KMS执行公钥加密后，返回口令密文<br>4、研发人员拿到KeyID+口令密文，写入配置文件<br>5、业务服务启动时，将KeyID+口令密文传递给KMS，返回明文口令在内存中<br><img src="/images/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AF%86%E7%A0%81%E5%8A%A0%E5%AF%86%E6%96%B9%E6%A1%88.png" alt="口令加密方案"></p>
 <h3 id="配置文件明文密码-V2-0"><a href="#配置文件明文密码-V2-0" class="headerlink" title="配置文件明文密码 V2.0"></a>配置文件明文密码 V2.0</h3><p>1、DBA在运维平台，创建数据库账号密码<br>2、运维平台调用CreatePWD API，将明文口令传递给密码托管系统<em>（不用返回密文）</em><br>3、密码托管系统调用KMS，保障密码安全（内部实现）<br>4、研发人员在配置文件中，<code>password=GetPWD()</code>函数<br>5、业务服务启动时，加载配置文件，从密码托管系统获取明文口令在内存中</p>
 <p>达到的效果：<br>配置文件中没有硬编码明文or密文<br>口令可定期轮换</p>
 
@@ -537,7 +538,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-count">40</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -548,7 +549,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -559,7 +560,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">47</span>
+                  <span class="site-state-item-count">48</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

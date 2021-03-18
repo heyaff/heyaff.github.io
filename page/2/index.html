@@ -295,6 +295,156 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://heyaff.github.io/2020/11/30/sni/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="heyaff">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="安全笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/11/30/sni/" itemprop="url">SNI</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-11-30T00:00:00+08:00">
+                2020-11-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SNI/" itemprop="url" rel="index">
+                    <span itemprop="name">SNI</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <ul>
+<li><a href="https://wwww.lvmoo.com/933.love" title="凯の秘密基地">浅谈SNI兼容性导致HTTPS出错问题</a></li>
+<li><a href="https://bbs.appnode.com/thread-877.htm">为什么SSL测试结果会显示两个RSA证书？</a></li>
+</ul>
+<h3 id="SNI背景介绍"><a href="#SNI背景介绍" class="headerlink" title="SNI背景介绍"></a>SNI背景介绍</h3><p><strong>SNI</strong> (Server Name Indication)主要解决一台服务器只能使用一个证书(一个域名)的缺点，随着服务器对虚拟主机的支持，一个服务器上可以为多个域名提供服务。有 SNI 机制后，可以在同一个IP 下绑定多个证书，但是客户端在请求时需要先带上域名，这样服务端才能找到对应的 SSL 证书，因此SNI必须得到支持才能满足需求
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/11/30/sni/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://heyaff.github.io/2020/11/12/waf/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -825,14 +975,57 @@
 
       
         
-          <p>Q：前端加密敏感数据，密钥存放在哪里？不让硬编码在JS中，那放哪？<br>A：前端加密password等敏感字段，是用后端的公钥加密的，公钥可以硬编码在js中。<br>A：前端随机产生一个key，用来AES加密数据，然后用后端公钥加密key，一起传给后端。
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/10/10/kms/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+          
+            <h3 id="KMS"><a href="#KMS" class="headerlink" title="KMS"></a>KMS</h3><p>目的：<br>禁止业务调用方，本地私自<strong>明文存储</strong>敏感信息（如密钥）。并非应用执行加密算法时对密钥的加密（在内存中是明文密钥）</p>
+<p><img src="/images/KMS.png" alt="KMS架构"><br>密钥分级</p>
+<ul>
+<li>数据密钥DEK：三级密钥，用来加密明文数据的密钥</li>
+<li>主密钥CMK：二级密钥，用来加密<strong>数据密钥</strong>的密钥</li>
+<li>根密钥RootKey：一级密钥，用来加密<strong>主密钥</strong>的密钥</li>
+</ul>
+<h4 id="术语"><a href="#术语" class="headerlink" title="术语"></a>术语</h4><p>HSM：加密机，一般是芯片硬件，提供根密钥生成和保管<br>KMS：后台程序，负责从硬件安全模块HSM获取/保存根密钥（内存），派生算法生成主密钥/数据密钥，主密钥加密持久化保存在数据库中（数据密钥可存储可不存储，阿里云是不存储的）<br>SDK：给业务系统客户端使用，集成KMS API组件，其中的加解密模块就是OpenSSL封装起来的库</p>
+<h4 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h4><p>主密钥CMK，租户永远不知道其256位值，只看到主密钥的UUID。当然可以创建多个CMK，一个CMK可以加密多个DEK。KMS的作用就是替各个业务系统加密DEK，安全的存储CMK。</p>
+<h4 id="场景1——直接加密"><a href="#场景1——直接加密" class="headerlink" title="场景1——直接加密"></a>场景1——直接加密</h4><ul>
+<li>对配置文件的加密</li>
+<li>对SSL私钥的加密</li>
+</ul>
+<p><strong>敏感信息直接加密</strong>是密钥管理服务（KMS）核心的能力，适用于保护小型敏感数据（小于4KB），如<big>密钥、证书、配置文件</big>等。</p>
+<p><img src="/images/KMS_cmk.jpg" alt="直接加密"><br>采用对称加密的方式，调用方通常是企业运维系统，将敏感数据<strong>明文</strong>POST给KMS进行加密，返回密文存储。将密文部署在企业应用服务器上，应用使用时，调用KMS解密在内存中，明文没有落地。<br>主要防止某一个环节禁止存放明文数据，故采用调KMS进行加密。</p>
+<h4 id="场景2——信封加密"><a href="#场景2——信封加密" class="headerlink" title="场景2——信封加密"></a>场景2——信封加密</h4><ul>
+<li>对业务数据文件的加密</li>
+<li>对服务器上的磁盘数据加密</li>
+</ul>
+<p><img src="/images/KMS_encrypt.png" alt="加密SDK使用场景"></p>
+<p>业务系统A已集成KMS的SDK<br>i.通过KMS控制台，或者调用CreateKey接口，创建一个用户主密钥。<br>ii.调用GenerateDataKey接口创建一个数据密钥。KMS会返回一个明文的数据密钥和一个密文的数据密钥。<br>iii.使用明文的数据密钥加密文件，产生密文文件，然后销毁内存中的明文密钥。<br>iv.用户将密文数据密钥和密文文件一同存储到持久化存储设备或服务中。</p>
+<p>其实，业务系统A也可以自己生成数据密钥，不一定非得KMS帮你生成DEK，本地用DEK加密文件得到密文，然后调KMS执行主密钥加密，返回密文。这种用到了主密钥加密也可认为是信封加密。<br>综述，租户的主密钥保存在KMS数据库中，加密主密钥的根密钥保存在HSM硬件中。</p>
+<h4 id="场景3——密码托管系统"><a href="#场景3——密码托管系统" class="headerlink" title="场景3——密码托管系统"></a>场景3——密码托管系统</h4><p>场景1和2，KMS只是托管了加/解密的key，未托管业务的敏感数据凭证，如数据库凭据、API密钥、账号密码等。<br>在KMS系统之上封装一下，就是Vault，即凭据托管系统，实现密码托管及自动轮换。<br><img src="/images/KMS_%E6%89%98%E7%AE%A1%E5%AF%86%E7%A0%81.png" alt="直接加密"><br>注意：凭据的录入、凭据的定期轮换是凭据的产生者——运维平台负责的。密码托管系统只是代为保管凭证，<code>不生产凭据，只是凭据的搬运工</code></p>
+<h4 id="最佳实践——相册云端加密存储"><a href="#最佳实践——相册云端加密存储" class="headerlink" title="最佳实践——相册云端加密存储"></a>最佳实践——相册云端加密存储</h4><p>上述场景，KMS和业务系统之间，终究（始终）会传递敏感信息/密钥，试想如果KMS在云端厂商上，如何保障安全？</p>
+<p>核心目标：终端用户的数据，只能用户自己看到（手机端、浏览器访问云相册均可），噱头就是云服务提供商也看不到明文，因为是加密存储</p>
+<p>蓝钥匙，本地随机key用来加密图片等数据<br>红钥匙，主密钥CMK公钥，加密蓝钥匙<br>金钥匙，根密钥，负责生成CMK的公钥和私钥<br>绿钥匙，手机设备公私钥对，公钥上传到CMK，便于一用户多终端认证+下发红钥匙。设备出厂时，预置了设备证书与公私钥对（存储在TEE），设备的公私钥对每台都不同，用于标识设备的唯一合法身份。<br><img src="/images/KMS_huawei.png" alt="云空间四重加密技术"><br>KMS云端存储：红钥匙<br>云空间存储：加密后的相册数据、加密后的蓝钥匙<br>手机端存储：红钥匙CMK公钥、绿钥匙设备公私钥，都存在TEE中</p>
+<p>效果：认证后，自己的图片只有自己能看到，在手机端、在浏览器中访问云空间等方式，都可以看到明文图片，只不过存储时是加密的<br>总结：华为采用的是KMS的非对称CMK</p>
+<h4 id="KMS问答"><a href="#KMS问答" class="headerlink" title="KMS问答"></a>KMS问答</h4><hr>
+<p>Q：根密钥、主密钥、数据密钥都在哪存储？<br>A：根密钥在HSM的硬件芯片中，主密钥在KMS的数据库中加密存储，数据密钥在应用系统本地加密存储。</p>
+<hr>
+<p>Q：数据密钥的使用和存储？<br>A：KMS不会存储你的数据密钥，当然也不会存储根密钥，使用根密钥时是在硬件内存中的，不会落地。<br>A：业务系统加载使用数据密钥时，是在内存中的，明文，不会落地。（当然你非要明文落地，也没人管你）<br>A：凡是落地的密钥，都要加密，禁止明文存储。</p>
+<hr>
+<p>Q：主密钥会在客户端内存中么？<br>A：主密钥永远不会离开KMS+HSM，故不会在业务系统的内存中。即业务系统永远不知道CMK，只知道UUID。<br>A：如果业务系统自己生成一个密钥，上传到了KMS中。可以指定这个密钥是CMK，只是委托KMS用根密钥加下密。当然一般场景下，这个密钥是DEK，只是委托KMS用主密钥加下密。</p>
+<hr>
+<p>Q：调用方永远不知道明文数据块？<br>A：KMS只是负责帮你加密或托管密钥key，明文数据毕竟是你提供的，只是避免明文存储，间接的人为看到。</p>
+<hr>
+<p>Q：数据密钥DEK怎么生成的，DEK存在KMS中？<br>A：第一种通过KMS的主密钥CMK生成，但KMS不会存储、管理你的DEK<br>A：第二种应用系统本地生成，然后发给KMS让它加密。Google推荐的最佳实践</p>
+<hr>
+<p>Q：主密钥直接加密和信封加密的区别？<br>A：主密钥直接加密，待加密可能是key也可能是敏感信息，如果是敏感信息，KMS和业务系统之间传输过程中的风险问题<br>A：信封加密，KMS和业务系统之间，传输的只能是key</p>
+<hr>
+<p>Q：主密钥直接加密业务方提供的数据，有啥缺点？</p>
+<ul>
+<li>主密钥加密的东西，支持最大4KB的数据</li>
+<li>信封加密降低了网络负载，可提供巨大的性能优势</li>
+<li>将需要加密的数据通过网络传输到KMS后端，传输过程中的安全风险问题（相比只传输密钥key）</li>
+</ul>
+<hr>
+<p>Q：KMS中会保存业务数据么？比如db密码、appkey等<br>A：KMS的作用是维护DEK&amp;CMK密钥的安全，而不是口令的托管。<br>A：Vault可以托管db密码、appkey，即密码托管系统，会用到KMS的加密机功能</p>
+
+          
         
       
     </div>
@@ -1595,163 +1788,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://heyaff.github.io/2020/05/30/jwt/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="heyaff">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="安全笔记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/05/30/jwt/" itemprop="url">JWT/Oauth</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-30T16:24:32+08:00">
-                2020-05-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JWT/" itemprop="url" rel="index">
-                    <span itemprop="name">JWT</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JWT/Oauth/" itemprop="url" rel="index">
-                    <span itemprop="name">Oauth</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="App-key-amp-App-secret"><a href="#App-key-amp-App-secret" class="headerlink" title="App_key&amp;App_secret"></a>App_key&amp;App_secret</h3><p><img src="/images/AppSecret%E5%AE%89%E5%85%A8%E5%9C%BA%E6%99%AF.jpg" alt="AppSecret安全场景"></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/05/30/jwt/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1805,7 +1841,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-count">40</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1816,7 +1852,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1827,7 +1863,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">47</span>
+                  <span class="site-state-item-count">48</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
