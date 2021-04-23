@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="bcrypt在线生成工具 bcrypt组成  2a:算法标识符 10:轮数，默认是10，即2^10=1024次迭代 YET3WUXkOBCwKxOzLha2MO:原始salt值是heyaff@12345678916字节128bits，你看到的YET开头是经OpenBSD-Base64编码后22字符，故盐值可逆 VaGgw3duNuPMQqx1LUV4CoXxTHUJihO：哈希后的密文是23字节1">
+<meta name="description" content="bcrypt在线生成工具 bcrypt组成  2a:算法标识符 10:轮数，默认是10，即2^10=1024次迭代">
 <meta name="keywords" content="bcrypt">
 <meta property="og:type" content="article">
 <meta property="og:title" content="bcrypt最佳实践">
 <meta property="og:url" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;2021&#x2F;03&#x2F;02&#x2F;bcrypt&#x2F;index.html">
 <meta property="og:site_name" content="安全笔记">
-<meta property="og:description" content="bcrypt在线生成工具 bcrypt组成  2a:算法标识符 10:轮数，默认是10，即2^10=1024次迭代 YET3WUXkOBCwKxOzLha2MO:原始salt值是heyaff@12345678916字节128bits，你看到的YET开头是经OpenBSD-Base64编码后22字符，故盐值可逆 VaGgw3duNuPMQqx1LUV4CoXxTHUJihO：哈希后的密文是23字节1">
+<meta property="og:description" content="bcrypt在线生成工具 bcrypt组成  2a:算法标识符 10:轮数，默认是10，即2^10=1024次迭代">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;bcrypt.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;bcrypt_3.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;bcrypt1.png">
-<meta property="og:updated_time" content="2021-03-16T03:12:36.705Z">
+<meta property="og:updated_time" content="2021-03-18T11:06:15.990Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;bcrypt.png">
 
@@ -397,11 +397,11 @@
 <h3 id="bcrypt组成"><a href="#bcrypt组成" class="headerlink" title="bcrypt组成"></a>bcrypt组成</h3><p><img src="/images/bcrypt.png" alt="Bcrpt密文"></p>
 <ul>
 <li><code>2a</code>:算法标识符</li>
-<li><code>10</code>:轮数，默认是10，即2^10=1024次迭代</li>
+<li><code>10</code>:轮数，默认是10，即2^10=1024次迭代<a id="more"></a></li>
 <li><code>YET3WUXkOBCwKxOzLha2MO</code>:原始salt值是<code>heyaff@123456789</code>16字节128bits，你看到的YET开头是经OpenBSD-Base64编码后22字符，故<strong>盐值可逆</strong></li>
-<li><code>VaGgw3duNuPMQqx1LUV4CoXxTHUJihO</code>：哈希后的密文是23字节184bit，经OpenBSD-Base64编码后，你看到的是31字符<a id="more"></a>
-<h3 id="bcrypt特征"><a href="#bcrypt特征" class="headerlink" title="bcrypt特征"></a>bcrypt特征</h3>默认情况下，salt随机生成，故同一个密码，bcrypt每次生成的hash都不一样</li>
+<li><code>VaGgw3duNuPMQqx1LUV4CoXxTHUJihO</code>：哈希后的密文是23字节184bit，经OpenBSD-Base64编码后，你看到的是31字符</li>
 </ul>
+<h3 id="bcrypt特征"><a href="#bcrypt特征" class="headerlink" title="bcrypt特征"></a>bcrypt特征</h3><p>默认情况下，salt随机生成，故同一个密码，bcrypt每次生成的hash都不一样</p>
 <ul>
 <li>慢散列hash算法，单向不可逆</li>
 <li>轮数固定，bcrypt时间也是固定的，默认是10，只需300~500ms</li>
@@ -538,7 +538,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">40</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -549,7 +549,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-count">44</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -560,7 +560,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">48</span>
+                  <span class="site-state-item-count">51</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

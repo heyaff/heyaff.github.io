@@ -79,16 +79,18 @@
 
 
 
-<meta name="description" content="mavenMaven主要做了两件事：统一开发规范与工具统一管理jar包 maven是一个JAVA项目管理工具，直接配置pom文件，maven会自动帮你下载和管理jar包。 ansible1、基于ssh运行2、无需客户端 Ansible 拿来做服务器部署再合适不过。只需要准备好一份主机清单和要执行的命令步骤，就可以实现对一个清单的全部主机远程 批量执行命令">
+<meta name="description" content="mavenMaven主要做了两件事：统一开发规范与工具统一管理jar&#x2F;aar&#x2F;so包">
 <meta name="keywords" content="专业术语">
 <meta property="og:type" content="article">
 <meta property="og:title" content="术语">
 <meta property="og:url" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;2021&#x2F;03&#x2F;17&#x2F;suyu&#x2F;index.html">
 <meta property="og:site_name" content="安全笔记">
-<meta property="og:description" content="mavenMaven主要做了两件事：统一开发规范与工具统一管理jar包 maven是一个JAVA项目管理工具，直接配置pom文件，maven会自动帮你下载和管理jar包。 ansible1、基于ssh运行2、无需客户端 Ansible 拿来做服务器部署再合适不过。只需要准备好一份主机清单和要执行的命令步骤，就可以实现对一个清单的全部主机远程 批量执行命令">
+<meta property="og:description" content="mavenMaven主要做了两件事：统一开发规范与工具统一管理jar&#x2F;aar&#x2F;so包">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;maven.jpg">
-<meta property="og:updated_time" content="2021-03-17T12:57:34.770Z">
+<meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;npm_dist.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;npm_dist1.png">
+<meta property="og:updated_time" content="2021-03-26T09:39:18.361Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;maven.jpg">
 
@@ -391,10 +393,20 @@
       
 
       
-        <h3 id="maven"><a href="#maven" class="headerlink" title="maven"></a>maven</h3><p><img src="/images/maven.jpg" alt="" title="开发IDE阶段才会用到maven"><br>Maven主要做了两件事：<br>统一开发规范与工具<br>统一管理jar包</p>
-<p>maven是一个JAVA项目管理工具，直接配置pom文件，maven会自动帮你下载和管理jar包。</p>
+        <h3 id="maven"><a href="#maven" class="headerlink" title="maven"></a>maven</h3><p><img src="/images/maven.jpg" alt="" title="后端开发IDE阶段才会用到maven"><br>Maven主要做了两件事：<br>统一开发规范与工具<br>统一管理jar/aar/so包<a id="more"></a></p>
+<p>maven是一个JAVA项目管理工具，直接配置pom文件，maven会自动帮你下载和管理jar包。<br>maven项目的目录结构遵守以下规范<br>| 路径 | 说明 |<br>| :—-: | :—-: |<br>| src/main/java | 存放项目的.java文件，开发源代码 |<br>| src/main/resources | 存放项目配置文件，如spring, hibernate配置文件 |<br>| src/main/webapp | 存放web项目资源文件（web项目才有） |<br>| pom.xml | maven项目核心配置文件 |</p>
+<p>就是如果是一个maven项目那么它的根目录下必定存在src文件夹和pom.xml。</p>
+<h3 id="Node-js"><a href="#Node-js" class="headerlink" title="Node.js"></a>Node.js</h3><p>前端项目，在服务器上解析运行js文件</p>
+<p><code>src</code>文件夹，存放前端工程师的源代码，如app.vue等源码，<code>dist</code>文件夹，存放编译好的前端文件</p>
+<p>npm install xxx包，从仓库下载的依赖资源包都放在了node_modules目录下面</p>
+<p>npm包是前端js资源仓库包，例xxx.min.js，xxx(hash).js</p>
+<p><strong>webpack编译打包项目</strong>，运行<code>npm run build</code>后，生成了一个dist文件夹，放在Nginx/tomcat服务器指定路径下</p>
+<p><img src="/images/npm_dist.png" alt="" title="前端IDE开发工具视图"><br><img src="/images/npm_dist1.png" alt="" title="Nodejs服务器上视图"></p>
 <h3 id="ansible"><a href="#ansible" class="headerlink" title="ansible"></a>ansible</h3><p>1、基于ssh运行<br>2、无需客户端</p>
-<p><code>Ansible</code> 拿来做服务器部署再合适不过。只需要<strong>准备好一份主机清单和要执行的命令步骤</strong>，就可以实现<strong>对一个清单的全部主机远程 批量执行命令</strong></p>
+<p><code>Ansible</code> 拿来做服务器部署再合适不过。只需要<strong>准备好一份主机清单和要执行的命令步骤</strong>，就可以实现<strong>对一个清单的全部主机远程 批量执行命令</strong>。</p>
+<p>推荐免密公钥SSH登录远程主机清单</p>
+<h3 id="CI-CD流程"><a href="#CI-CD流程" class="headerlink" title="CI/CD流程"></a>CI/CD流程</h3><p>1.编写代码<br>2.自测+测试用例<br>3.编写Dockerfile<br>4.构建Docker镜像<br>5.推送Docker镜像到仓库<br>6.编写k8s YAML 文件<br>7.更新 YAML 文件中的Docker镜像TAG<br>8.利用kubectl工具部署应用</p>
+<p>-<a href="https://blog.ops-coffee.cn/s/gatfwneto_agsjhzdv5yzq" title="运维咖啡吧">中小团队基于Docker的devops实践</a></p>
 
       
     </div>
@@ -434,6 +446,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/03/26/s3/" rel="prev" title="对象存储">
+                对象存储 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -514,7 +530,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">40</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -525,7 +541,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-count">44</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -536,7 +552,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">48</span>
+                  <span class="site-state-item-count">51</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -569,7 +585,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#maven"><span class="nav-number">1.</span> <span class="nav-text">maven</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ansible"><span class="nav-number">2.</span> <span class="nav-text">ansible</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#maven"><span class="nav-number">1.</span> <span class="nav-text">maven</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Node-js"><span class="nav-number">2.</span> <span class="nav-text">Node.js</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ansible"><span class="nav-number">3.</span> <span class="nav-text">ansible</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CI-CD流程"><span class="nav-number">4.</span> <span class="nav-text">CI/CD流程</span></a></li></ol></div>
             
 
           </div>

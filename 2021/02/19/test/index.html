@@ -79,15 +79,15 @@
 
 
 
-<meta name="description" content="目录扫描爆破Dirsearchhttps:&#x2F;&#x2F;github.com&#x2F;maurosoria&#x2F;dirsearch思路：爆破出一个目录后，继续对二级&#x2F;三级目录进行爆破">
+<meta name="description" content="目录扫描爆破Dirsearchpython3 dirsearch.py -u https:&#x2F;&#x2F;xxx -e 403,404,401可选：-f -e php,html,jspx，知道网站的应用架构后，限定扫描某后缀--remove-extensions，去掉字典中所有的后缀，探测子目录 https:&#x2F;&#x2F;github.com&#x2F;maurosoria&#x2F;dirsearch思路：爆破出一个目录后，继续对二级&#x2F;">
 <meta name="keywords" content="渗透工具">
 <meta property="og:type" content="article">
 <meta property="og:title" content="渗透测试技巧">
 <meta property="og:url" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;2021&#x2F;02&#x2F;19&#x2F;test&#x2F;index.html">
 <meta property="og:site_name" content="安全笔记">
-<meta property="og:description" content="目录扫描爆破Dirsearchhttps:&#x2F;&#x2F;github.com&#x2F;maurosoria&#x2F;dirsearch思路：爆破出一个目录后，继续对二级&#x2F;三级目录进行爆破">
+<meta property="og:description" content="目录扫描爆破Dirsearchpython3 dirsearch.py -u https:&#x2F;&#x2F;xxx -e 403,404,401可选：-f -e php,html,jspx，知道网站的应用架构后，限定扫描某后缀--remove-extensions，去掉字典中所有的后缀，探测子目录 https:&#x2F;&#x2F;github.com&#x2F;maurosoria&#x2F;dirsearch思路：爆破出一个目录后，继续对二级&#x2F;">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2021-02-22T02:48:20.592Z">
+<meta property="og:updated_time" content="2021-04-06T02:52:19.187Z">
 <meta name="twitter:card" content="summary">
 
 
@@ -389,9 +389,18 @@
       
 
       
-        <h3 id="目录扫描爆破"><a href="#目录扫描爆破" class="headerlink" title="目录扫描爆破"></a>目录扫描爆破</h3><p>Dirsearch<br><a href="https://github.com/maurosoria/dirsearch">https://github.com/maurosoria/dirsearch</a><br>思路：爆破出一个目录后，继续对二级/三级目录进行爆破<a id="more"></a></p>
+        <h3 id="目录扫描爆破"><a href="#目录扫描爆破" class="headerlink" title="目录扫描爆破"></a>目录扫描爆破</h3><p>Dirsearch<br><code>python3 dirsearch.py -u https://xxx -e 403,404,401</code><br>可选：<br><code>-f -e php,html,jspx</code>，知道网站的应用架构后，限定扫描某后缀<br><code>--remove-extensions</code>，去掉字典中所有的后缀，探测子目录</p>
+<p><a href="https://github.com/maurosoria/dirsearch">https://github.com/maurosoria/dirsearch</a><br>思路：爆破出一个目录后，继续对二级/三级目录进行爆破<a id="more"></a></p>
 <h3 id="SQLMAP注入"><a href="#SQLMAP注入" class="headerlink" title="SQLMAP注入"></a>SQLMAP注入</h3><p>注入点位置，加*</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">--batch 不会询问你输入 全部默认确定</span><br><span class="line">-v	sql详细输出级别，等级<span class="number">3</span>会显示payload</span><br><span class="line"></span><br><span class="line">python sqlmap<span class="selector-class">.py</span> -r demo<span class="selector-class">.txt</span> --dbs --batch -v <span class="number">3</span></span><br><span class="line"></span><br><span class="line">python sqlmap<span class="selector-class">.py</span> -r demo<span class="selector-class">.txt</span> --tables -D 库名</span><br><span class="line"></span><br><span class="line">python sqlmap<span class="selector-class">.py</span> -r demo<span class="selector-class">.txt</span> --<span class="attribute">columns</span> -T 表名 -D 库名</span><br><span class="line"></span><br><span class="line">python sqlmap<span class="selector-class">.py</span> -r demo<span class="selector-class">.txt</span> --dump -C 列名<span class="number">1</span>,列名<span class="number">2</span> -T 表名 -D 库名</span><br><span class="line"></span><br><span class="line">python sqlmap<span class="selector-class">.py</span> -r demo<span class="selector-class">.txt</span> --dump-all -T 表名 -D 库名</span><br></pre></td></tr></table></figure>
+
+<h3 id="前端VUE项目泄露未授权接口"><a href="#前端VUE项目泄露未授权接口" class="headerlink" title="前端VUE项目泄露未授权接口"></a>前端VUE项目泄露未授权接口</h3><p>Webpack所生成的js有他的命名规律，一般都为<code>xxx.随机字母数字.js</code>的两段式，且每一个JS文件具体内容均以<code>webpackJsonp</code>开始。</p>
+<hr>
+<p>目标1：获取一个站点下所有的js文件<br>工具1：burp<br>操作1：在Target标签下，选择站点，点进去右键<code>Copy selected URLs</code>，复制js script的全部URL</p>
+<hr>
+<p>目标2：提取js中隐藏的接口<br>工具2：LinkFinder<br>操作2：<code>python3 linkfinder.py -i https://xxx.com/js/xxx.min.js -o -cli</code>，目前不支持批量查询，一条条查吧</p>
+<hr>
+<p>如果URL中有/#/，基本是Webpack打包的，若出现SpringBoot的<strong>Whitelabel Error Page</strong>报错，尝试URL最后加个/</p>
 
       
     </div>
@@ -515,7 +524,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">40</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -526,7 +535,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-count">44</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -537,7 +546,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">48</span>
+                  <span class="site-state-item-count">51</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -570,7 +579,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#目录扫描爆破"><span class="nav-number">1.</span> <span class="nav-text">目录扫描爆破</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQLMAP注入"><span class="nav-number">2.</span> <span class="nav-text">SQLMAP注入</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#目录扫描爆破"><span class="nav-number">1.</span> <span class="nav-text">目录扫描爆破</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQLMAP注入"><span class="nav-number">2.</span> <span class="nav-text">SQLMAP注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#前端VUE项目泄露未授权接口"><span class="nav-number">3.</span> <span class="nav-text">前端VUE项目泄露未授权接口</span></a></li></ol></div>
             
 
           </div>
