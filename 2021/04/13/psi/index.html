@@ -79,16 +79,17 @@
 
 
 
-<meta name="description" content="隐私集合求交PSI原理：双方各自都加密，不泄露明文数据，交换加密数据后，（执行同态加密运算）求两者的交集集合&#x2F;个数，而不泄露非交集合给任何一方目的：我的数据在不在你的DB中？即交集场景1：Chrome Password Checkup密码检查插件">
+<meta name="description" content="隐私集合求交PSI原理：双方各自都加密，不泄露明文数据，交换加密数据后，（执行同态加密运算）求两者的交集集合&#x2F;个数，而不泄露非交集合给任何一方 场景1：Chrome Password Checkup密码检查插件">
 <meta name="keywords" content="K-匿名,同态加密">
 <meta property="og:type" content="article">
 <meta property="og:title" content="隐私集合求交PSI">
 <meta property="og:url" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;2021&#x2F;04&#x2F;13&#x2F;psi&#x2F;index.html">
 <meta property="og:site_name" content="安全笔记">
-<meta property="og:description" content="隐私集合求交PSI原理：双方各自都加密，不泄露明文数据，交换加密数据后，（执行同态加密运算）求两者的交集集合&#x2F;个数，而不泄露非交集合给任何一方目的：我的数据在不在你的DB中？即交集场景1：Chrome Password Checkup密码检查插件">
+<meta property="og:description" content="隐私集合求交PSI原理：双方各自都加密，不泄露明文数据，交换加密数据后，（执行同态加密运算）求两者的交集集合&#x2F;个数，而不泄露非交集合给任何一方 场景1：Chrome Password Checkup密码检查插件">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;PSI_passwordcheckup.PNG">
-<meta property="og:updated_time" content="2021-04-22T12:15:27.954Z">
+<meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0.png">
+<meta property="og:updated_time" content="2021-05-12T12:43:49.480Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;PSI_passwordcheckup.PNG">
 
@@ -391,12 +392,15 @@
       
 
       
-        <h3 id="隐私集合求交PSI"><a href="#隐私集合求交PSI" class="headerlink" title="隐私集合求交PSI"></a>隐私集合求交PSI</h3><p>原理：双方各自都加密，不泄露明文数据，交换加密数据后，（执行同态加密运算）求两者的交集集合/个数，而不泄露非交集合给任何一方<br>目的：我的数据在不在你的DB中？即交集<br>场景1：Chrome Password Checkup密码检查插件<a id="more"></a></p>
+        <h3 id="隐私集合求交PSI"><a href="#隐私集合求交PSI" class="headerlink" title="隐私集合求交PSI"></a>隐私集合求交PSI</h3><p>原理：双方各自都加密，不泄露明文数据，交换加密数据后，（执行同态加密运算）求两者的交集集合/个数，而不泄露非交集合给任何一方</p>
+<p>场景1：Chrome Password Checkup密码检查插件<a id="more"></a><br>目的：我的数据在不在你的DB中？即交集</p>
 <p><img src="/images/PSI_passwordcheckup.PNG" alt="" title="密码安全检查插件技术"></p>
 <ul>
 <li><a href="https://duo.com/labs/tech-notes/protecting-accounts-from-credential-stuffing" title="PROTECTING ACCOUNTS FROM CREDENTIAL STUFFING">Google Password Checkup解读</a></li>
 </ul>
-<p>实现效果：<br>1、云端几十G的数据，没有全部发送给client，模糊匹配后只发送了几M的数据<br>2、DB不在client端，有更新的问题<br>3、云端不知道你的原始数据，同时也不会学习你的实际数据<br>4、浏览器本地找出了交集结果，同时云端也不会学习具体的交集<br>5、中间使用了EDCH加密算法的一个变体，核心算法就是ck(sk(hash)) = sk(ck(hash))</p>
+<p>实现效果：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>、云端几十G的数据，没有全部发送给client，模糊匹配后只发送了几M的数据</span><br><span class="line"><span class="number">2</span>、DB不在client端，有更新的问题</span><br><span class="line"><span class="number">3</span>、云端不知道你的原始数据，同时也不会学习你的实际数据</span><br><span class="line"><span class="number">4</span>、浏览器本地找出了交集结果，同时云端也不会学习具体的交集</span><br><span class="line"><span class="number">5</span>、中间使用了EDCH加密算法的一个变体，核心算法就是ck(sk(hash)) = sk(ck(hash))</span><br></pre></td></tr></table></figure>
+
 <p>场景2：</p>
 <ul>
 <li><a href="https://engineering.fb.com/2020/07/10/open-source/private-matching/" title="Private matching for compute: New solutions to the problem of enabling compute on private set intersections">PSI新解决方案</a></li>
@@ -405,8 +409,9 @@
 <li><a href="https://blog.csdn.net/JDDTechTalk/article/details/109738346?utm_medium=distribute.pc_feed_404.none-task-blog-2~default~OPENSEARCH~default-1.nonecase&dist_request_id=1331645.11073.16183852512799045&depth_1-utm_source=distribute.pc_feed_404.none-task-blog-2~default~OPENSEARCH~default-1.nonecas">一文读懂联邦学习的前世今生（建议收藏）</a></li>
 <li><a href="https://blog.openmined.org/private-machine-learning-explained/" title="private-machine-learning-explained">隐私保护数据安全名词解释</a></li>
 </ul>
-<p>目的：公司对样本数据进行机器学习模型训练，联合其他公司的数据来训练模型<br><a href="/images/联邦学习.png" title="联邦学习只传送训练后的模型数据"></a></p>
-<p>横向联邦学习：两个数据集中，用户特征属性重叠较多，用户ID重叠较少，想扩充自己的用户群体<br>纵向联邦学习：两个数据集中，用户ID重叠较多，用户特征属性重叠较少，想扩充当前用户群体的多元化属性</p>
+<p>目的：公司有自己的机器学习模型，对大量数据进行训练，期望联合其他公司的数据来更新模型<br><img src="/images/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0.png" alt="" title="联邦学习只传送训练后的模型数据"></p>
+<p>横向联邦学习：两个数据集中，用户特征字段交集较多，用户ID重叠较少，想扩充自己的用户群体<br>纵向联邦学习：两个数据集中，用户ID交集较多，但用户特征字段重叠较少，想扩充当前用户群体的多元化属性</p>
+<p>A有特征数据，B有这些特征用户的<font color=Blue>标签</font>数据。比如信誉高低就是个label，AB联合建模就是纵向的</p>
 <p>联邦学习的安全问题：恶意的联邦成员，利用建模阶段所需的大量中间值，推算出对应的原始数据</p>
 <p>采用隐私保护技术<em>（见下文）</em>来提升联邦学习的安全性。</p>
 <h3 id="隐私保护技术"><a href="#隐私保护技术" class="headerlink" title="隐私保护技术"></a>隐私保护技术</h3><ul>
@@ -415,19 +420,24 @@
 <p>主要思想是对训练模型过程的中间结果进⾏某种变换，以掩盖原始数据或改变其数据特性，从⽽使得恶意联邦成员的破解技术失效，同时还能保证诚实的联邦成员依然可以从数据中学习到经验。<br>相当于数据提供方将数据放入保险箱中进行传输，其他联邦成员无法打开箱子看到真实数据，但却可以在不解锁的情况下，对保险箱中的数据完成训练所需的操作；当训练完成后，数据提供方再开箱取出计算结果即可。<br>这种理想的功能需要我们使用特殊的技术进行实现，其中常⽤技术包括差分隐私、同态加密等。</p>
 <h4 id="K-匿名"><a href="#K-匿名" class="headerlink" title="K-匿名"></a>K-匿名</h4><p>你要想公开某些批量信息，要对多列数据进行抽象/模糊化、泛化处理，对某个属性字段的范围变大，形成K个等价类</p>
 <ul>
-<li>假名化 将身份ID重命名，映射可逆的</li>
-<li>去标识化 删除身份ID相关的信息</li>
-<li>匿名化 攻击者无法“识别”具体一条记录</li>
+<li><mark>假名化</mark> 将身份ID重命名，映射可逆的</li>
+<li><mark>去标识化</mark> 删除身份ID相关的信息</li>
+<li><mark>匿名化</mark> 攻击者无法“识别”具体一条记录</li>
 </ul>
 <p>以上三种方法对<strong>数据可用性</strong>依次降低，但<strong>隐私保密性</strong>越来越高</p>
-<h4 id="差分隐私算法"><a href="#差分隐私算法" class="headerlink" title="差分隐私算法"></a>差分隐私算法</h4><p>为了防止联邦学习的模型推导出原始的用户数据，可以使用差分隐私或加密计算<br>即原始数据集中加入了噪声，并不影响对数据集的统计分析。例如将年龄从50改为46（-4）或者51（+1），这可使得某些破解技术失效。</p>
+<h4 id="差分隐私算法"><a href="#差分隐私算法" class="headerlink" title="差分隐私算法"></a>差分隐私算法</h4><p>为了防止联邦学习的模型推导出原始的用户数据，可以使用差分隐私或加密计算<br>即原始数据集中加入了噪声，并不影响对数据集的统计分析。例如将年龄从50改为46或者51</p>
+<p>场景：</p>
+<ul>
+<li>对小量数据添加噪声，无法保证统计分析结果的准确性，故只能用于大量的数据，一般用在有共性统计的数据分析</li>
+<li>添加噪声后，分析结果的准确性下降，故对结果不能很严格</li>
+</ul>
 <h4 id="同态加密"><a href="#同态加密" class="headerlink" title="同态加密"></a>同态加密</h4><p>同态加密允许直接对加密数据执行某些类型的计算，而无需先对其解密，从而保留了原始数据的私密性。<br>个人敏感信息直接加密，然后在密文数据上直接统计与机器学习，计算过程中无需解密，对结果进行解密</p>
 <h4 id="零知识证明"><a href="#零知识证明" class="headerlink" title="零知识证明"></a>零知识证明</h4><h4 id="安全多方计算"><a href="#安全多方计算" class="headerlink" title="安全多方计算"></a>安全多方计算</h4><h3 id="Q-amp-A"><a href="#Q-amp-A" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h3><hr>
 <p>Q：联邦学习和PSI有啥关系？<br>A：在利用联邦学习建立模型之前，不共享数据的前提下怎么知道双方的重叠数据？这就需要PSI，俗称ID对齐</p>
 <hr>
 <p>Q：联邦学习的目标，是拿到对方的数据？<br>A：不恰当，在本地数据建模训练后，把训练结果而非数据上传云端，再进行模型聚合，目标是提升模型预测的准确性<br>A：联邦学习的目标是预测/期望label标签那一列更加准确</p>
 <hr>
-<p>Q：啥是特征，啥是标签？<br>A：特征是某些固有属性，标签是根据固有属性产生/推导出的认知，一个结论，并不一定是事物本身所具有的属性<br>A：所以标签可能不准的</p>
+<p>Q：啥是特征，啥是标签？<br>A：特征是某些固有属性，<font color=Blue>标签</font>是根据固有属性产生/推导出的认知，一个结论，并不一定是事物本身所具有的属性<br>A：所以<font color=Blue>标签</font>可能会变/实时更新</p>
 <hr>
 
       
