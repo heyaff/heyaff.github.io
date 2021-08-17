@@ -89,7 +89,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;PSI_passwordcheckup.PNG">
 <meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0.png">
-<meta property="og:updated_time" content="2021-05-12T12:43:49.480Z">
+<meta property="og:updated_time" content="2021-05-27T08:32:57.253Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;PSI_passwordcheckup.PNG">
 
@@ -399,8 +399,8 @@
 <li><a href="https://duo.com/labs/tech-notes/protecting-accounts-from-credential-stuffing" title="PROTECTING ACCOUNTS FROM CREDENTIAL STUFFING">Google Password Checkup解读</a></li>
 </ul>
 <p>实现效果：</p>
-<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>、云端几十G的数据，没有全部发送给client，模糊匹配后只发送了几M的数据</span><br><span class="line"><span class="number">2</span>、DB不在client端，有更新的问题</span><br><span class="line"><span class="number">3</span>、云端不知道你的原始数据，同时也不会学习你的实际数据</span><br><span class="line"><span class="number">4</span>、浏览器本地找出了交集结果，同时云端也不会学习具体的交集</span><br><span class="line"><span class="number">5</span>、中间使用了EDCH加密算法的一个变体，核心算法就是ck(sk(hash)) = sk(ck(hash))</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>、云端几十G的数据，没有全部发送给client，模糊匹配后只发送了几M的数据</span><br><span class="line"><span class="number">2</span>、DB不在client端，有更新的问题</span><br><span class="line"><span class="number">3</span>、云端不知道你的原始数据，同时也不会知道你的实际数据</span><br><span class="line"><span class="number">4</span>、浏览器本地找出了交集结果，同时也没发送pwd，云端不需要知道交集</span><br><span class="line"><span class="number">5</span>、中间使用了EDCH加密算法的一个变体，核心算法就是ck(sk(hash)) = sk(ck(hash))</span><br><span class="line"><span class="number">6</span>、上述流程，client端可开放给其他公司合作，并不会泄露云端DB原始的密码库，只需要双方保持算法一致</span><br></pre></td></tr></table></figure>
+<p>要求不高的话，可以不用key加密散列的密码，即不发送Ⅱ（client端不上传密码），云端直接返回几M的明文hash(username,pwd)。但次数多了，client端是可以拿到全量的DB库</p>
 <p>场景2：</p>
 <ul>
 <li><a href="https://engineering.fb.com/2020/07/10/open-source/private-matching/" title="Private matching for compute: New solutions to the problem of enabling compute on private set intersections">PSI新解决方案</a></li>
@@ -481,6 +481,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2021/06/10/zero/" rel="prev" title="零信任架构">
+                零信任架构 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -560,7 +564,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-count">45</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -571,7 +575,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-count">48</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -582,7 +586,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-count">56</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

@@ -79,16 +79,18 @@
 
 
 
-<meta name="description" content="DDOS问答 DDOS攻击应急响应预案  UDP攻击,将IDC的入口带宽塞满防御方法：1、直接丢弃UDP流量，因为源IP随机伪造难以追查，但大多数业务IP并不提供UDP服务，直接丢弃UDP流量即可。2、出口IP切换到另一个公网IP3、如果攻击者比较执着，即使换了公网IP他也立刻更改攻击目标的话，最好的解决办法就是找运营商帮忙做流量清洗4、推荐本地DDOS防护设备+运营商清洗服务&#x2F;云清洗服务 静态">
+<meta name="description" content="DDOS攻击应急响应预案   UDP攻击,将IDC的入口带宽塞满防御方法：1、直接丢弃UDP流量，因为源IP随机伪造难以追查，但大多数业务IP并不提供UDP服务，直接丢弃UDP流量即可。2、出口IP切换到另一个公网IP3、如果攻击者比较执着，即使换了公网IP他也立刻更改攻击目标的话，最好的解决办法就是找运营商帮忙做流量清洗4、推荐本地DDOS防护设备+运营商清洗服务&#x2F;云清洗服务">
 <meta name="keywords" content="DDoS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="DDoS攻击">
 <meta property="og:url" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;2020&#x2F;03&#x2F;31&#x2F;ddos&#x2F;index.html">
 <meta property="og:site_name" content="安全笔记">
-<meta property="og:description" content="DDOS问答 DDOS攻击应急响应预案  UDP攻击,将IDC的入口带宽塞满防御方法：1、直接丢弃UDP流量，因为源IP随机伪造难以追查，但大多数业务IP并不提供UDP服务，直接丢弃UDP流量即可。2、出口IP切换到另一个公网IP3、如果攻击者比较执着，即使换了公网IP他也立刻更改攻击目标的话，最好的解决办法就是找运营商帮忙做流量清洗4、推荐本地DDOS防护设备+运营商清洗服务&#x2F;云清洗服务 静态">
+<meta property="og:description" content="DDOS攻击应急响应预案   UDP攻击,将IDC的入口带宽塞满防御方法：1、直接丢弃UDP流量，因为源IP随机伪造难以追查，但大多数业务IP并不提供UDP服务，直接丢弃UDP流量即可。2、出口IP切换到另一个公网IP3、如果攻击者比较执着，即使换了公网IP他也立刻更改攻击目标的话，最好的解决办法就是找运营商帮忙做流量清洗4、推荐本地DDOS防护设备+运营商清洗服务&#x2F;云清洗服务">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2021-03-09T02:25:13.094Z">
+<meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;DDoS.png">
+<meta property="og:updated_time" content="2021-06-08T06:29:33.565Z">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;DDoS.png">
 
 
 
@@ -390,15 +392,13 @@
 
       
         <ul>
-<li><a href="http://www.xmanshield.com/ddosquestion/" title="玄门盾DDoS防御">DDOS问答</a></li>
 <li><a href="http://kb.secking.com/index/article/show/id/23.html" title="DDOS攻击应急响应预案">DDOS攻击应急响应预案</a></li>
 </ul>
+<p><img src="/images/DDoS.png" alt="" title="DDoS攻击"></p>
 <h3 id="UDP攻击-将IDC的入口带宽塞满"><a href="#UDP攻击-将IDC的入口带宽塞满" class="headerlink" title="UDP攻击,将IDC的入口带宽塞满"></a>UDP攻击,将IDC的入口带宽塞满</h3><p>防御方法：<br>1、直接丢弃UDP流量，因为源IP随机伪造难以追查，但大多数业务IP并不提供UDP服务，直接丢弃UDP流量即可。<br>2、出口IP切换到另一个公网IP<br>3、如果攻击者比较执着，即使换了公网IP他也立刻更改攻击目标的话，最好的解决办法就是找运营商帮忙做流量清洗<br>4、推荐本地DDOS防护设备+运营商清洗服务/云清洗服务</p>
+<a id="more"></a>
 <p>静态页面也不能抗D，但可以提高抗攻击能力。D的一般是IP，不是域名。<br>cdn只能加速网站静态资源，动态资源/API直接回源</p>
 <p>非网站web业务，无法接入WAF防护<br>非网站业务只支持四层负载均衡转发，不支持七层防护（如WAF和CC防护）<br>对于游戏业务和视频直播业务来说，基本是UDP协议开发的</p>
-<a id="more"></a>
-
-
 <h3 id="术语"><a href="#术语" class="headerlink" title="术语"></a>术语</h3><p><strong>PPS攻击</strong>——入方向每秒多少个数据包（万PPS），如100wpps，包的速率(每秒的数据包个数，主要是消耗服务器，网关，路由等设备的CPU性能)。<strong>特点：量大包小</strong><br><strong>BPS攻击</strong>——入方向每秒多少比特数（Gbit/s），如100Gbps(每秒的带宽量，单位是小b，主要是消耗带宽，通常约定按bps表示强度)。<strong>特点：流量很大</strong></p>
 <p>出流量Response回包大小决定了消耗多少业务带宽，出流量突增，一般是CC攻击<br>入流量GET/POST/UDP等请求包大小、速率决定了DDoS攻击带宽，入流量突增，一般可能是流量攻击</p>
 <h3 id="高PPS攻击，不同于高带宽攻击"><a href="#高PPS攻击，不同于高带宽攻击" class="headerlink" title="高PPS攻击，不同于高带宽攻击"></a>高PPS攻击，不同于高带宽攻击</h3><p>PPS攻击会耗尽设备的资源。较BPS攻击少见些。缓解高PPS攻击需要的计算处理能力，远远超出了当前绝大多数网络设备路由或交换数据包的能力。</p>
@@ -540,7 +540,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-count">45</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -551,7 +551,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-count">48</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -562,7 +562,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-count">56</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

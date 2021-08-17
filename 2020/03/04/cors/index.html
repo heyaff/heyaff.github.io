@@ -89,7 +89,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;cors.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;response.png">
-<meta property="og:updated_time" content="2020-08-20T06:27:40.569Z">
+<meta property="og:updated_time" content="2021-05-24T08:44:40.304Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;cors.png">
 
@@ -410,6 +410,12 @@
 <p><font color=#DC143C>【Tips】即使设置了<code>Access-Control-Allow-Origin</code>，但CORS只对浏览器起作用，对curl或postman或普通程序不起作用，都是可访问的。</font></p>
 <h4 id="3、Nginx反向代理"><a href="#3、Nginx反向代理" class="headerlink" title="3、Nginx反向代理"></a>3、Nginx反向代理</h4><p>Nginx中转服务器，用于转发请求（NG与其他服务端之间的资源请求不会有跨域限制）</p>
 <p>例如<code>www.123.com/index.html</code>需要调用<code>www.456.com/server.php</code>，可以写一个接口<code>www.123.com/api/server.php</code>，由这个接口在后端去调用<code>www.456.com/server.php</code>并拿到返回值，然后再返回给index.html。用nginx把/api路径转发到其他域名那里，相当于绕过了浏览器端，自然就不存在跨域问题。</p>
+<h3 id="CORS前端报错"><a href="#CORS前端报错" class="headerlink" title="CORS前端报错"></a>CORS前端报错</h3><p>报错一：</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">The <span class="built_in">value</span> <span class="keyword">of</span> <span class="keyword">the</span> <span class="string">'Access-Control-Allow-Credentials'</span> header <span class="keyword">in</span> <span class="keyword">the</span> response is <span class="string">''</span> which must be <span class="string">'true'</span> when <span class="keyword">the</span> request<span class="string">'s credentials mode is '</span><span class="built_in">include</span><span class="string">'.</span></span><br></pre></td></tr></table></figure>
+<p>解决方法：<br>因为请求头中有设置cookie，如登录认证。所以response响应头必须添加<code>Access-Control-Allow-Credentials: true</code></p>
+<p>报错二：</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">The <span class="built_in">value</span> <span class="keyword">of</span> <span class="keyword">the</span> <span class="string">'Access-Control-Allow-Origin'</span> header <span class="keyword">in</span> <span class="keyword">the</span> response must <span class="keyword">not</span> be <span class="keyword">the</span> wildcard <span class="string">'*'</span> when <span class="keyword">the</span> request<span class="string">'s credentials mode is '</span><span class="built_in">include</span><span class="string">'.</span></span><br></pre></td></tr></table></figure>
+<p>解决方法：<br>响应头<code>Access-Control-Allow-Origin: *</code>中的*改为具体的https://域名</p>
 
       
     </div>
@@ -535,7 +541,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-count">45</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -546,7 +552,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-count">48</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -557,7 +563,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-count">56</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -590,7 +596,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么情况下出现跨域"><span class="nav-number">1.</span> <span class="nav-text">什么情况下出现跨域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#跨域请求方式"><span class="nav-number">2.</span> <span class="nav-text">跨域请求方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、JSONP（废弃）"><span class="nav-number">2.1.</span> <span class="nav-text">1、JSONP（废弃）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、CORS-W3C标准-跨域资源共享"><span class="nav-number">2.2.</span> <span class="nav-text">2、CORS W3C标准 跨域资源共享</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、Nginx反向代理"><span class="nav-number">2.3.</span> <span class="nav-text">3、Nginx反向代理</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么情况下出现跨域"><span class="nav-number">1.</span> <span class="nav-text">什么情况下出现跨域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#跨域请求方式"><span class="nav-number">2.</span> <span class="nav-text">跨域请求方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、JSONP（废弃）"><span class="nav-number">2.1.</span> <span class="nav-text">1、JSONP（废弃）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、CORS-W3C标准-跨域资源共享"><span class="nav-number">2.2.</span> <span class="nav-text">2、CORS W3C标准 跨域资源共享</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、Nginx反向代理"><span class="nav-number">2.3.</span> <span class="nav-text">3、Nginx反向代理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CORS前端报错"><span class="nav-number">3.</span> <span class="nav-text">CORS前端报错</span></a></li></ol></div>
             
 
           </div>

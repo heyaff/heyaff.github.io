@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="安全笔记">
 <meta property="og:description" content="Zabbix（扎比克斯）用来监控IDC服务器运行状态，告警zabbix agent部署在所有服务器上，采集数据上报给master。zabbix的web界面是php，默认账号密码admin&#x2F;zabbix未授权访问漏洞：http:&#x2F;&#x2F;xxx&#x2F;zabbix&#x2F;zabbix.php?action=dashboard.view&amp;amp;ddreset=1攻击者可绕过登陆页面直接访问仪表板页面，即匿名访问系统&#x2F;">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-03-31T08:51:36.452Z">
+<meta property="og:updated_time" content="2021-06-02T09:26:36.848Z">
 <meta name="twitter:card" content="summary">
 
 
@@ -324,7 +324,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-31T16:51:36+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-31T00:00:00+08:00">
                 2020-03-31
               </time>
             
@@ -389,7 +389,7 @@
       
 
       
-        <h3 id="Zabbix（扎比克斯）"><a href="#Zabbix（扎比克斯）" class="headerlink" title="Zabbix（扎比克斯）"></a>Zabbix（扎比克斯）</h3><p>用来监控IDC服务器运行状态，告警<br>zabbix agent部署在所有服务器上，采集数据上报给master。zabbix的web界面是php，默认账号密码admin/zabbix<br>未授权访问漏洞：<br><a href="http://xxx/zabbix/zabbix.php?action=dashboard.view&amp;ddreset=1">http://xxx/zabbix/zabbix.php?action=dashboard.view&amp;ddreset=1</a><br>攻击者可绕过登陆页面直接访问仪表板页面，即匿名访问系统/网络环境数据</p>
+        <h3 id="Zabbix（扎比克斯）"><a href="#Zabbix（扎比克斯）" class="headerlink" title="Zabbix（扎比克斯）"></a>Zabbix（扎比克斯）</h3><p>用来监控IDC服务器运行状态，告警<br>zabbix agent部署在所有服务器上，采集数据上报给master。zabbix的web界面是php，默认账号密码admin/zabbix<br>未授权访问漏洞：<br><a href="http://xxx/zabbix/zabbix.php?action=dashboard.view&amp;ddreset=1">http://xxx/zabbix/zabbix.php?action=dashboard.view&amp;ddreset=1</a><br>攻击者可绕过登陆页面直接访问仪表板页面，即匿名访问系统/网络环境数据<a id="more"></a></p>
 <h3 id="安全建议"><a href="#安全建议" class="headerlink" title="安全建议"></a>安全建议</h3><p>1、禁止Zabbix暴露在公网<br>2、zabbix的登录口令一定要复杂，立即修改默认口令或弱口令<br>3、zabbix的server和agent都不要以root启动，不要设置AllowRoot=1<br>4、禁止agent执行system.run，不要设置EnableRemoteCommands=1<br>5、经常打安全补丁，保持系统内核版本，Zabbix版本为最新</p>
 <h3 id="攻击事件回顾"><a href="#攻击事件回顾" class="headerlink" title="攻击事件回顾"></a>攻击事件回顾</h3><p>黑客通过测试环境一个后台登陆页面，通过修改XFF，绕过爆破限制得到管理员账号密码（test1/a123456）。然后在页面上传webshell探测内网，并利用默认口令（Admin/zabbix）成功登录测试环境Zabbix管理界面，该集群下约625个节点服务器。</p>
 <p>安全应急<br>1、测试环境开放公网，要经过安全测试<br>2、管理后台禁止开放公网，加强账号强度<br>3、测试/开发环境未部署HIDS，入侵检测未告警<br>4、中间件弱口令、空口令、默认口令，引入安全鉴权机制</p>
@@ -516,7 +516,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-count">45</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -527,7 +527,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-count">48</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -538,7 +538,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-count">56</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

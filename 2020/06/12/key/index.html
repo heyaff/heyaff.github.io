@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="安全笔记">
 <meta property="og:description" content="API接口签名验证&#x2F;开放平台鉴权app_key：同账号app_secret：同密码, 表示你真的拥有这个权限用来申请一个token，access token过期失效">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2021-03-26T08:03:17.791Z">
+<meta property="og:updated_time" content="2021-05-19T02:52:43.131Z">
 <meta name="twitter:card" content="summary">
 
 
@@ -395,6 +395,8 @@
 
 <p>按第三方接口的认证方式可以分成两类：<br>1.直接传递 key：这种情况下只能用服务器端中转客户端到第三方的请求；<br>2.传递由 key 计算得到的某种短期 /临时 token：客户端请求服务器返回一个可用的 token，再用此 token 直接请求第三方。<br>1 的优势是服务器端掌控一切，想干嘛干嘛（比如权限控制、统计），而且方便更新，劣势是增加服务器负载；<br>2 的优势是服务器负载小，请求响应快。很适合上传文件这种流量大的请求。或者直接传递key</p>
 <h4 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h4><p>1、存放在APP端不可取，密钥更新必须强制更新APP<br>2、折中方案：使用会话密钥，避免直接固化secret在APP，也减少全部在后端运算负担。</p>
+<h3 id="白盒密钥"><a href="#白盒密钥" class="headerlink" title="白盒密钥"></a>白盒密钥</h3><p>对称密钥的key在内存运行时依然是明文的，白盒密钥实现在内存中是密文的</p>
+<h3 id="AES加解密"><a href="#AES加解密" class="headerlink" title="AES加解密"></a>AES加解密</h3><p>明文10M文件，AES加密后也是10M密文，密钥是固定256位，密文存储用的是BASE64（你看到的密文是BASE64处理过的，即使解密也是乱码）</p>
 <h3 id="Q-amp-A"><a href="#Q-amp-A" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h3><hr>
 <p>Q：前端加密敏感数据，密钥存放在哪里？不让硬编码在JS中，那放哪？<br>A：前端加密password等敏感字段，是用后端的公钥加密的，公钥可以硬编码在js中。<br>A：前端随机产生一个key，用来AES加密数据，然后用后端公钥加密key，一起传给后端。<!--more--></p>
 <hr>
@@ -526,7 +528,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-count">45</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -537,7 +539,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-count">48</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -548,7 +550,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-count">56</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -581,7 +583,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#API接口签名验证-开放平台鉴权"><span class="nav-number">1.</span> <span class="nav-text">API接口签名验证/开放平台鉴权</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#调用第三方的key-secret，保存在客户端APP还是服务器端？"><span class="nav-number">1.1.</span> <span class="nav-text">调用第三方的key/secret，保存在客户端APP还是服务器端？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#结论"><span class="nav-number">1.2.</span> <span class="nav-text">结论</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q-amp-A"><span class="nav-number">2.</span> <span class="nav-text">Q&amp;A</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#API接口签名验证-开放平台鉴权"><span class="nav-number">1.</span> <span class="nav-text">API接口签名验证/开放平台鉴权</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#调用第三方的key-secret，保存在客户端APP还是服务器端？"><span class="nav-number">1.1.</span> <span class="nav-text">调用第三方的key/secret，保存在客户端APP还是服务器端？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#结论"><span class="nav-number">1.2.</span> <span class="nav-text">结论</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#白盒密钥"><span class="nav-number">2.</span> <span class="nav-text">白盒密钥</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AES加解密"><span class="nav-number">3.</span> <span class="nav-text">AES加解密</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q-amp-A"><span class="nav-number">4.</span> <span class="nav-text">Q&amp;A</span></a></li></ol></div>
             
 
           </div>

@@ -79,20 +79,20 @@
 
 
 
-<meta name="description" content="KMS目的：禁止业务调用方，本地私自明文存储敏感信息（如密钥）。并非应用执行加密算法时对密钥的加密（在内存中是明文密钥） 密钥分级  数据密钥DEK：三级密钥，用来加密明文数据的密钥 主密钥CMK：二级密钥，用来加密数据密钥的密钥 根密钥RootKey：一级密钥，用来加密主密钥的密钥  术语HSM：加密机，一般是芯片硬件，提供根密钥生成和保管KMS：后台程序，负责从硬件安全模块HSM获取&#x2F;保存根密">
+<meta name="description" content="KMS目的：禁止业务调用方，本地私自明文存储敏感信息（如密钥）。并非应用执行加密算法时对密钥的加密（在内存中是明文密钥）">
 <meta name="keywords" content="密钥管理">
 <meta property="og:type" content="article">
 <meta property="og:title" content="KMS密钥管理">
 <meta property="og:url" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;2020&#x2F;10&#x2F;10&#x2F;kms&#x2F;index.html">
 <meta property="og:site_name" content="安全笔记">
-<meta property="og:description" content="KMS目的：禁止业务调用方，本地私自明文存储敏感信息（如密钥）。并非应用执行加密算法时对密钥的加密（在内存中是明文密钥） 密钥分级  数据密钥DEK：三级密钥，用来加密明文数据的密钥 主密钥CMK：二级密钥，用来加密数据密钥的密钥 根密钥RootKey：一级密钥，用来加密主密钥的密钥  术语HSM：加密机，一般是芯片硬件，提供根密钥生成和保管KMS：后台程序，负责从硬件安全模块HSM获取&#x2F;保存根密">
+<meta property="og:description" content="KMS目的：禁止业务调用方，本地私自明文存储敏感信息（如密钥）。并非应用执行加密算法时对密钥的加密（在内存中是明文密钥）">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;KMS.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;KMS_cmk.jpg">
 <meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;KMS_encrypt.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;KMS_%E6%89%98%E7%AE%A1%E5%AF%86%E7%A0%81.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;KMS_huawei.png">
-<meta property="og:updated_time" content="2021-03-15T12:16:05.771Z">
+<meta property="og:updated_time" content="2021-05-24T12:33:51.927Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;KMS.png">
 
@@ -396,7 +396,9 @@
 
       
         <h3 id="KMS"><a href="#KMS" class="headerlink" title="KMS"></a>KMS</h3><p>目的：<br>禁止业务调用方，本地私自<strong>明文存储</strong>敏感信息（如密钥）。并非应用执行加密算法时对密钥的加密（在内存中是明文密钥）</p>
-<p><img src="/images/KMS.png" alt="KMS架构"><br>密钥分级</p>
+<p><img src="/images/KMS.png" alt="KMS架构"></p>
+<a id="more"></a>
+<p>密钥分级</p>
 <ul>
 <li>数据密钥DEK：三级密钥，用来加密明文数据的密钥</li>
 <li>主密钥CMK：二级密钥，用来加密<strong>数据密钥</strong>的密钥</li>
@@ -566,7 +568,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-count">45</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -577,7 +579,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-count">48</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -588,7 +590,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-count">56</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
