@@ -92,7 +92,7 @@
 <meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;KMS_encrypt.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;KMS_%E6%89%98%E7%AE%A1%E5%AF%86%E7%A0%81.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;KMS_huawei.png">
-<meta property="og:updated_time" content="2021-05-24T12:33:51.927Z">
+<meta property="og:updated_time" content="2021-09-06T08:25:05.855Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;KMS.png">
 
@@ -420,7 +420,7 @@
 <p>业务系统A已集成KMS的SDK<br>i.通过KMS控制台，或者调用CreateKey接口，创建一个用户主密钥。<br>ii.调用GenerateDataKey接口创建一个数据密钥。KMS会返回一个明文的数据密钥和一个密文的数据密钥。<br>iii.使用明文的数据密钥加密文件，产生密文文件，然后销毁内存中的明文密钥。<br>iv.用户将密文数据密钥和密文文件一同存储到持久化存储设备或服务中。</p>
 <p>其实，业务系统A也可以自己生成数据密钥，不一定非得KMS帮你生成DEK，本地用DEK加密文件得到密文，然后调KMS执行主密钥加密，返回密文。这种用到了主密钥加密也可认为是信封加密。<br>综述，租户的主密钥保存在KMS数据库中，加密主密钥的根密钥保存在HSM硬件中。</p>
 <h4 id="场景3——密码托管系统"><a href="#场景3——密码托管系统" class="headerlink" title="场景3——密码托管系统"></a>场景3——密码托管系统</h4><p>场景1和2，KMS只是托管了加/解密的key，未托管业务的敏感数据凭证，如数据库凭据、API密钥、账号密码等。<br>在KMS系统之上封装一下，就是Vault，即凭据托管系统，实现密码托管及自动轮换。<br><img src="/images/KMS_%E6%89%98%E7%AE%A1%E5%AF%86%E7%A0%81.png" alt="直接加密"><br>注意：凭据的录入、凭据的定期轮换是凭据的产生者——运维平台负责的。密码托管系统只是代为保管凭证，<code>不生产凭据，只是凭据的搬运工</code></p>
-<h4 id="最佳实践——相册云端加密存储"><a href="#最佳实践——相册云端加密存储" class="headerlink" title="最佳实践——相册云端加密存储"></a>最佳实践——相册云端加密存储</h4><p>上述场景，KMS和业务系统之间，终究（始终）会传递敏感信息/密钥，试想如果KMS在云端厂商上，如何保障安全？</p>
+<h4 id="最佳实践——相册云端加密存储"><a href="#最佳实践——相册云端加密存储" class="headerlink" title="最佳实践——相册云端加密存储"></a>最佳实践——相册云端加密存储</h4><p>上述场景，KMS和业务系统之间，终究（始终）会传递敏感信息/密钥，试想如果KMS在云端厂商上，如何保障安全？<br>-<a href="https://bt7k.com/?p=456" title="KMS自己的AK/SK如果保障安全">KMS AK在阿里云上的管理方案</a></p>
 <p>核心目标：终端用户的数据，只能用户自己看到（手机端、浏览器访问云相册均可），噱头就是云服务提供商也看不到明文，因为是加密存储</p>
 <p>蓝钥匙，本地随机key用来加密图片等数据<br>红钥匙，主密钥CMK公钥，加密蓝钥匙<br>金钥匙，根密钥，负责生成CMK的公钥和私钥<br>绿钥匙，手机设备公私钥对，公钥上传到CMK，便于一用户多终端认证+下发红钥匙。设备出厂时，预置了设备证书与公私钥对（存储在TEE），设备的公私钥对每台都不同，用于标识设备的唯一合法身份。<br><img src="/images/KMS_huawei.png" alt="云空间四重加密技术"><br>KMS云端存储：红钥匙<br>云空间存储：加密后的相册数据、加密后的蓝钥匙<br>手机端存储：红钥匙CMK公钥、绿钥匙设备公私钥，都存在TEE中</p>
 <p>效果：认证后，自己的图片只有自己能看到，在手机端、在浏览器中访问云空间等方式，都可以看到明文图片，只不过存储时是加密的<br>总结：华为采用的是KMS的非对称CMK</p>
@@ -568,7 +568,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-count">49</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -579,7 +579,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-count">52</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -590,7 +590,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-count">61</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

@@ -79,15 +79,15 @@
 
 
 
-<meta name="description" content="两种签名发起方A—–签名—–&amp;gt;接收方B①双方共享&#x2F;知道某个secret，用同一个算法来签名&#x2F;验签②A用私钥签名，B用A的公钥验签 接口安全如果是前后端分离的系统，那么接口一定会暴露在js中，多找找可能有未授权的惊喜 Q&amp;amp;A Q：签名是在哪做？是为了啥？证明谁的身份？场景是什么？A：数据发起的一方，证明是我发的，签名主要证明数据没有被篡改，签名发起方和接收方算法保持一致  Q：客户端请">
+<meta name="description" content="两种签名发起方A—–签名—–&amp;gt;接收方B① 双方共享&#x2F;知道某个secret，用同一个算法来签名&#x2F;验签（如对称密钥HMAC算法）② A用私钥签名，B用A的公钥验签 接口安全如果是前后端分离的系统，那么接口一定会暴露在js中，多找找可能有未授权的惊喜 接口安全如果是前后端分离的系统，那么接口一定会暴露在js中，多找找可能有未授权的惊喜 Q&amp;amp;A Q：签名是在哪做？是为了啥？证明谁的身份？场景">
 <meta name="keywords" content="接口">
 <meta property="og:type" content="article">
 <meta property="og:title" content="API&amp;签名">
 <meta property="og:url" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;2020&#x2F;10&#x2F;17&#x2F;api&#x2F;index.html">
 <meta property="og:site_name" content="安全笔记">
-<meta property="og:description" content="两种签名发起方A—–签名—–&amp;gt;接收方B①双方共享&#x2F;知道某个secret，用同一个算法来签名&#x2F;验签②A用私钥签名，B用A的公钥验签 接口安全如果是前后端分离的系统，那么接口一定会暴露在js中，多找找可能有未授权的惊喜 Q&amp;amp;A Q：签名是在哪做？是为了啥？证明谁的身份？场景是什么？A：数据发起的一方，证明是我发的，签名主要证明数据没有被篡改，签名发起方和接收方算法保持一致  Q：客户端请">
+<meta property="og:description" content="两种签名发起方A—–签名—–&amp;gt;接收方B① 双方共享&#x2F;知道某个secret，用同一个算法来签名&#x2F;验签（如对称密钥HMAC算法）② A用私钥签名，B用A的公钥验签 接口安全如果是前后端分离的系统，那么接口一定会暴露在js中，多找找可能有未授权的惊喜 接口安全如果是前后端分离的系统，那么接口一定会暴露在js中，多找找可能有未授权的惊喜 Q&amp;amp;A Q：签名是在哪做？是为了啥？证明谁的身份？场景">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2021-07-05T12:05:25.609Z">
+<meta property="og:updated_time" content="2021-10-21T10:59:58.965Z">
 <meta name="twitter:card" content="summary">
 
 
@@ -389,8 +389,9 @@
       
 
       
-        <h3 id="两种签名"><a href="#两种签名" class="headerlink" title="两种签名"></a>两种签名</h3><p>发起方A—–签名—–&gt;接收方B<br>①双方共享/知道某个secret，用同一个算法来签名/验签<br>②A用私钥签名，B用A的公钥验签</p>
+        <h3 id="两种签名"><a href="#两种签名" class="headerlink" title="两种签名"></a>两种签名</h3><p>发起方A—–签名—–&gt;接收方B<br>① 双方共享/知道某个secret，用同一个算法来签名/验签（如对称密钥HMAC算法）<br>② A用私钥签名，B用A的公钥验签</p>
 <h3 id="接口安全"><a href="#接口安全" class="headerlink" title="接口安全"></a>接口安全</h3><p>如果是前后端分离的系统，那么接口一定会暴露在js中，多找找可能有未授权的惊喜</p>
+<h3 id="接口安全-1"><a href="#接口安全-1" class="headerlink" title="接口安全"></a>接口安全</h3><p>如果是前后端分离的系统，那么接口一定会暴露在js中，多找找可能有未授权的惊喜</p>
 <h3 id="Q-amp-A"><a href="#Q-amp-A" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h3><hr>
 <p>Q：签名是在哪做？是为了啥？证明谁的身份？场景是什么？<br>A：数据发起的一方，证明是我发的，签名主要证明数据没有被篡改，签名发起方和接收方算法保持一致</p>
 <hr>
@@ -525,7 +526,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-count">49</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -536,7 +537,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-count">52</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -547,7 +548,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-count">61</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -580,7 +581,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#两种签名"><span class="nav-number">1.</span> <span class="nav-text">两种签名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接口安全"><span class="nav-number">2.</span> <span class="nav-text">接口安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q-amp-A"><span class="nav-number">3.</span> <span class="nav-text">Q&amp;A</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#两种签名"><span class="nav-number">1.</span> <span class="nav-text">两种签名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接口安全"><span class="nav-number">2.</span> <span class="nav-text">接口安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接口安全-1"><span class="nav-number">3.</span> <span class="nav-text">接口安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q-amp-A"><span class="nav-number">4.</span> <span class="nav-text">Q&amp;A</span></a></li></ol></div>
             
 
           </div>

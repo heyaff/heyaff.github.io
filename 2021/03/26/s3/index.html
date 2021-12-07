@@ -88,7 +88,7 @@
 <meta property="og:description" content="对象存储Bucket（桶）和Object（对象） Bucket是一个网络资源，相当于一个文件夹、硬盘。 桶名是独一无二的，全网唯一。不同的Region，可以有相同的桶名">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;STS.png">
-<meta property="og:updated_time" content="2021-04-23T03:00:29.241Z">
+<meta property="og:updated_time" content="2021-08-27T08:43:28.745Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;STS.png">
 
@@ -400,6 +400,12 @@
 
 <h3 id="STS"><a href="#STS" class="headerlink" title="STS"></a>STS</h3><p>STS是阿里云提供的API，你创建的桶，想给其他人来访问，直接给你的真实AK/SK是不安全的<br>建议在后端服务器自行实现调用STS生成临时的AK/SK，再发送给第三方/APP客户端</p>
 <p><img src="/images/STS.png" alt="STS临时账号授权"><br>当然了，第三方可能很懒，你给他一个临时AK/SK还需要他自己实现接口签名才能访问OSS。<br>这块工作你也可以帮他来做，叫<font color=Blue>预签名</font>。即上图的<code>第5步</code>由你的APP服务器来实现，生成临时的下载URL给第三方，对方不需要什么开发量，直接访问URL就行</p>
+<h3 id="Web前端直传OSS"><a href="#Web前端直传OSS" class="headerlink" title="Web前端直传OSS"></a>Web前端直传OSS</h3><p>一个GET，从应用服务器获取<code>AccessID</code>、<code>Policy</code>、<code>Signature</code>三个值<br>一个POST，将本地文件上传到OSS</p>
+<p><code>Policy</code>定义授权策略，过期时间等<br>为防止C端篡改Object名称、上传目录、callback等，应对这些字段在policy中写死进行signature签名，不可篡改。<br>即上传的file key必须由服务端指定。<br>签名方法<code>Signature = base64(hmac-sha1(base64(policy), AccessKeySecret))</code></p>
+<p>Tips：一次签名只能上传一个文件，通过在<code>policy</code>里面设置 content-length-range(文件大小限制)和 key(文件路径)，来控制用户的上传策略，如果严格一点还可以设置必须让用户上传的文件类型</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">content-length-range</span>=<span class="number">524288</span> 字节</span><br><span class="line"><span class="attr">key</span>=/user/logo/<span class="number">3</span>f7a68dbfa984a189f80612343064f32.png</span><br></pre></td></tr></table></figure>
+
+<p>-<a href="https://help.aliyun.com/document_detail/31927.html">Web端上传数据至OSS实践</a></p>
 <h3 id="没钱的话，个人博客静态网页可以试试OSS对象存储托管"><a href="#没钱的话，个人博客静态网页可以试试OSS对象存储托管" class="headerlink" title="没钱的话，个人博客静态网页可以试试OSS对象存储托管"></a>没钱的话，个人博客静态网页可以试试OSS对象存储托管</h3>
       
     </div>
@@ -525,7 +531,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-count">49</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -536,7 +542,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-count">52</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -547,7 +553,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-count">61</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -580,7 +586,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#对象存储"><span class="nav-number">1.</span> <span class="nav-text">对象存储</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AK-SK"><span class="nav-number">2.</span> <span class="nav-text">AK/SK</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#STS"><span class="nav-number">3.</span> <span class="nav-text">STS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#没钱的话，个人博客静态网页可以试试OSS对象存储托管"><span class="nav-number">4.</span> <span class="nav-text">没钱的话，个人博客静态网页可以试试OSS对象存储托管</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#对象存储"><span class="nav-number">1.</span> <span class="nav-text">对象存储</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AK-SK"><span class="nav-number">2.</span> <span class="nav-text">AK/SK</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#STS"><span class="nav-number">3.</span> <span class="nav-text">STS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Web前端直传OSS"><span class="nav-number">4.</span> <span class="nav-text">Web前端直传OSS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#没钱的话，个人博客静态网页可以试试OSS对象存储托管"><span class="nav-number">5.</span> <span class="nav-text">没钱的话，个人博客静态网页可以试试OSS对象存储托管</span></a></li></ol></div>
             
 
           </div>
