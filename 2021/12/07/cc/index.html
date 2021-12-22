@@ -89,7 +89,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;CC%E6%94%BB%E5%87%BB.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;%E5%BC%80%E5%90%AF%E9%AA%8C%E8%AF%81%E7%A0%81.PNG">
-<meta property="og:updated_time" content="2021-12-07T03:22:40.670Z">
+<meta property="og:updated_time" content="2021-12-07T10:51:43.497Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;CC%E6%94%BB%E5%87%BB.png">
 
@@ -399,9 +399,13 @@
 </ul>
 <p>以上针对非APP请求，采用<code>限速</code>、<code>JS验证</code>、<code>验证码人机挑战</code></p>
 <h3 id="为什么可以防护CC"><a href="#为什么可以防护CC" class="headerlink" title="为什么可以防护CC"></a>为什么可以防护CC</h3><p>攻击者：一般CC攻击不会调用浏览器，而是自己写程序/脚本实现。遇到WAF返回的JS或验证码就会失败、无法执行。来判断是机器人还是正常用户<br><img src="/images/CC%E6%94%BB%E5%87%BB.png" alt="WAF拦截刷单"></p>
-<p>如原本1个GET请求官网，开启5s盾、JS验证模式，浏览器解析是跳转到图形验证码，即1个GET变成了2个GET+1个POST（浏览器自动实现），而脚本请求得到的Response却是<strong>403</strong><br><img src="/images/%E5%BC%80%E5%90%AF%E9%AA%8C%E8%AF%81%E7%A0%81.PNG" alt="CloudFlare开启验证码后"></p>
+<p>如原本1个GET请求官网，开启5s盾、JS验证模式，浏览器解析后跳转到图形验证码，即1个GET变成了2个GET+1个POST（浏览器自动实现），而脚本请求得到的Response却是<strong>403</strong><br><img src="/images/%E5%BC%80%E5%90%AF%E9%AA%8C%E8%AF%81%E7%A0%81.PNG" alt="CloudFlare开启验证码后"></p>
 <h3 id="针对APP请求的CC防护"><a href="#针对APP请求的CC防护" class="headerlink" title="针对APP请求的CC防护"></a>针对APP请求的CC防护</h3><p>客户端APP（非H5应用），它不是浏览器是无法响应一些交互条件（框架里代码中写的函数或JSON调用，类似脚本），遭到CC攻击后难以通过”挑战-响应“的传统CC防御来处理（客户端不能执行JS）</p>
-<p>如果客户端APP请求，建议从设备指纹模型（指纹一致性、操作系统标识、秒拨IP识别、恶意行为识别）、行为分析模型（源IP+设备封禁、回源节点识别、多维限速、代理识别）、API识别模型</p>
+<p>防护建议：</p>
+<ul>
+<li>设备指纹模型（指纹一致性、操作系统标识、秒拨IP识别、恶意行为识别）</li>
+<li>行为分析模型（源IP+设备封禁、回源节点识别、多维限速、代理识别）<br>即<code>OS指纹</code>、<code>程序指纹</code>、<code>设备指纹</code></li>
+</ul>
 
       
     </div>

@@ -79,16 +79,18 @@
 
 
 
-<meta name="description" content="-Android应用的白盒加密-Android應用的白盒加密 目的白盒将密钥扩展并融入到了加密运算中，使得密钥在整个加密过程中不再明文出现，从而达到隐藏和保护的目的 算法支持支持对称与非对称算法如SM4、AES、DES、3DES、RSA（看厂商支持情况），AES算法最广 用途：白盒将密钥扩展并融入到了加密运算中，使得密钥在整个加密过程中不再明文出现，从而达到隐藏和保护的目的。">
+<meta name="description" content="-Android应用的白盒加密-Android應用的白盒加密 目的业务执行AES对称加密算法，必然要考虑如何安全存储加密密钥的问题，白盒密钥实现在整个加密过程中不再明文出现(非)对称密钥 算法支持支持对称与非对称算法如SM4、AES、DES、3DES、RSA（看厂商支持情况），AES算法最广">
 <meta name="keywords" content="白盒密钥">
 <meta property="og:type" content="article">
 <meta property="og:title" content="白盒密钥">
 <meta property="og:url" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;2021&#x2F;11&#x2F;19&#x2F;baihe&#x2F;index.html">
 <meta property="og:site_name" content="安全笔记">
-<meta property="og:description" content="-Android应用的白盒加密-Android應用的白盒加密 目的白盒将密钥扩展并融入到了加密运算中，使得密钥在整个加密过程中不再明文出现，从而达到隐藏和保护的目的 算法支持支持对称与非对称算法如SM4、AES、DES、3DES、RSA（看厂商支持情况），AES算法最广 用途：白盒将密钥扩展并融入到了加密运算中，使得密钥在整个加密过程中不再明文出现，从而达到隐藏和保护的目的。">
+<meta property="og:description" content="-Android应用的白盒加密-Android應用的白盒加密 目的业务执行AES对称加密算法，必然要考虑如何安全存储加密密钥的问题，白盒密钥实现在整个加密过程中不再明文出现(非)对称密钥 算法支持支持对称与非对称算法如SM4、AES、DES、3DES、RSA（看厂商支持情况），AES算法最广">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2021-11-22T11:47:51.756Z">
+<meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;API%E5%AF%86%E9%92%A5%E4%BF%9D%E6%8A%A4%E6%B5%81%E7%A8%8B.png">
+<meta property="og:updated_time" content="2021-12-22T07:48:53.934Z">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;API%E5%AF%86%E9%92%A5%E4%BF%9D%E6%8A%A4%E6%B5%81%E7%A8%8B.png">
 
 
 
@@ -390,9 +392,8 @@
 
       
         <p>-<a href="https://www.codenong.com/cs106178660/" title="码农家园">Android应用的白盒加密</a><br>-<a href="https://www.twblogs.net/a/5ec38160389f7e906095fe7e" title="台部落">Android應用的白盒加密</a></p>
-<h3 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h3><p>白盒将密钥扩展并融入到了加密运算中，使得密钥在整个加密过程中不再明文出现，从而达到隐藏和保护的目的</p>
-<h3 id="算法支持"><a href="#算法支持" class="headerlink" title="算法支持"></a>算法支持</h3><p>支持对称与非对称算法如SM4、AES、DES、3DES、RSA（看厂商支持情况），AES算法最广</p>
-<p>用途：白盒将密钥扩展并融入到了加密运算中，使得密钥在整个加密过程中不再明文出现，从而达到隐藏和保护的目的。<a id="more"></a></p>
+<h3 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h3><p>业务执行AES对称加密算法，必然要考虑如何安全存储加密密钥的问题，白盒密钥实现在整个加密过程中不再明文出现<code>(非)对称密钥</code></p>
+<h3 id="算法支持"><a href="#算法支持" class="headerlink" title="算法支持"></a>算法支持</h3><p>支持对称与非对称算法如SM4、AES、DES、3DES、RSA（看厂商支持情况），AES算法最广<a id="more"></a></p>
 <h3 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h3><p>白盒的实现方式主要有三种：</p>
 <ul>
 <li>查找表技术</li>
@@ -400,7 +401,12 @@
 <li>多变量密码</li>
 </ul>
 <p>即使有了白盒的保护，密钥也并不绝对安全，白盒也面临着多种多样的攻击（BGE攻击、DFA攻击）。</p>
-<h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><p>移动端要保存敏感数据的场景<br>-涉及到账号、密码类敏感信息，要避免移动端保存，验证过程需要以安全信道发送到服务端来验证。对于一定要移动端保存的一些涉密信息，建议采用对称白盒加密的方法，集成安全SDK，白盒加密在整个运行环境中不出现密钥，在白盒环境下进行安全加解密</p>
+<h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><ul>
+<li><p><font color="blue"><strong>移动应用客户端</strong></font>要保存敏感数据的场景<br>涉及到账号、密码类敏感信息，要避免移动端保存，验证过程需要以安全信道发送到服务端来验证。对于一定要移动端保存的一些涉密信息，建议采用对称白盒加密的方法，集成安全SDK，白盒加密在整个运行环境中不出现加解密密钥key</p>
+</li>
+<li><p>保护APIKey的场景<br>不同服务系统之间调用API，针对AK/SK的保护可以使用白盒密钥解决<br>目标：调用方存储APIKey密文，使用时在内存中解密成APIKey明文<br>（可以理解APIKey用AES加密，但AES密钥又没有泄露，避免明文SK及加密时的明文key都暴漏）<br><img src="/images/API%E5%AF%86%E9%92%A5%E4%BF%9D%E6%8A%A4%E6%B5%81%E7%A8%8B.png" alt="白盒密钥应用在APIKey的场景"></p>
+</li>
+</ul>
 
       
     </div>

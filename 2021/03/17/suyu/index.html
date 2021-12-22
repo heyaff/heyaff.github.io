@@ -90,7 +90,7 @@
 <meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;maven.jpg">
 <meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;npm_dist.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;npm_dist1.png">
-<meta property="og:updated_time" content="2021-05-27T12:14:42.755Z">
+<meta property="og:updated_time" content="2021-12-21T07:45:06.621Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;maven.jpg">
 
@@ -429,7 +429,9 @@
 <h3 id="ansible"><a href="#ansible" class="headerlink" title="ansible"></a>ansible</h3><p>1、基于ssh运行<br>2、无需客户端</p>
 <p><code>Ansible</code> 拿来做服务器部署再合适不过。只需要<strong>准备好一份主机清单和要执行的命令步骤</strong>，就可以实现<strong>对一个清单的全部主机远程 批量执行命令</strong>。</p>
 <p>推荐免密公钥SSH登录远程主机清单</p>
-<h3 id="CI-CD流程"><a href="#CI-CD流程" class="headerlink" title="CI/CD流程"></a>CI/CD流程</h3><p>1.编写代码<br>2.自测+测试用例<br>3.编写Dockerfile<br>4.构建Docker镜像<br>5.推送Docker镜像到仓库<br>6.编写k8s YAML 文件<br>7.更新 YAML 文件中的Docker镜像TAG<br>8.利用kubectl工具部署应用</p>
+<h3 id="CI-CD流程"><a href="#CI-CD流程" class="headerlink" title="CI/CD流程"></a>CI/CD流程</h3><p>CI<code>持续集成</code>：源代码—&gt;编译后的包，即BUILD。最终产物推送到镜像仓库<br>CD<code>持续部署</code>：包—-&gt;生产环境上线</p>
+<p><strong><em>Dockerfile</em></strong> 用于构建一个镜像的文件（基于标准镜像改ba改ba）</p>
+<p>1.编写代码<br>2.自测+测试用例<br>3.编写Dockerfile<br>4.构建Docker镜像<br>5.推送Docker镜像到仓库<br>6.编写k8s YAML 文件<br>7.更新 YAML 文件中的Docker镜像TAG<br>8.利用kubectl工具部署应用</p>
 <p>-<a href="https://blog.ops-coffee.cn/s/gatfwneto_agsjhzdv5yzq" title="运维咖啡吧">中小团队基于Docker的devops实践</a></p>
 
       
