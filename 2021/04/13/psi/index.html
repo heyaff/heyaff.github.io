@@ -88,8 +88,9 @@
 <meta property="og:description" content="隐私集合求交PSI原理：双方各自都加密，不泄露明文数据，交换加密数据后，（执行同态加密运算）求两者的交集集合&#x2F;个数，而不泄露非交集合给任何一方 场景1：Chrome Password Checkup密码检查插件">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;PSI_passwordcheckup.PNG">
+<meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E8%AE%AD%E7%BB%83%E8%BF%87%E7%A8%8B.PNG">
 <meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0.png">
-<meta property="og:updated_time" content="2021-05-27T08:32:57.253Z">
+<meta property="og:updated_time" content="2022-01-28T06:43:11.935Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;PSI_passwordcheckup.PNG">
 
@@ -405,14 +406,14 @@
 <ul>
 <li><a href="https://engineering.fb.com/2020/07/10/open-source/private-matching/" title="Private matching for compute: New solutions to the problem of enabling compute on private set intersections">PSI新解决方案</a></li>
 </ul>
+<h3 id="机器学习"><a href="#机器学习" class="headerlink" title="机器学习"></a>机器学习</h3><p><img src="/images/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E8%AE%AD%E7%BB%83%E8%BF%87%E7%A8%8B.PNG" alt="" title="机器学习的流程"><br>机器学习期间，理论上只需要知道误差的值，来调整参数，不需要知道原始数据的</p>
 <h3 id="联邦学习"><a href="#联邦学习" class="headerlink" title="联邦学习"></a>联邦学习</h3><ul>
 <li><a href="https://blog.csdn.net/JDDTechTalk/article/details/109738346?utm_medium=distribute.pc_feed_404.none-task-blog-2~default~OPENSEARCH~default-1.nonecase&dist_request_id=1331645.11073.16183852512799045&depth_1-utm_source=distribute.pc_feed_404.none-task-blog-2~default~OPENSEARCH~default-1.nonecas">一文读懂联邦学习的前世今生（建议收藏）</a></li>
 <li><a href="https://blog.openmined.org/private-machine-learning-explained/" title="private-machine-learning-explained">隐私保护数据安全名词解释</a></li>
 </ul>
 <p>目的：公司有自己的机器学习模型，对大量数据进行训练，期望联合其他公司的数据来更新模型<br><img src="/images/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0.png" alt="" title="联邦学习只传送训练后的模型数据"></p>
-<p>横向联邦学习：两个数据集中，用户特征字段交集较多，用户ID重叠较少，想扩充自己的用户群体<br>纵向联邦学习：两个数据集中，用户ID交集较多，但用户特征字段重叠较少，想扩充当前用户群体的多元化属性</p>
-<p>A有特征数据，B有这些特征用户的<font color=Blue>标签</font>数据。比如信誉高低就是个label，AB联合建模就是纵向的</p>
-<p>联邦学习的安全问题：恶意的联邦成员，利用建模阶段所需的大量中间值，推算出对应的原始数据</p>
+<p>横向联邦学习：两个数据集中，用户特征字段交集较多，用户ID重叠较少，想拉新用户<br>纵向联邦学习：两个数据集中，用户ID交集较多，但用户特征字段重叠较少，想扩展老用户的特征+标签</p>
+<p>联邦学习的安全问题：恶意的联邦成员，利用建模阶段所需的大量中间值，推算出对应的原始数据<br>联邦学习的特点：加密中间数据，非原始数据</p>
 <p>采用隐私保护技术<em>（见下文）</em>来提升联邦学习的安全性。</p>
 <h3 id="隐私保护技术"><a href="#隐私保护技术" class="headerlink" title="隐私保护技术"></a>隐私保护技术</h3><ul>
 <li><a href="https://www.secrss.com/articles/13856" title="安全内参">大数据隐私保护关键技术解析：数据脱敏、匿名化、差分隐私和同态加密</a></li>
@@ -435,7 +436,7 @@
 <h4 id="零知识证明"><a href="#零知识证明" class="headerlink" title="零知识证明"></a>零知识证明</h4><h4 id="安全多方计算"><a href="#安全多方计算" class="headerlink" title="安全多方计算"></a>安全多方计算</h4><h3 id="Q-amp-A"><a href="#Q-amp-A" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h3><hr>
 <p>Q：联邦学习和PSI有啥关系？<br>A：在利用联邦学习建立模型之前，不共享数据的前提下怎么知道双方的重叠数据？这就需要PSI，俗称ID对齐</p>
 <hr>
-<p>Q：联邦学习的目标，是拿到对方的数据？<br>A：不恰当，在本地数据建模训练后，把训练结果而非数据上传云端，再进行模型聚合，目标是提升模型预测的准确性<br>A：联邦学习的目标是预测/期望label标签那一列更加准确</p>
+<p>Q：联邦学习的目标，是拿到对方的数据？<br>A：不恰当，在本地数据建模训练后，把训练结果而非原始数据上传云端，再进行模型聚合，目标是提升模型预测的准确性<br>A：两方/三方之间传递的是中间参数，必须加密（如同态加密）<br>A：联邦学习的目标是预测/期望label标签那一列更加准确</p>
 <hr>
 <p>Q：啥是特征，啥是标签？<br>A：特征是某些固有属性，<font color=Blue>标签</font>是根据固有属性产生/推导出的认知，一个结论，并不一定是事物本身所具有的属性<br>A：所以<font color=Blue>标签</font>可能会变/实时更新</p>
 <hr>
@@ -564,7 +565,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-count">51</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -575,7 +576,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">52</span>
+                  <span class="site-state-item-count">54</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -586,7 +587,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">61</span>
+                  <span class="site-state-item-count">64</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -619,7 +620,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#隐私集合求交PSI"><span class="nav-number">1.</span> <span class="nav-text">隐私集合求交PSI</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#联邦学习"><span class="nav-number">2.</span> <span class="nav-text">联邦学习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#隐私保护技术"><span class="nav-number">3.</span> <span class="nav-text">隐私保护技术</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#K-匿名"><span class="nav-number">3.1.</span> <span class="nav-text">K-匿名</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#差分隐私算法"><span class="nav-number">3.2.</span> <span class="nav-text">差分隐私算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#同态加密"><span class="nav-number">3.3.</span> <span class="nav-text">同态加密</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#零知识证明"><span class="nav-number">3.4.</span> <span class="nav-text">零知识证明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安全多方计算"><span class="nav-number">3.5.</span> <span class="nav-text">安全多方计算</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q-amp-A"><span class="nav-number">4.</span> <span class="nav-text">Q&amp;A</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#隐私集合求交PSI"><span class="nav-number">1.</span> <span class="nav-text">隐私集合求交PSI</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#机器学习"><span class="nav-number">2.</span> <span class="nav-text">机器学习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#联邦学习"><span class="nav-number">3.</span> <span class="nav-text">联邦学习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#隐私保护技术"><span class="nav-number">4.</span> <span class="nav-text">隐私保护技术</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#K-匿名"><span class="nav-number">4.1.</span> <span class="nav-text">K-匿名</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#差分隐私算法"><span class="nav-number">4.2.</span> <span class="nav-text">差分隐私算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#同态加密"><span class="nav-number">4.3.</span> <span class="nav-text">同态加密</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#零知识证明"><span class="nav-number">4.4.</span> <span class="nav-text">零知识证明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安全多方计算"><span class="nav-number">4.5.</span> <span class="nav-text">安全多方计算</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q-amp-A"><span class="nav-number">5.</span> <span class="nav-text">Q&amp;A</span></a></li></ol></div>
             
 
           </div>
@@ -639,7 +640,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2021</span>
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

@@ -79,18 +79,19 @@
 
 
 
-<meta name="description" content="-Android应用的白盒加密-Android應用的白盒加密 目的业务执行AES对称加密算法，必然要考虑如何安全存储加密密钥的问题，白盒密钥实现在整个加密过程中不再明文出现(非)对称密钥 算法支持支持对称与非对称算法如SM4、AES、DES、3DES、RSA（看厂商支持情况），AES算法最广">
+<meta name="description" content="-Android应用的白盒加密-Android應用的白盒加密 目的业务执行AES对称加密算法，必然要考虑如何安全存储加密密钥key的问题，白盒密钥实现在整个加密过程中不再明文出现(非)对称密钥 图解">
 <meta name="keywords" content="白盒密钥">
 <meta property="og:type" content="article">
 <meta property="og:title" content="白盒密钥">
 <meta property="og:url" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;2021&#x2F;11&#x2F;19&#x2F;baihe&#x2F;index.html">
 <meta property="og:site_name" content="安全笔记">
-<meta property="og:description" content="-Android应用的白盒加密-Android應用的白盒加密 目的业务执行AES对称加密算法，必然要考虑如何安全存储加密密钥的问题，白盒密钥实现在整个加密过程中不再明文出现(非)对称密钥 算法支持支持对称与非对称算法如SM4、AES、DES、3DES、RSA（看厂商支持情况），AES算法最广">
+<meta property="og:description" content="-Android应用的白盒加密-Android應用的白盒加密 目的业务执行AES对称加密算法，必然要考虑如何安全存储加密密钥key的问题，白盒密钥实现在整个加密过程中不再明文出现(非)对称密钥 图解">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;%E7%99%BD%E7%9B%92%E5%AF%86%E9%92%A5%E5%9B%BE%E8%A7%A3.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;API%E5%AF%86%E9%92%A5%E4%BF%9D%E6%8A%A4%E6%B5%81%E7%A8%8B.png">
-<meta property="og:updated_time" content="2021-12-22T07:48:53.934Z">
+<meta property="og:updated_time" content="2022-01-25T11:38:00.099Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;API%E5%AF%86%E9%92%A5%E4%BF%9D%E6%8A%A4%E6%B5%81%E7%A8%8B.png">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;%E7%99%BD%E7%9B%92%E5%AF%86%E9%92%A5%E5%9B%BE%E8%A7%A3.png">
 
 
 
@@ -392,8 +393,9 @@
 
       
         <p>-<a href="https://www.codenong.com/cs106178660/" title="码农家园">Android应用的白盒加密</a><br>-<a href="https://www.twblogs.net/a/5ec38160389f7e906095fe7e" title="台部落">Android應用的白盒加密</a></p>
-<h3 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h3><p>业务执行AES对称加密算法，必然要考虑如何安全存储加密密钥的问题，白盒密钥实现在整个加密过程中不再明文出现<code>(非)对称密钥</code></p>
-<h3 id="算法支持"><a href="#算法支持" class="headerlink" title="算法支持"></a>算法支持</h3><p>支持对称与非对称算法如SM4、AES、DES、3DES、RSA（看厂商支持情况），AES算法最广<a id="more"></a></p>
+<h3 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h3><p>业务执行AES对称加密算法，必然要考虑如何安全存储加密密钥key的问题，白盒密钥实现在整个加密过程中不再明文出现<code>(非)对称密钥</code></p>
+<h3 id="图解"><a href="#图解" class="headerlink" title="图解"></a>图解</h3><p><img src="/images/%E7%99%BD%E7%9B%92%E5%AF%86%E9%92%A5%E5%9B%BE%E8%A7%A3.png" alt="白盒密钥工作方式"><a id="more"></a></p>
+<h3 id="算法支持"><a href="#算法支持" class="headerlink" title="算法支持"></a>算法支持</h3><p>支持对称与非对称算法如SM4、AES、DES、3DES、RSA（看厂商支持情况），AES算法最广</p>
 <h3 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h3><p>白盒的实现方式主要有三种：</p>
 <ul>
 <li>查找表技术</li>
@@ -404,9 +406,11 @@
 <h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><ul>
 <li><p><font color="blue"><strong>移动应用客户端</strong></font>要保存敏感数据的场景<br>涉及到账号、密码类敏感信息，要避免移动端保存，验证过程需要以安全信道发送到服务端来验证。对于一定要移动端保存的一些涉密信息，建议采用对称白盒加密的方法，集成安全SDK，白盒加密在整个运行环境中不出现加解密密钥key</p>
 </li>
-<li><p>保护APIKey的场景<br>不同服务系统之间调用API，针对AK/SK的保护可以使用白盒密钥解决<br>目标：调用方存储APIKey密文，使用时在内存中解密成APIKey明文<br>（可以理解APIKey用AES加密，但AES密钥又没有泄露，避免明文SK及加密时的明文key都暴漏）<br><img src="/images/API%E5%AF%86%E9%92%A5%E4%BF%9D%E6%8A%A4%E6%B5%81%E7%A8%8B.png" alt="白盒密钥应用在APIKey的场景"></p>
+<li><p>保护APIKey的场景<br>不同服务系统之间调用API，针对AK/SK的保护可以使用白盒密钥解决<br>目标：调用方存储APIKey密文，使用时在<font color="blue"><strong>内存</strong></font>中解密成APIKey明文<br>方式：<br>①不使用白盒密钥：配置文件中APIKey密文+AES对称密钥key—–&gt;解密到内存得到明文APIKey<br>②使用白盒密钥：  配置文件中APIKey密文+AES白盒密钥.bin文件+白盒SDK—–&gt;解密到内存得到明文APIKey<br><img src="/images/API%E5%AF%86%E9%92%A5%E4%BF%9D%E6%8A%A4%E6%B5%81%E7%A8%8B.png" alt="白盒密钥应用在APIKey的场景"><br>类似《配置文件明文密码 V1.0》</p>
 </li>
 </ul>
+<h3 id="AK-SK的安全"><a href="#AK-SK的安全" class="headerlink" title="AK/SK的安全"></a>AK/SK的安全</h3><p>AK/SK代表用户身份的钥匙，如果将AK/SK保存在应用程序的配置文件中，有两个问题：<br>1、保密性——不管AK以何种形式存在于实例中，它都可能随着快照、镜像及镜像创建出来的实例被泄露<br>2、运维难——如果要更换AK/SK，那么需要对每个实例和镜像进行更新、再重新部署</p>
+<p>针对保密性问题，解决方案有两种技术：<strong>加解密</strong>（Crypto）、<strong>访问控制</strong>（Access Control）<br>公有云技术方案：通过给ECS实例配置<strong>RAM角色</strong>来避免AK/SK泄露及运维难的问题</p>
 
       
     </div>
@@ -530,7 +534,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-count">51</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -541,7 +545,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">52</span>
+                  <span class="site-state-item-count">54</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -552,7 +556,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">61</span>
+                  <span class="site-state-item-count">64</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -585,7 +589,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#目的"><span class="nav-number">1.</span> <span class="nav-text">目的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法支持"><span class="nav-number">2.</span> <span class="nav-text">算法支持</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现方式"><span class="nav-number">3.</span> <span class="nav-text">实现方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#应用场景"><span class="nav-number">4.</span> <span class="nav-text">应用场景</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#目的"><span class="nav-number">1.</span> <span class="nav-text">目的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图解"><span class="nav-number">2.</span> <span class="nav-text">图解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法支持"><span class="nav-number">3.</span> <span class="nav-text">算法支持</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现方式"><span class="nav-number">4.</span> <span class="nav-text">实现方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#应用场景"><span class="nav-number">5.</span> <span class="nav-text">应用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AK-SK的安全"><span class="nav-number">6.</span> <span class="nav-text">AK/SK的安全</span></a></li></ol></div>
             
 
           </div>
@@ -605,7 +609,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2021</span>
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

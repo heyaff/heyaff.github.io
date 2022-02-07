@@ -88,7 +88,7 @@
 <meta property="og:description" content="session和cookie1、session-cookie是一对，session保存在服务端memcache&#x2F;redis，cookie保存客户端硬盘 2、客户端只需要保存session_id，加密存储在cookie硬盘中，发送给服务端。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;session.png">
-<meta property="og:updated_time" content="2021-01-18T11:58:10.705Z">
+<meta property="og:updated_time" content="2022-01-17T11:14:44.365Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;session.png">
 
@@ -395,7 +395,7 @@
 <p>2、客户端只需要保存session_id，加密存储在cookie硬盘中，发送给服务端。<a id="more"></a></p>
 <p>3、浏览器把cookie以KV形式存储到硬盘中。session等登录用户信息存储在服务端</p>
 <p>4、API模式是不支持cookie的</p>
-<p>5、session_id欺骗<code>Cookie: JSESSIONID=2CC28F5D92F7CF0DFB1B21CBD3F161B9</code></p>
+<p>5、session_id欺骗<code>Cookie: JSESSIONID=2CA28F5D92F7CF0DFB1B21CBD3F161B9</code></p>
 <h3 id="token"><a href="#token" class="headerlink" title="token"></a>token</h3><p>1、token是为了解决session存储问题的</p>
 <p>2、token是在服务端用私钥签名生成的，发送给客户端后，客户端保存在cookie/localStorage（本地存储），在服务端验证token，可存储也可不存（session必须存储）。</p>
 <p>3、移动端对cookie的支持不是很好，而session需要基于cookie实现，所以移动端常用的是token</p>
@@ -522,7 +522,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-count">51</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -533,7 +533,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">52</span>
+                  <span class="site-state-item-count">54</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -544,7 +544,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">61</span>
+                  <span class="site-state-item-count">64</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -597,7 +597,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2021</span>
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

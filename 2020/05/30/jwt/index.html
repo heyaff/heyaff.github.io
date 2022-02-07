@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="JWT,Oauth," />
+  <meta name="keywords" content="JWT,token," />
 
 
 
@@ -79,20 +79,23 @@
 
 
 
-<meta name="description" content="App_key&amp;amp;App_secret">
-<meta name="keywords" content="JWT,Oauth">
+<meta name="description" content="Token认证移动端APP或前后端分离的项目，大多是基于Token的验证。  通过账号&amp;amp;密码登陆成功，服务器生成一个token 服务端把该token和userid保存到数据库（或Redis）中，然后把token值返回给前端 客户端每次请求都带上该token，服务端根据该token查询是否合法和过期，然后去数据库中查出来userid进行使用">
+<meta name="keywords" content="JWT,token">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JWT&#x2F;Oauth">
+<meta property="og:title" content="JWT认证">
 <meta property="og:url" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;2020&#x2F;05&#x2F;30&#x2F;jwt&#x2F;index.html">
 <meta property="og:site_name" content="安全笔记">
-<meta property="og:description" content="App_key&amp;amp;App_secret">
+<meta property="og:description" content="Token认证移动端APP或前后端分离的项目，大多是基于Token的验证。  通过账号&amp;amp;密码登陆成功，服务器生成一个token 服务端把该token和userid保存到数据库（或Redis）中，然后把token值返回给前端 客户端每次请求都带上该token，服务端根据该token查询是否合法和过期，然后去数据库中查出来userid进行使用">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;AppSecret%E5%AE%89%E5%85%A8%E5%9C%BA%E6%99%AF.jpg">
-<meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;Oauth2.0%E7%A4%BA%E6%84%8F%E5%9B%BE.jpg">
 <meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;JWT.jpg">
-<meta property="og:updated_time" content="2021-02-25T08:01:29.248Z">
+<meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;Oauth%E6%8E%88%E6%9D%83%E7%A0%81%E6%B5%81%E7%A8%8B.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;AppSecret%E5%AE%89%E5%85%A8%E5%9C%BA%E6%99%AF.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;Oauth授权码流程.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;AppSecret安全场景.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;Oauth简化流程.png">
+<meta property="og:updated_time" content="2022-01-04T07:45:10.327Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;AppSecret%E5%AE%89%E5%85%A8%E5%9C%BA%E6%99%AF.jpg">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;JWT.jpg">
 
 
 
@@ -128,7 +131,7 @@
 
 
 
-  <title>JWT/Oauth | 安全笔记</title>
+  <title>JWT认证 | 安全笔记</title>
   
 
 
@@ -316,7 +319,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">JWT/Oauth</h1>
+          <h1 class="post-title" itemprop="name headline">JWT认证</h1>
         
 
         <div class="post-meta">
@@ -358,17 +361,6 @@
 
                 
                 
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JWT/Oauth/" itemprop="url" rel="index">
-                    <span itemprop="name">Oauth</span>
-                  </a>
-                </span>
-
-                
-                
               
             </span>
           
@@ -404,20 +396,59 @@
       
 
       
-        <h3 id="App-key-amp-App-secret"><a href="#App-key-amp-App-secret" class="headerlink" title="App_key&amp;App_secret"></a>App_key&amp;App_secret</h3><p><img src="/images/AppSecret%E5%AE%89%E5%85%A8%E5%9C%BA%E6%99%AF.jpg" alt="AppSecret安全场景"></p>
-<a id="more"></a>
-<h3 id="Oauth2-0示意图"><a href="#Oauth2-0示意图" class="headerlink" title="Oauth2.0示意图"></a>Oauth2.0示意图</h3><p>针对上图，进一步细化第2、3、4步。<br><img src="/images/Oauth2.0%E7%A4%BA%E6%84%8F%E5%9B%BE.jpg" alt="Oauth2.0示意图"></p>
-<h3 id="Oatuth2-0解决了你调用第三方，至于你的后端和你的APP（前端）如何信任，是你自己解决"><a href="#Oatuth2-0解决了你调用第三方，至于你的后端和你的APP（前端）如何信任，是你自己解决" class="headerlink" title="Oatuth2.0解决了你调用第三方，至于你的后端和你的APP（前端）如何信任，是你自己解决"></a>Oatuth2.0解决了你调用第三方，至于你的后端和你的APP（前端）如何信任，是你自己解决</h3><p>客户端调用服务器端的校验，如Token或JWT，防止其他APP调用你的后端<br>服务器对接服务器，推荐AppID&amp;AppSecret</p>
-<h3 id="传统的基于Token校验"><a href="#传统的基于Token校验" class="headerlink" title="传统的基于Token校验"></a>传统的基于Token校验</h3><p>APP项目或前后端分离的项目，大多是基于Token的验证。</p>
-<figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>、通过账号&amp;密码登陆成功，服务器生成一个<span class="built_in">token</span></span><br><span class="line"><span class="number">2</span>、服务端把该<span class="built_in">token</span>和userid保存到数据库（或Redis）中，然后把<span class="built_in">token</span>值返回给前端</span><br><span class="line"><span class="number">3</span>、客户端每次请求都带上该<span class="built_in">token</span>，服务端根据该<span class="built_in">token</span>查询是否合法和过期，然后去数据库中查出来userid进行使用</span><br></pre></td></tr></table></figure>
-
-<p>缺点：<br>1、验证信息存在数据库中，每次都要根据token查询userid，增加数据库开销<br>2、token一旦被泄露，很容易跨站请求伪造</p>
-<h3 id="JWT"><a href="#JWT" class="headerlink" title="JWT"></a>JWT</h3><p>JWT是token的升级，利用userId生成Token，该token可直接被用于认证。适用于分布式站点的单点登录场景</p>
+        <h3 id="Token认证"><a href="#Token认证" class="headerlink" title="Token认证"></a>Token认证</h3><p>移动端APP或前后端分离的项目，大多是基于Token的验证。</p>
+<ul>
+<li>通过账号&amp;密码登陆成功，服务器生成一个token</li>
+<li>服务端把该token和userid保存到数据库（或Redis）中，然后把token值返回给前端</li>
+<li>客户端每次请求都带上该token，服务端根据该token查询是否合法和过期，然后去数据库中查出来userid进行使用<a id="more"></a></li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>验证信息存在数据库中，每次都要根据token查询userid，增加数据库开销</li>
+<li>token一旦被泄露，很容易跨站请求伪造</li>
+</ul>
+<h3 id="JWT认证"><a href="#JWT认证" class="headerlink" title="JWT认证"></a>JWT认证</h3><p>JWT是token的升级，利用userId生成Token，该token可直接被用于认证。特别适用于分布式站点的单点登录（SSO）场景</p>
 <p>JWT示例：</p>
-<figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">eyJ0eXAxIjoiMTIzNCIsImFsZzIiOiJhZG1pbiIsInR5cCI6IkpXVCIsImFsZyI6IkhTMjU2In0.eyJVc2VySWQiOjEyMywiVXNlck5hbWUiOiJhZG1pbiIsImV4cCI6MTU1MjI4Njc0Ni44Nzc0MDE4fQ.pEgdmFAy73walFonEm2zbxg46Oth3dlT02HR9iVzXa8</span><br><span class="line"></span><br><span class="line">your<span class="number">-256</span><span class="params">-bit</span><span class="params">-secret</span>：GQDstcKsx0NHjPOuXOYg5MbeJ1XT0uFiwDVvVBrk</span><br><span class="line"></span><br><span class="line">JWT一般放在HTTP <span class="keyword">header</span>头</span><br><span class="line">Authorization: Bearer eyJ0eXAxIjoiM*<span class="params">...</span>&lt;snip&gt;<span class="params">...</span>*T02HR9iVzXa8</span><br></pre></td></tr></table></figure>
+<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">eyJ<span class="number">0</span>eXAxIjoiMTIz<span class="symbol">NCIsImFsZzIiOiJhZG1</span>pbiIsI<span class="symbol">nR5</span>cCI<span class="number">6</span>IkpX<span class="attr">VCIsImFsZyI6</span>IkhTMjU<span class="number">2</span>I<span class="symbol">n0</span>.eyJ<span class="attr">Vc2</span>VySWQiOjEyMywiVX<span class="symbol">Nlck5</span>hbWUiOiJhZ<span class="name">G1</span>pbiIsImV<span class="number">4</span>cCI<span class="number">6</span>MTU<span class="number">1</span>MjI<span class="number">4</span><span class="symbol">Njc0</span><span class="symbol">Ni44</span><span class="symbol">Nzc0</span>MDE<span class="number">4</span>fQ.pEgdmFAy<span class="number">73</span>walFo<span class="symbol">nEm2</span>zbx<span class="name">g46</span>Oth<span class="number">3</span>dlT<span class="number">02</span>HR<span class="number">9</span>iVzXa<span class="number">8</span></span><br><span class="line"></span><br><span class="line">your<span class="number">-256</span>-bit-secret：GQDstcKsx<span class="number">0</span><span class="symbol">NHjPOuXOYg5</span>MbeJ<span class="number">1</span>XT<span class="number">0</span>uFiwDVvVBrk</span><br></pre></td></tr></table></figure>
+
 <p>说明：签发生成jwt需要密钥your-256-bit-secret，这个存储在服务器端，不要泄露，在不知道密钥的情况下，是不能进行解密的，secret就是用来进行jwt的签发和jwt的验证，当然这些都是在服务器端做的事情。所以，它就是你服务端的私钥，在任何场景都不应该流露出去。一旦客户端得知这个secret, 那就意味着客户端可以伪造他人id越权攻击了。</p>
-<p><img src="/images/JWT.jpg" alt="JWT调用"><br>JWT是无状态的，不需要服务器端保存会话信息，直接存储在客户端上localstorage</p>
-<p>JWT不是用来替代session的，可使用JWT存类似session id之类的信息。正常的解决方案是JWT中存一些用户ID之类的信息，其他敏感信息还是用缓存服务器较好</p>
+<h3 id="JWT认证流程"><a href="#JWT认证流程" class="headerlink" title="JWT认证流程"></a>JWT认证流程</h3><ul>
+<li>用户使用账号和密码发出post请求</li>
+<li>server使用私钥创建一个JWT，并返回给浏览器</li>
+<li>浏览器将该JWT串放在请求头的Authorization中: Authorization: Bearer <token>, 发送给server</li>
+<li>server对JWT进行验证</li>
+<li>验证通过后返回相应的资源给浏览器</li>
+<li>用户登出，client删除token，server不做处理<img src="/images/JWT.jpg" width="20%" height="20%">
+
+</li>
+</ul>
+<p>-<a href="https://www.v4ler1an.com/2020/11/JWT/" title="V4ler1an-有毒">JWT认证和攻击界面简单总结</a></p>
+<h3 id="什么是Oauth"><a href="#什么是Oauth" class="headerlink" title="什么是Oauth"></a>什么是Oauth</h3><p>Oauth解决了User U与Server WeiXin、Server T之间的信任问题，U用户在W上已有凭证及个人数据，U又想登录T，此时T要验证U用户的身份，W将U的部分数据给T，T就允许U登录了，实现U-W-T三者之间的信任链。其中W地位最高，W提供相关认证Oauth实现，T来对接W，U仅仅是用户。<br>-<a href="https://www.kancloud.cn/kancloud/oauth_2_0/63332" title="理解OAuth 2.0">Oauth应用场景</a></p>
+<h3 id="Oauth2-0常见的授权类型流程"><a href="#Oauth2-0常见的授权类型流程" class="headerlink" title="Oauth2.0常见的授权类型流程"></a>Oauth2.0常见的授权类型流程</h3><!--
+<center>
+<div style="display:inline-block;"><img src="/images/Oauth%E6%8E%88%E6%9D%83%E7%A0%81%E6%B5%81%E7%A8%8B.png" class="" width="200"></div>
+<div style="display:inline-block;margin-left:10px;"><img src="/images/AppSecret%E5%AE%89%E5%85%A8%E5%9C%BA%E6%99%AF.jpg" class="" width="200"></div>
+</center>
+-->
+
+<ul>
+<li><p>授权码</p>
+<img src="/images/Oauth授权码流程.png" width="500"/>
+针对上图，细化第④⑤步，目的是禁止客户端APP存储secret。
+<img src="/images/AppSecret安全场景.jpg" width="500"/>
+</li>
+<li><p>简化模式</p>
+<img src="/images/Oauth简化流程.png" width="500"/>
+内网SSO基于上图认证
+
+</li>
+</ul>
+<h3 id="Q-amp-A"><a href="#Q-amp-A" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h3><hr>
+<p>Q：Oatuth2.0解决了什么问题？<br>A：帮你解决如何认证User用户，至于你的后端和你的客户端（前端）如何信任，是你自己解决。</p>
+<hr>
+<p>Q：自己的客户端（前端）与后端通讯如何认证，解决方案有哪些？<br>A：客户端—&gt;服务端：Token或JWT，防止其他APP调用你的后端<br>A：服务端—&gt;服务端：推荐AppID&amp;AppSecret</p>
+<hr>
+<p>Q：JWT和cookie-session机制有什么区别？<br>A：JWT不是用来替代session的，传统大型系统依然还是cookie-session<br>A：JWT≈Token<br>A：sessionID一般自定义生成<code>SESSIONID=254H76BA61EN0FB</code>，并用Redis缓存sessionID<br>A：JWT是无状态的，不需要服务器端保存会话信息，直接存储在客户端上localstorage</p>
 
       
     </div>
@@ -437,7 +468,7 @@
           
             <a href="/tags/JWT/" rel="tag"># JWT</a>
           
-            <a href="/tags/Oauth/" rel="tag"># Oauth</a>
+            <a href="/tags/token/" rel="tag"># token</a>
           
         </div>
       
@@ -543,7 +574,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-count">51</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -554,7 +585,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">52</span>
+                  <span class="site-state-item-count">54</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -565,7 +596,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">61</span>
+                  <span class="site-state-item-count">64</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -598,7 +629,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#App-key-amp-App-secret"><span class="nav-number">1.</span> <span class="nav-text">App_key&amp;App_secret</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Oauth2-0示意图"><span class="nav-number">2.</span> <span class="nav-text">Oauth2.0示意图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Oatuth2-0解决了你调用第三方，至于你的后端和你的APP（前端）如何信任，是你自己解决"><span class="nav-number">3.</span> <span class="nav-text">Oatuth2.0解决了你调用第三方，至于你的后端和你的APP（前端）如何信任，是你自己解决</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#传统的基于Token校验"><span class="nav-number">4.</span> <span class="nav-text">传统的基于Token校验</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JWT"><span class="nav-number">5.</span> <span class="nav-text">JWT</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Token认证"><span class="nav-number">1.</span> <span class="nav-text">Token认证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JWT认证"><span class="nav-number">2.</span> <span class="nav-text">JWT认证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JWT认证流程"><span class="nav-number">3.</span> <span class="nav-text">JWT认证流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是Oauth"><span class="nav-number">4.</span> <span class="nav-text">什么是Oauth</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Oauth2-0常见的授权类型流程"><span class="nav-number">5.</span> <span class="nav-text">Oauth2.0常见的授权类型流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q-amp-A"><span class="nav-number">6.</span> <span class="nav-text">Q&amp;A</span></a></li></ol></div>
             
 
           </div>
@@ -618,7 +649,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2021</span>
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

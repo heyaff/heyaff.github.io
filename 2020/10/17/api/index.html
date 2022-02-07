@@ -79,16 +79,18 @@
 
 
 
-<meta name="description" content="两种签名发起方A—–签名—–&amp;gt;接收方B① 双方共享&#x2F;知道某个secret，用同一个算法来签名&#x2F;验签（如对称密钥HMAC算法）② A用私钥签名，B用A的公钥验签 接口安全如果是前后端分离的系统，那么接口一定会暴露在js中，多找找可能有未授权的惊喜 接口安全如果是前后端分离的系统，那么接口一定会暴露在js中，多找找可能有未授权的惊喜 Q&amp;amp;A Q：签名是在哪做？是为了啥？证明谁的身份？场景">
+<meta name="description" content="两种签名① 双方共享&#x2F;知道某个secret，用同一个算法来签名&#x2F;验签（如对称密钥HMAC算法）② A用私钥签名，B用A的公钥验签③ 签名是B用来验证A的身份，同时保证A传的数据防篡改④ 前提条件：验签方B需要提前知道签名方A的公钥或APPsecret">
 <meta name="keywords" content="接口">
 <meta property="og:type" content="article">
 <meta property="og:title" content="API&amp;签名">
 <meta property="og:url" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;2020&#x2F;10&#x2F;17&#x2F;api&#x2F;index.html">
 <meta property="og:site_name" content="安全笔记">
-<meta property="og:description" content="两种签名发起方A—–签名—–&amp;gt;接收方B① 双方共享&#x2F;知道某个secret，用同一个算法来签名&#x2F;验签（如对称密钥HMAC算法）② A用私钥签名，B用A的公钥验签 接口安全如果是前后端分离的系统，那么接口一定会暴露在js中，多找找可能有未授权的惊喜 接口安全如果是前后端分离的系统，那么接口一定会暴露在js中，多找找可能有未授权的惊喜 Q&amp;amp;A Q：签名是在哪做？是为了啥？证明谁的身份？场景">
+<meta property="og:description" content="两种签名① 双方共享&#x2F;知道某个secret，用同一个算法来签名&#x2F;验签（如对称密钥HMAC算法）② A用私钥签名，B用A的公钥验签③ 签名是B用来验证A的身份，同时保证A传的数据防篡改④ 前提条件：验签方B需要提前知道签名方A的公钥或APPsecret">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2021-10-21T10:59:58.965Z">
+<meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;sign.png">
+<meta property="og:updated_time" content="2021-12-24T03:09:44.085Z">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;sign.png">
 
 
 
@@ -389,15 +391,14 @@
       
 
       
-        <h3 id="两种签名"><a href="#两种签名" class="headerlink" title="两种签名"></a>两种签名</h3><p>发起方A—–签名—–&gt;接收方B<br>① 双方共享/知道某个secret，用同一个算法来签名/验签（如对称密钥HMAC算法）<br>② A用私钥签名，B用A的公钥验签</p>
+        <h3 id="两种签名"><a href="#两种签名" class="headerlink" title="两种签名"></a>两种签名</h3><p><img src="/images/sign.png" alt=""><br>① 双方共享/知道某个secret，用同一个算法来签名/验签（如对称密钥HMAC算法）<br>② A用私钥签名，B用A的公钥验签<br>③ 签名是B用来验证A的身份，同时保证A传的数据防篡改<br>④ 前提条件：<strong>验签方B</strong>需要提前知道<strong>签名方A</strong>的公钥或APPsecret<a id="more"></a></p>
 <h3 id="接口安全"><a href="#接口安全" class="headerlink" title="接口安全"></a>接口安全</h3><p>如果是前后端分离的系统，那么接口一定会暴露在js中，多找找可能有未授权的惊喜</p>
-<h3 id="接口安全-1"><a href="#接口安全-1" class="headerlink" title="接口安全"></a>接口安全</h3><p>如果是前后端分离的系统，那么接口一定会暴露在js中，多找找可能有未授权的惊喜</p>
 <h3 id="Q-amp-A"><a href="#Q-amp-A" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h3><hr>
-<p>Q：签名是在哪做？是为了啥？证明谁的身份？场景是什么？<br>A：数据发起的一方，证明是我发的，签名主要证明数据没有被篡改，签名发起方和接收方算法保持一致</p>
+<p>Q：签名是在哪做？是为了啥？证明谁的身份？场景是什么？<br>A：签名的一方发起请求，对方进行验签。目的是为了验证签名那一方的身份及数据没有被篡改<br>A：签名在 <em>请求/调用方</em> 那一侧做，当然 <em>接收/被调</em> 那一方相应的要做验签，双方提前要沟通好算法保持一致</p>
 <hr>
-<p>Q：客户端请求服务器端，API请求怎么签名？<br>1、客户端内置appkey和secret，sign字段=MD5(key1value1key2value2…secret)进行MD5计算发给服务端<br>2、建议把appsecret放到NDK中编译成so文件，app启动后去读取<br>3、或者第一次APP安装启动时，下发secret<a id="more"></a></p>
+<p>Q：客户端请求服务器端，API请求怎么签名？<br>1、客户端内置APPkey和secret，sign字段=MD5(key1value1key2value2…secret)进行MD5计算发给服务端<br>2、建议把APPsecret放到NDK中编译成so文件，app启动后去读取<br>3、或者第一次APP安装启动时，下发secret</p>
 <hr>
-<p>Q：浏览器请求服务器端，API请求怎么签名？<br>A：js中保存appsecret有较高风险，建议采用随机分配令牌的方式，为每个访问端分配一个token保存在cookie中，通过cookie请求头(cookie:h5_token=xxx;sessionid=xxx)传回服务端，sign=MD5(key1value1key2value2…token)<br>A：- <a href="https://mp.weixin.qq.com/s?__biz=MzIwNjUxMTQyMA%3D%3D&chksm=9721cf1ca056460a644f61bb84c255eb7620ac1905e8652ffb1a869c5432aac77a81400f90bd&idx=1&lang=zh_CN&mid=2247484239&scene=21&sn=1530557bc16ad40616d6614017a872d7&token=205497283#wechat_redirect" title="小歪丶 Python爬虫与算法进阶">淘宝sign签名算法</a></p>
+<p>Q：浏览器请求服务器端，API请求怎么签名？<br>A：js中保存APPsecret有较高风险，建议采用随机分配令牌的方式，为每个访问端分配一个token保存在cookie中，通过cookie请求头(cookie:h5_token=xxx;sessionid=xxx)传回服务端，sign=MD5(key1value1key2value2…token)<br>A：- <a href="https://mp.weixin.qq.com/s?__biz=MzIwNjUxMTQyMA%3D%3D&chksm=9721cf1ca056460a644f61bb84c255eb7620ac1905e8652ffb1a869c5432aac77a81400f90bd&idx=1&lang=zh_CN&mid=2247484239&scene=21&sn=1530557bc16ad40616d6614017a872d7&token=205497283#wechat_redirect" title="小歪丶 Python爬虫与算法进阶">淘宝sign签名算法</a></p>
 <hr>
 <p>Q：APP签名机制？<br>A：开发者把自己的公钥上传到苹果，苹果给每个开发者颁发证书，在IOS上安装APP时，苹果会校验证书签名</p>
 <hr>
@@ -526,7 +527,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-count">51</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -537,7 +538,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">52</span>
+                  <span class="site-state-item-count">54</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -548,7 +549,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">61</span>
+                  <span class="site-state-item-count">64</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -581,7 +582,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#两种签名"><span class="nav-number">1.</span> <span class="nav-text">两种签名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接口安全"><span class="nav-number">2.</span> <span class="nav-text">接口安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接口安全-1"><span class="nav-number">3.</span> <span class="nav-text">接口安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q-amp-A"><span class="nav-number">4.</span> <span class="nav-text">Q&amp;A</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#两种签名"><span class="nav-number">1.</span> <span class="nav-text">两种签名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接口安全"><span class="nav-number">2.</span> <span class="nav-text">接口安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q-amp-A"><span class="nav-number">3.</span> <span class="nav-text">Q&amp;A</span></a></li></ol></div>
             
 
           </div>
@@ -601,7 +602,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2021</span>
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
