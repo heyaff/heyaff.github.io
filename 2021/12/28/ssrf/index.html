@@ -79,16 +79,16 @@
 
 
 
-<meta name="description" content="目的利用有SSRF漏洞的web应用作为代理，攻击内网机房中的其他机器或本地服务器 原理暴漏在公网的有SSRF漏洞的系统，因未对目标地址做过滤与限制，导致执行了恶意的payload">
+<meta name="description" content="目的通过利用有SSRF漏洞的公网web应用作为代理，攻击内网机房中的其他机器或本地服务器 原理暴漏在公网的有SSRF漏洞的系统，因未对目标地址做过滤与限制，导致执行了恶意的payload，可探测内网其他应用或本机服务文件">
 <meta name="keywords" content="SSRF,反弹shell">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SSRF科普">
 <meta property="og:url" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;2021&#x2F;12&#x2F;28&#x2F;ssrf&#x2F;index.html">
 <meta property="og:site_name" content="安全笔记">
-<meta property="og:description" content="目的利用有SSRF漏洞的web应用作为代理，攻击内网机房中的其他机器或本地服务器 原理暴漏在公网的有SSRF漏洞的系统，因未对目标地址做过滤与限制，导致执行了恶意的payload">
+<meta property="og:description" content="目的通过利用有SSRF漏洞的公网web应用作为代理，攻击内网机房中的其他机器或本地服务器 原理暴漏在公网的有SSRF漏洞的系统，因未对目标地址做过滤与限制，导致执行了恶意的payload，可探测内网其他应用或本机服务文件">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;SSRF.PNG">
-<meta property="og:updated_time" content="2022-01-07T03:24:51.157Z">
+<meta property="og:updated_time" content="2022-12-20T11:49:08.532Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;SSRF.PNG">
 
@@ -391,20 +391,15 @@
       
 
       
-        <h3 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h3><p>利用有SSRF漏洞的web应用作为代理，攻击内网机房中的其他机器或本地服务器</p>
-<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>暴漏在公网的有SSRF漏洞的系统，因未对目标地址做过滤与限制，导致执行了恶意的payload<a id="more"></a><br><img src="/images/SSRF.PNG" alt=""></p>
-<h3 id="payload利用的协议"><a href="#payload利用的协议" class="headerlink" title="payload利用的协议"></a>payload利用的协议</h3><ul>
-<li>file<br>在有回显的情况下，利用 file 协议可以读取任意内容</li>
-<li>dict<br>泄露安装软件版本信息，查看端口，操作内网redis服务等</li>
-<li>gopher<br>gopher支持发出GET、POST请求：可以先截获get请求包和post请求包，再构造成符合gopher协议的请求。gopher协议是ssrf利用中一个最强大的协议(俗称万能协议)。可用于反弹shell</li>
-</ul>
+        <h3 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h3><p>通过利用有SSRF漏洞的公网web应用作为代理，攻击内网机房中的其他机器或本地服务器</p>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>暴漏在公网的有SSRF漏洞的系统，因未对目标地址做过滤与限制，导致执行了恶意的payload，可探测内网其他应用或本机服务文件<a id="more"></a><br><img src="/images/SSRF.PNG" alt=""></p>
+<h3 id="如何判断是否存在SSRF"><a href="#如何判断是否存在SSRF" class="headerlink" title="如何判断是否存在SSRF"></a>如何判断是否存在SSRF</h3><p>在加载图片或url参数时，如外网用户访问<a href="http://www.xxx.com/a.php?image=http://www.abc.com/1.jpg">www.xxx.com/a.php?image=http://www.abc.com/1.jpg</a> ，这个image参数如果不是本地浏览器发起的请求，那基本是服务端发起的，此时有可能存在SSRF，接下来要验证替换此URL为内网地址看看是否可以回显来判断。</p>
 <h3 id="利用SSRF做什么"><a href="#利用SSRF做什么" class="headerlink" title="利用SSRF做什么"></a>利用SSRF做什么</h3><ul>
 <li>扫描内部网络，获取IP、端口信息</li>
 <li>根据识别出的应用针对性的发送payload攻击，例如struts2</li>
 <li>向内网<code>任意主机</code>的<code>任意端口</code>发送精心构造的数据包{Payload}</li>
 <li>利用file协议读取本地文件，比如file:///etc/passwd</li>
 </ul>
-<h3 id="如何判断是否存在SSRF"><a href="#如何判断是否存在SSRF" class="headerlink" title="如何判断是否存在SSRF"></a>如何判断是否存在SSRF</h3><p>如在加载图片或url参数时，不是本地浏览器发起的请求，极有可能是服务端发起的，那此处有可能存在SSRF，接下来要验证此URL是否可以用来请求内网地址</p>
 <h3 id="绕过域名白名单检测"><a href="#绕过域名白名单检测" class="headerlink" title="绕过域名白名单检测"></a>绕过域名白名单检测</h3><p>利用 <code>@/#</code> 绕过域名限定的正则：<br><a href="http://hao.com@evil.com">http://hao.com@evil.com</a> ≈ <a href="http://evil.com">http://evil.com</a>    （常用）<br><a href="http://evil.com#hao.com">http://evil.com#hao.com</a> ≈ <a href="http://evil.com">http://evil.com</a><br><a href="http://evil.com?hao.com">http://evil.com?hao.com</a> ≈ <a href="http://evil.com">http://evil.com</a><br><a href="http://evil.com\hao.com">http://evil.com\hao.com</a> ≈ <a href="http://evil.com">http://evil.com</a></p>
 <h3 id="SSRF常见绕过技巧"><a href="#SSRF常见绕过技巧" class="headerlink" title="SSRF常见绕过技巧"></a>SSRF常见绕过技巧</h3><ul>
 <li>利用@符号</li>
@@ -415,8 +410,13 @@
 <li>利用进制转换</li>
 <li>其他协议绕过</li>
 </ul>
+<h3 id="payload利用的协议"><a href="#payload利用的协议" class="headerlink" title="payload利用的协议"></a>payload利用的协议</h3><ul>
+<li>file<br>在有回显的情况下，利用 file 协议可以读取任意内容</li>
+<li>dict<br>泄露安装软件版本信息，查看端口，操作内网redis服务等</li>
+<li>gopher<br>gopher支持发出GET、POST请求：可以先截获get请求包和post请求包，再构造成符合gopher协议的请求。gopher协议是ssrf利用中一个最强大的协议(俗称万能协议)。可用于反弹shell</li>
+</ul>
 <h3 id="SSRF进阶"><a href="#SSRF进阶" class="headerlink" title="SSRF进阶"></a>SSRF进阶</h3><p>针对SSRF漏洞的系统，透过它去探测内网中的<font color="red"><strong>未授权</strong></font>Redis，若Redis启动是<font color="red"><strong>root</strong></font>权限，则可以将反弹shell脚本写入/etc/crontab定时任务URL编码后发送。非Redis的机器，正常情况下，URL请求不会让对方执行反弹shell的</p>
-<h3 id="反弹shell"><a href="#反弹shell" class="headerlink" title="反弹shell"></a>反弹shell</h3><p>-<a href="http://austfish.cn/2020/09/01/%E6%B5%85%E6%9E%90%E5%8F%8D%E5%BC%B9shell%E5%8E%9F%E7%90%86/" title="Fisher&#39;s 安全笔记">浅析反弹shell原理</a></p>
+<h3 id="反弹shell"><a href="#反弹shell" class="headerlink" title="反弹shell"></a>反弹shell</h3><p>-<a href="https://www.austfish.cn/2021/04/08/%E6%B5%85%E6%9E%90%E5%8F%8D%E5%BC%B9shell%E5%8E%9F%E7%90%86/" title="Fisher&#39;s 安全笔记">浅析反弹shell原理</a></p>
 <h3 id="修复方案"><a href="#修复方案" class="headerlink" title="修复方案"></a>修复方案</h3><p>一定要过滤用户端传进来的URL参数<br>• 限制协议为HTTP、HTTPS，可以防止<code>file://</code> <code>gopher://</code>等引起的问题<br>• 如果传进来的是302重定向，要获取最终IP<br>• 禁止传进来的IP是内网IP，或设置URL白名单</p>
 
       
@@ -543,7 +543,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-count">53</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -554,7 +554,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-count">56</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -565,7 +565,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-count">66</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -598,7 +598,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#目的"><span class="nav-number">1.</span> <span class="nav-text">目的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原理"><span class="nav-number">2.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#payload利用的协议"><span class="nav-number">3.</span> <span class="nav-text">payload利用的协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#利用SSRF做什么"><span class="nav-number">4.</span> <span class="nav-text">利用SSRF做什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何判断是否存在SSRF"><span class="nav-number">5.</span> <span class="nav-text">如何判断是否存在SSRF</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#绕过域名白名单检测"><span class="nav-number">6.</span> <span class="nav-text">绕过域名白名单检测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SSRF常见绕过技巧"><span class="nav-number">7.</span> <span class="nav-text">SSRF常见绕过技巧</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SSRF进阶"><span class="nav-number">8.</span> <span class="nav-text">SSRF进阶</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#反弹shell"><span class="nav-number">9.</span> <span class="nav-text">反弹shell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修复方案"><span class="nav-number">10.</span> <span class="nav-text">修复方案</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#目的"><span class="nav-number">1.</span> <span class="nav-text">目的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原理"><span class="nav-number">2.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何判断是否存在SSRF"><span class="nav-number">3.</span> <span class="nav-text">如何判断是否存在SSRF</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#利用SSRF做什么"><span class="nav-number">4.</span> <span class="nav-text">利用SSRF做什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#绕过域名白名单检测"><span class="nav-number">5.</span> <span class="nav-text">绕过域名白名单检测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SSRF常见绕过技巧"><span class="nav-number">6.</span> <span class="nav-text">SSRF常见绕过技巧</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#payload利用的协议"><span class="nav-number">7.</span> <span class="nav-text">payload利用的协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SSRF进阶"><span class="nav-number">8.</span> <span class="nav-text">SSRF进阶</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#反弹shell"><span class="nav-number">9.</span> <span class="nav-text">反弹shell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修复方案"><span class="nav-number">10.</span> <span class="nav-text">修复方案</span></a></li></ol></div>
             
 
           </div>
@@ -618,7 +618,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2022</span>
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

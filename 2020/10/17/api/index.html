@@ -79,16 +79,16 @@
 
 
 
-<meta name="description" content="两种签名① 双方共享&#x2F;知道某个secret，用同一个算法来签名&#x2F;验签（如对称密钥HMAC算法）② A用私钥签名，B用A的公钥验签③ 签名是B用来验证A的身份，同时保证A传的数据防篡改④ 前提条件：验签方B需要提前知道签名方A的公钥或APPsecret">
+<meta name="description" content="两种签名① 双方共享&#x2F;知道某个secret，用同一个算法来签名&#x2F;验签（如对称密钥HMAC算法）② A用私钥签名，B用A的公钥验签">
 <meta name="keywords" content="接口">
 <meta property="og:type" content="article">
 <meta property="og:title" content="API&amp;签名">
 <meta property="og:url" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;2020&#x2F;10&#x2F;17&#x2F;api&#x2F;index.html">
 <meta property="og:site_name" content="安全笔记">
-<meta property="og:description" content="两种签名① 双方共享&#x2F;知道某个secret，用同一个算法来签名&#x2F;验签（如对称密钥HMAC算法）② A用私钥签名，B用A的公钥验签③ 签名是B用来验证A的身份，同时保证A传的数据防篡改④ 前提条件：验签方B需要提前知道签名方A的公钥或APPsecret">
+<meta property="og:description" content="两种签名① 双方共享&#x2F;知道某个secret，用同一个算法来签名&#x2F;验签（如对称密钥HMAC算法）② A用私钥签名，B用A的公钥验签">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;sign.png">
-<meta property="og:updated_time" content="2021-12-24T03:09:44.085Z">
+<meta property="og:updated_time" content="2022-09-27T03:05:41.657Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;sign.png">
 
@@ -391,8 +391,12 @@
       
 
       
-        <h3 id="两种签名"><a href="#两种签名" class="headerlink" title="两种签名"></a>两种签名</h3><p><img src="/images/sign.png" alt=""><br>① 双方共享/知道某个secret，用同一个算法来签名/验签（如对称密钥HMAC算法）<br>② A用私钥签名，B用A的公钥验签<br>③ 签名是B用来验证A的身份，同时保证A传的数据防篡改<br>④ 前提条件：<strong>验签方B</strong>需要提前知道<strong>签名方A</strong>的公钥或APPsecret<a id="more"></a></p>
+        <h3 id="两种签名"><a href="#两种签名" class="headerlink" title="两种签名"></a>两种签名</h3><p><img src="/images/sign.png" alt=""><br>① 双方共享/知道某个secret，用同一个算法来签名/验签（如对称密钥HMAC算法）<br>② A用私钥签名，B用A的公钥验签</p>
+<a id="more"></a>
+<p>前提条件<br><strong>验签方B</strong>需要提前知道<strong>签名方A</strong>的公钥或APPsecret<br>签名是B用来验证A的身份，同时保证A传的数据防篡改</p>
 <h3 id="接口安全"><a href="#接口安全" class="headerlink" title="接口安全"></a>接口安全</h3><p>如果是前后端分离的系统，那么接口一定会暴露在js中，多找找可能有未授权的惊喜</p>
+<h3 id="流量分析识别接口特征"><a href="#流量分析识别接口特征" class="headerlink" title="流量分析识别接口特征"></a>流量分析识别接口特征</h3><p>核心问题：怎么判断流量中是不是接口？<br>衍生问题：app请求是api吗？http请求都是api吗？js/css/html静态文件是api吗？<br><a href="https://www.aqniu.com/industry/85974.html" title="网宿安全">敏感数据保护的基石：API资产发现与管理</a></p>
+<h3 id="API资产管理系统"><a href="#API资产管理系统" class="headerlink" title="API资产管理系统"></a>API资产管理系统</h3><p>1、如果流量很大，那就抽样或针对部分重点业务采集流量分析，或导accesslog分析<br>2、旁路在交换机的流量分析API画像，如果body是加密的，是无法分析的<br>3、落地的难度，怎么去推这个产品，再者各种api的授权机制太复杂<br>4、业务风控的主线是账号安全，API的主线是API信息<br>5、优点是发现僵尸接口，缺陷接口<br>6、东西向流量不适合部署WAF、可以部署API网关</p>
 <h3 id="Q-amp-A"><a href="#Q-amp-A" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h3><hr>
 <p>Q：签名是在哪做？是为了啥？证明谁的身份？场景是什么？<br>A：签名的一方发起请求，对方进行验签。目的是为了验证签名那一方的身份及数据没有被篡改<br>A：签名在 <em>请求/调用方</em> 那一侧做，当然 <em>接收/被调</em> 那一方相应的要做验签，双方提前要沟通好算法保持一致</p>
 <hr>
@@ -527,7 +531,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-count">53</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -538,7 +542,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-count">56</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -549,7 +553,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-count">66</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -582,7 +586,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#两种签名"><span class="nav-number">1.</span> <span class="nav-text">两种签名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接口安全"><span class="nav-number">2.</span> <span class="nav-text">接口安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q-amp-A"><span class="nav-number">3.</span> <span class="nav-text">Q&amp;A</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#两种签名"><span class="nav-number">1.</span> <span class="nav-text">两种签名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接口安全"><span class="nav-number">2.</span> <span class="nav-text">接口安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#流量分析识别接口特征"><span class="nav-number">3.</span> <span class="nav-text">流量分析识别接口特征</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#API资产管理系统"><span class="nav-number">4.</span> <span class="nav-text">API资产管理系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q-amp-A"><span class="nav-number">5.</span> <span class="nav-text">Q&amp;A</span></a></li></ol></div>
             
 
           </div>
@@ -602,7 +606,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2022</span>
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

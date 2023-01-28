@@ -89,7 +89,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;CC%E6%94%BB%E5%87%BB.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;%E5%BC%80%E5%90%AF%E9%AA%8C%E8%AF%81%E7%A0%81.PNG">
-<meta property="og:updated_time" content="2021-12-07T10:51:43.497Z">
+<meta property="og:updated_time" content="2022-02-10T12:00:45.261Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;CC%E6%94%BB%E5%87%BB.png">
 
@@ -406,6 +406,8 @@
 <li>设备指纹模型（指纹一致性、操作系统标识、秒拨IP识别、恶意行为识别）</li>
 <li>行为分析模型（源IP+设备封禁、回源节点识别、多维限速、代理识别）<br>即<code>OS指纹</code>、<code>程序指纹</code>、<code>设备指纹</code></li>
 </ul>
+<h3 id="接口防刷设计"><a href="#接口防刷设计" class="headerlink" title="接口防刷设计"></a>接口防刷设计</h3><p>接口有两种，一种是需要登录才可以调用的，另一种是不需要登录</p>
+<p>对于需要登录才可以调用的，这种就可以根据用户来限制调用次数和频率。无登录态的接口由于不和user绑定，可采用其他维度来限制</p>
 
       
     </div>
@@ -531,7 +533,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-count">53</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -542,7 +544,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-count">56</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -553,7 +555,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-count">66</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -586,7 +588,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#CC攻击的传统防护"><span class="nav-number">1.</span> <span class="nav-text">CC攻击的传统防护</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么可以防护CC"><span class="nav-number">2.</span> <span class="nav-text">为什么可以防护CC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#针对APP请求的CC防护"><span class="nav-number">3.</span> <span class="nav-text">针对APP请求的CC防护</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#CC攻击的传统防护"><span class="nav-number">1.</span> <span class="nav-text">CC攻击的传统防护</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么可以防护CC"><span class="nav-number">2.</span> <span class="nav-text">为什么可以防护CC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#针对APP请求的CC防护"><span class="nav-number">3.</span> <span class="nav-text">针对APP请求的CC防护</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接口防刷设计"><span class="nav-number">4.</span> <span class="nav-text">接口防刷设计</span></a></li></ol></div>
             
 
           </div>
@@ -606,7 +608,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2022</span>
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

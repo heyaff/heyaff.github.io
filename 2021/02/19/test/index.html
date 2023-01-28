@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="安全笔记">
 <meta property="og:description" content="目录扫描爆破Dirsearchpython3 dirsearch.py -u https:&#x2F;&#x2F;xxx -x 403,404,401可选：-f -e php,html,jspx，知道网站的应用架构后，限定扫描某后缀--remove-extensions，去掉字典中所有的后缀，探测子目录 https:&#x2F;&#x2F;github.com&#x2F;maurosoria&#x2F;dirsearch思路：爆破出一个目录后，继续对二级&#x2F;">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2021-08-13T08:14:29.029Z">
+<meta property="og:updated_time" content="2022-02-08T07:06:43.326Z">
 <meta name="twitter:card" content="summary">
 
 
@@ -391,7 +391,7 @@
       
         <h3 id="目录扫描爆破"><a href="#目录扫描爆破" class="headerlink" title="目录扫描爆破"></a>目录扫描爆破</h3><p>Dirsearch<br><code>python3 dirsearch.py -u https://xxx -x 403,404,401</code><br>可选：<br><code>-f -e php,html,jspx</code>，知道网站的应用架构后，限定扫描某后缀<br><code>--remove-extensions</code>，去掉字典中所有的后缀，探测子目录</p>
 <p><a href="https://github.com/maurosoria/dirsearch">https://github.com/maurosoria/dirsearch</a><br>思路：爆破出一个目录后，继续对二级/三级目录进行爆破<a id="more"></a></p>
-<h3 id="SQLMAP注入"><a href="#SQLMAP注入" class="headerlink" title="SQLMAP注入"></a>SQLMAP注入</h3><p>注入点位置，加*<font color='Blue'>（如果是BP手工测试，注入点位置是加’，看有无SQL报错信息）</font></p>
+<h3 id="SQLMAP注入"><a href="#SQLMAP注入" class="headerlink" title="SQLMAP注入"></a>SQLMAP注入</h3><p>注入点位置，加*丢给SQLMAP跑<font color='Blue'>（如果是BP手工测试，注入点位置是加’，看有无SQL报错信息）</font></p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">--batch 不会询问你输入 全部默认确定</span><br><span class="line">-v	sql详细输出级别，等级<span class="number">3</span>会显示payload</span><br><span class="line"></span><br><span class="line">python sqlmap<span class="selector-class">.py</span> -r demo<span class="selector-class">.txt</span> --dbs --batch -v <span class="number">3</span></span><br><span class="line"></span><br><span class="line">python sqlmap<span class="selector-class">.py</span> -r demo<span class="selector-class">.txt</span> --tables -D 库名</span><br><span class="line"></span><br><span class="line">python sqlmap<span class="selector-class">.py</span> -r demo<span class="selector-class">.txt</span> --<span class="attribute">columns</span> -T 表名 -D 库名</span><br><span class="line"></span><br><span class="line">python sqlmap<span class="selector-class">.py</span> -r demo<span class="selector-class">.txt</span> --dump -C 列名<span class="number">1</span>,列名<span class="number">2</span> -T 表名 -D 库名</span><br><span class="line"></span><br><span class="line">python sqlmap<span class="selector-class">.py</span> -r demo<span class="selector-class">.txt</span> --dump-all -T 表名 -D 库名</span><br></pre></td></tr></table></figure>
 
 <h3 id="前端VUE项目泄露未授权接口"><a href="#前端VUE项目泄露未授权接口" class="headerlink" title="前端VUE项目泄露未授权接口"></a>前端VUE项目泄露未授权接口</h3><p>Webpack所生成的js有他的命名规律，一般都为<code>xxx.随机字母数字.js</code>的两段式，且每一个JS文件具体内容均以<code>webpackJsonp</code>开始。</p>
@@ -529,7 +529,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-count">53</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -540,7 +540,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-count">56</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -551,7 +551,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-count">66</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -604,7 +604,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2022</span>
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

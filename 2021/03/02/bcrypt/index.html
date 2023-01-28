@@ -90,7 +90,8 @@
 <meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;bcrypt.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;bcrypt_3.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;bcrypt1.png">
-<meta property="og:updated_time" content="2021-06-28T02:58:28.391Z">
+<meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;SHA256.png">
+<meta property="og:updated_time" content="2022-10-17T03:10:12.816Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;bcrypt.png">
 
@@ -415,6 +416,7 @@
 <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">salt = <span class="string">'<span class="subst">$2a</span><span class="subst">$10</span>$'</span> + <span class="built_in">String</span>(cryptojs.SHA256(<span class="string">'Heyaff'</span> + username + password)).substring(<span class="number">0</span>,<span class="number">22</span>);</span><br></pre></td></tr></table></figure>
 <p>ii. 后端接收到bcrypt密文，执行SHA256加盐散列，后端盐值是在用户注册时随机生成的，并写入数据库，修改口令时会重新生成新的盐值<br>iii. 后端校验时，接收到前端的bcrypt密文，读取后端salt，执行SHA256(bcrypt,salt)与数据库比对。</p>
 <p>小技巧：<br>1、固定盐值，使用户的bcrypt每次都固定，同时也保证了不同用户不同盐值<br>2、前端盐值是可逆的，不能把口令明文写入salt，所以执行了SHA256散列并截取固定长度<br>3、传给后端的bcrypt既然是固定不变的，它也相当于“替代口令”，按传统意义的加盐散列存储即可<br>4、校验时，后端没有执行bcrypt算法</p>
+<h3 id="Q-amp-A"><a href="#Q-amp-A" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h3><p>Q: SHA256代表多少字节，多少位(bit)？<br>A: SHA256是256bit长的哈希值，32个字节。你常看到的是十六进制字符串来展示的，是64个十六进制字符串，即两个Hex十六进制字符=一个字节。<br><img src="/images/SHA256.png" alt="SHA长度"></p>
 
       
     </div>
@@ -538,7 +540,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-count">53</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -549,7 +551,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-count">56</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -560,7 +562,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-count">66</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -593,7 +595,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#bcrypt组成"><span class="nav-number">1.</span> <span class="nav-text">bcrypt组成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bcrypt特征"><span class="nav-number">2.</span> <span class="nav-text">bcrypt特征</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#后端执行bcrypt的实践方案"><span class="nav-number">3.</span> <span class="nav-text">后端执行bcrypt的实践方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#前端执行bcrypt的最佳实践"><span class="nav-number">4.</span> <span class="nav-text">前端执行bcrypt的最佳实践</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#bcrypt组成"><span class="nav-number">1.</span> <span class="nav-text">bcrypt组成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bcrypt特征"><span class="nav-number">2.</span> <span class="nav-text">bcrypt特征</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#后端执行bcrypt的实践方案"><span class="nav-number">3.</span> <span class="nav-text">后端执行bcrypt的实践方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#前端执行bcrypt的最佳实践"><span class="nav-number">4.</span> <span class="nav-text">前端执行bcrypt的最佳实践</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q-amp-A"><span class="nav-number">5.</span> <span class="nav-text">Q&amp;A</span></a></li></ol></div>
             
 
           </div>
@@ -613,7 +615,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2022</span>
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

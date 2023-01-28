@@ -88,7 +88,7 @@
 <meta property="og:description" content="HTTPS原理 浅谈https基本原理 CA证书扫盲，https讲解 浅析HTTPS中间人攻击与证书校验 IOS应用安全-HTTP&#x2F;HTTPS网络安全   证书1、证书=Server公钥+申请者与颁发者信息+签名（CA的公钥公之于众，如浏览器内置，没有在证书中）">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;diagrammatize_https_theory.jpg">
-<meta property="og:updated_time" content="2020-06-17T02:07:56.199Z">
+<meta property="og:updated_time" content="2022-03-28T07:10:13.671Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;diagrammatize_https_theory.jpg">
 
@@ -421,6 +421,14 @@
 <h3 id="如果是应用服务器（非浏览器）调第三方公网HTTPS接口，证书是怎么解决和校验？"><a href="#如果是应用服务器（非浏览器）调第三方公网HTTPS接口，证书是怎么解决和校验？" class="headerlink" title="如果是应用服务器（非浏览器）调第三方公网HTTPS接口，证书是怎么解决和校验？"></a>如果是应用服务器（非浏览器）调第三方公网HTTPS接口，证书是怎么解决和校验？</h3><p>没啥区别，根证书通常是内置在操作系统或者执行环境（如JRE等）中。就像web浏览器一样，为HTTPS请求验证SSL证书（你直接调https接口，不用跳过证书校验，就可以访问）。</p>
 <h3 id="在公网读写MySQL等数据库，建议开启SSL链路传输加密，需要导入SSL-CA证书到应用服务器，才能连数据库。"><a href="#在公网读写MySQL等数据库，建议开启SSL链路传输加密，需要导入SSL-CA证书到应用服务器，才能连数据库。" class="headerlink" title="在公网读写MySQL等数据库，建议开启SSL链路传输加密，需要导入SSL CA证书到应用服务器，才能连数据库。"></a>在公网读写MySQL等数据库，建议开启SSL链路传输加密，需要导入SSL CA证书到应用服务器，才能连数据库。</h3><h3 id="双向认证"><a href="#双向认证" class="headerlink" title="双向认证"></a>双向认证</h3><p>校验客户端的身份，非授权客户端无法访问指定的服务端</p>
 <h3 id="加密协议"><a href="#加密协议" class="headerlink" title="加密协议"></a>加密协议</h3><p>等保要求，加密协议用<strong><code>TLS 1.1</code></strong>及以上版本，推荐<strong><code>TLS 1.2</code></strong><br>禁止使用<strong><code>TLS1.0</code></strong>、<strong><code>SSL2.0</code></strong>及<strong><code>SSL3.0</code></strong></p>
+<h3 id="HTTPS都加密了什么"><a href="#HTTPS都加密了什么" class="headerlink" title="HTTPS都加密了什么"></a>HTTPS都加密了什么</h3><ul>
+<li>URI路径</li>
+<li>host域名</li>
+<li>cookie头</li>
+<li>header头</li>
+<li>body</li>
+</ul>
+<p>针对HTTPS的加密流量分析，是可以获取域名信息的（虽然Host加密了）。因为DNS请求是明文的，如果在三次TLS握手中使用了SNI扩展也是明文传输域名的，但URL(路径和参数)始终是加密的。</p>
 
       
     </div>
@@ -548,7 +556,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-count">53</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -559,7 +567,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-count">56</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -570,7 +578,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-count">66</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -603,7 +611,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTPS原理"><span class="nav-number">1.</span> <span class="nav-text">HTTPS原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#证书"><span class="nav-number">2.</span> <span class="nav-text">证书</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如果是应用服务器（非浏览器）调第三方公网API，证书是怎么解决和校验？"><span class="nav-number">3.</span> <span class="nav-text">如果是应用服务器（非浏览器）调第三方公网API，证书是怎么解决和校验？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在公网读写MySQL等数据库，建议开启SSL链路传输加密，校验MySQL服务端需要导入CA根证书到应用服务器，才能连数据库"><span class="nav-number">4.</span> <span class="nav-text">在公网读写MySQL等数据库，建议开启SSL链路传输加密，校验MySQL服务端需要导入CA根证书到应用服务器，才能连数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单向认证"><span class="nav-number">5.</span> <span class="nav-text">单向认证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如果是应用服务器（非浏览器）调第三方公网HTTPS接口，证书是怎么解决和校验？"><span class="nav-number">6.</span> <span class="nav-text">如果是应用服务器（非浏览器）调第三方公网HTTPS接口，证书是怎么解决和校验？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在公网读写MySQL等数据库，建议开启SSL链路传输加密，需要导入SSL-CA证书到应用服务器，才能连数据库。"><span class="nav-number">7.</span> <span class="nav-text">在公网读写MySQL等数据库，建议开启SSL链路传输加密，需要导入SSL CA证书到应用服务器，才能连数据库。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#双向认证"><span class="nav-number">8.</span> <span class="nav-text">双向认证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加密协议"><span class="nav-number">9.</span> <span class="nav-text">加密协议</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTPS原理"><span class="nav-number">1.</span> <span class="nav-text">HTTPS原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#证书"><span class="nav-number">2.</span> <span class="nav-text">证书</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如果是应用服务器（非浏览器）调第三方公网API，证书是怎么解决和校验？"><span class="nav-number">3.</span> <span class="nav-text">如果是应用服务器（非浏览器）调第三方公网API，证书是怎么解决和校验？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在公网读写MySQL等数据库，建议开启SSL链路传输加密，校验MySQL服务端需要导入CA根证书到应用服务器，才能连数据库"><span class="nav-number">4.</span> <span class="nav-text">在公网读写MySQL等数据库，建议开启SSL链路传输加密，校验MySQL服务端需要导入CA根证书到应用服务器，才能连数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单向认证"><span class="nav-number">5.</span> <span class="nav-text">单向认证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如果是应用服务器（非浏览器）调第三方公网HTTPS接口，证书是怎么解决和校验？"><span class="nav-number">6.</span> <span class="nav-text">如果是应用服务器（非浏览器）调第三方公网HTTPS接口，证书是怎么解决和校验？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在公网读写MySQL等数据库，建议开启SSL链路传输加密，需要导入SSL-CA证书到应用服务器，才能连数据库。"><span class="nav-number">7.</span> <span class="nav-text">在公网读写MySQL等数据库，建议开启SSL链路传输加密，需要导入SSL CA证书到应用服务器，才能连数据库。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#双向认证"><span class="nav-number">8.</span> <span class="nav-text">双向认证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加密协议"><span class="nav-number">9.</span> <span class="nav-text">加密协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTPS都加密了什么"><span class="nav-number">10.</span> <span class="nav-text">HTTPS都加密了什么</span></a></li></ol></div>
             
 
           </div>
@@ -623,7 +631,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2022</span>
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

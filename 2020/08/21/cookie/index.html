@@ -79,16 +79,16 @@
 
 
 
-<meta name="description" content="session和cookie1、session-cookie是一对，session保存在服务端memcache&#x2F;redis，cookie保存客户端硬盘 2、客户端只需要保存session_id，加密存储在cookie硬盘中，发送给服务端。">
+<meta name="description" content="token在哪里  session和cookie1、session-cookie是一对，session保存在服务端memcache&#x2F;redis，cookie保存客户端硬盘 2、客户端只需要保存session_id，加密存储在cookie硬盘中，发送给服务端。">
 <meta name="keywords" content="session">
 <meta property="og:type" content="article">
 <meta property="og:title" content="session和cookie">
 <meta property="og:url" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;2020&#x2F;08&#x2F;21&#x2F;cookie&#x2F;index.html">
 <meta property="og:site_name" content="安全笔记">
-<meta property="og:description" content="session和cookie1、session-cookie是一对，session保存在服务端memcache&#x2F;redis，cookie保存客户端硬盘 2、客户端只需要保存session_id，加密存储在cookie硬盘中，发送给服务端。">
+<meta property="og:description" content="token在哪里  session和cookie1、session-cookie是一对，session保存在服务端memcache&#x2F;redis，cookie保存客户端硬盘 2、客户端只需要保存session_id，加密存储在cookie硬盘中，发送给服务端。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;session.png">
-<meta property="og:updated_time" content="2022-01-17T11:14:44.365Z">
+<meta property="og:updated_time" content="2022-06-28T12:25:34.273Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;session.png">
 
@@ -391,7 +391,10 @@
       
 
       
-        <h3 id="session和cookie"><a href="#session和cookie" class="headerlink" title="session和cookie"></a>session和cookie</h3><p><img src="/images/session.png" alt="session-cookie"><br>1、session-cookie是一对，session保存在服务端memcache/redis，cookie保存客户端硬盘</p>
+        <ul>
+<li><a href="https://blog.lishunyang.com/2021/09/where-is-token.html" title="Lishunyang&#39;s Blog">token在哪里</a></li>
+</ul>
+<h3 id="session和cookie"><a href="#session和cookie" class="headerlink" title="session和cookie"></a>session和cookie</h3><p><img src="/images/session.png" alt="session-cookie"><br>1、session-cookie是一对，session保存在服务端memcache/redis，cookie保存客户端硬盘</p>
 <p>2、客户端只需要保存session_id，加密存储在cookie硬盘中，发送给服务端。<a id="more"></a></p>
 <p>3、浏览器把cookie以KV形式存储到硬盘中。session等登录用户信息存储在服务端</p>
 <p>4、API模式是不支持cookie的</p>
@@ -399,6 +402,28 @@
 <h3 id="token"><a href="#token" class="headerlink" title="token"></a>token</h3><p>1、token是为了解决session存储问题的</p>
 <p>2、token是在服务端用私钥签名生成的，发送给客户端后，客户端保存在cookie/localStorage（本地存储），在服务端验证token，可存储也可不存（session必须存储）。</p>
 <p>3、移动端对cookie的支持不是很好，而session需要基于cookie实现，所以移动端常用的是token</p>
+<h3 id="HTTP请求token的位置"><a href="#HTTP请求token的位置" class="headerlink" title="HTTP请求token的位置"></a>HTTP请求token的位置</h3><h4 id="放在请求URI中"><a href="#放在请求URI中" class="headerlink" title="放在请求URI中"></a>放在请求URI中</h4><ul>
+<li>不安全，容易被盗用（复制链接给他人），放在URI中仅限有限次数使用、或只具有受限的权限、临时登录等场景。如OAuth2用一次就失效的token就叫code</li>
+</ul>
+<h4 id="放在请求header中"><a href="#放在请求header中" class="headerlink" title="放在请求header中"></a>放在请求header中</h4><ul>
+<li>放在自定义header里<ul>
+<li>推荐</li>
+<li>需前端代码手动设置自定义header（当然用户认证的过程还是后端代码实现）<ul>
+<li>此方案跟浏览器没任何关系，token怎么获取/怎么注入到请求头/怎么管理有效期，全部由自己写代码实现，不受浏览器限制</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>放在cookie头里<ul>
+<li>仅限PC浏览器环境，移动APP是没有cookie头的</li>
+<li>依赖浏览器环境，APP原生应用或小程序需开发者自己去搞cookie</li>
+<li>cookie的各种操作由浏览器来控制，cookie又是后端通过<code>set-cookie</code>种上去的，所以是后端代码控制，前端可以不写任何代码</li>
+</ul>
+</li>
+</ul>
+<h4 id="放在body中"><a href="#放在body中" class="headerlink" title="放在body中"></a>放在body中</h4><ul>
+<li>GET请求咋办？所以基本无！</li>
+</ul>
 
       
     </div>
@@ -522,7 +547,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-count">53</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -533,7 +558,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-count">56</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -544,7 +569,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-count">66</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -577,7 +602,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#session和cookie"><span class="nav-number">1.</span> <span class="nav-text">session和cookie</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#token"><span class="nav-number">2.</span> <span class="nav-text">token</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#session和cookie"><span class="nav-number">1.</span> <span class="nav-text">session和cookie</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#token"><span class="nav-number">2.</span> <span class="nav-text">token</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP请求token的位置"><span class="nav-number">3.</span> <span class="nav-text">HTTP请求token的位置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#放在请求URI中"><span class="nav-number">3.1.</span> <span class="nav-text">放在请求URI中</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#放在请求header中"><span class="nav-number">3.2.</span> <span class="nav-text">放在请求header中</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#放在body中"><span class="nav-number">3.3.</span> <span class="nav-text">放在body中</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -597,7 +622,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2022</span>
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
