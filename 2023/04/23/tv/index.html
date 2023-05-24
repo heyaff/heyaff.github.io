@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="安全笔记">
 <meta property="og:description" content="2023.03购买Sony TV后，剩下的就是无尽的折腾… … 点亮杜比视界索尼自带播放器有限制，只能播放mp4格式的杜比。播放非杜比的4K视频有时候还无法播放 当贝播放器不支持阿里云盘在线播放杜比，最高支持4K（会员）">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2023-04-24T11:59:56.910Z">
+<meta property="og:updated_time" content="2023-04-26T08:10:26.138Z">
 <meta name="twitter:card" content="summary">
 
 
@@ -395,14 +395,16 @@
 <p><strong>kodi</strong><br>推荐，但官方版的kodi无法点亮MKV等格式杜比世界，推荐kodi魔改版</p>
 <p>Kodinerds魔改版下载地址（<em>不带fireTV标识</em>）<br><a href="https://repo.kodinerds.net/index.php?action=list&amp;scope=cat&amp;item=Binary%20(armeabi-v7a)">https://repo.kodinerds.net/index.php?action=list&amp;scope=cat&amp;item=Binary%20(armeabi-v7a)</a></p>
 <ul>
-<li>改为中文界面<br>默认语言那里只有English，需要在Add-ons/Install from repository/Look and feel/Language中下载中文语言包就展示了</li>
+<li>改为中文界面<br>默认语言那里只有English，需要在<code>Add-ons/Install from repository/Look and feel/Language</code>中下载中文语言包就展示了</li>
 <li>在线加载中文字幕<br>安装OpenSubtitles.org插件，设置自己的账号密码，在“kodi/设置/播放器”那里，记得改“下载字幕语言为Chinese”</li>
-<li>电影/电视剧的刮削器</li>
+<li>电影/电视剧的刮削器<br>不翻墙的情况下，kodi自带的TV</li>
 </ul>
-<h3 id="在线播放阿里云盘"><a href="#在线播放阿里云盘" class="headerlink" title="在线播放阿里云盘"></a>在线播放阿里云盘</h3><p>【实现方式】通过电视盒子/TV/安卓手机（任意一个）安装WebDav服务，然后由kodi读取WebDav的云盘文件<br>由于WebDav模式会频繁的读写、删除硬盘，故我在闲置手机中安装此服务。</p>
+<h3 id="无损播放阿里云盘4K视频"><a href="#无损播放阿里云盘4K视频" class="headerlink" title="无损播放阿里云盘4K视频"></a>无损播放阿里云盘4K视频</h3><p>任意一台设备安装WebDav服务，当前我用家里闲置的Reno手机，当然也可以在电视盒子或索尼电视上安装，然后由kodi读取WebDav的云盘文件（类似共享文件夹）。<br>听说WebDav模式会频繁的读写、删除硬盘，损害安装的设备😳</p>
 <p>阿里云WebDav下载 <a href="https://github.com/eritpchy/aliyundrive-webdav/releases">https://github.com/eritpchy/aliyundrive-webdav/releases</a></p>
-<h3 id="TVBOX"><a href="#TVBOX" class="headerlink" title="TVBOX"></a>TVBOX</h3><p>最新版的TVBOX搜索功能有异常，故推荐旧版<br>接口地址<br><a href="https://dxawi.github.io/0/0.json">https://dxawi.github.io/0/0.json</a><br><a href="https://agit.ai/Yoursmile7/TVBox/raw/branch/master/XC.json">https://agit.ai/Yoursmile7/TVBox/raw/branch/master/XC.json</a></p>
-<h3 id="IPTV"><a href="#IPTV" class="headerlink" title="IPTV"></a>IPTV</h3><p>在线看电视直播，推荐运营商的IPTV，其次是神鸟直播/Tivimate<br>m3u直播源<br><a href="https://raw.fastgit.org/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/%E7%99%BE%E8%A7%86TV.m3u">https://raw.fastgit.org/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/%E7%99%BE%E8%A7%86TV.m3u</a></p>
+<h3 id="TVBOX"><a href="#TVBOX" class="headerlink" title="TVBOX"></a>TVBOX</h3><p>最新版的TVBOX搜索功能有异常，故安装的20221203旧版<br><a href="https://taobao.lanzouo.com/b08zl62eh">https://taobao.lanzouo.com/b08zl62eh</a><br>接口地址<br><a href="https://dxawi.github.io/0/0.json">https://dxawi.github.io/0/0.json</a><br><a href="https://agit.ai/Yoursmile7/TVBox/raw/branch/master/XC.json">https://agit.ai/Yoursmile7/TVBox/raw/branch/master/XC.json</a></p>
+<h3 id="IPTV"><a href="#IPTV" class="headerlink" title="IPTV"></a>IPTV</h3><p>在线看电视直播，推荐运营商的IPTV，其次是神鸟直播/Tivimate</p>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">### m3u直播源</span><br><span class="line">https:<span class="comment">//raw.fastgit.org/imDazui/Tvlist-awesome-m3u-m3u8/master/m3u/%E7%99%BE%E8%A7%86TV.m3u</span></span><br><span class="line">### IPTV节目预告epg接口</span><br><span class="line">https:<span class="comment">//epg.112114.xyz/pp.xml</span></span><br><span class="line">待定http:<span class="comment">//diyp.112114.xyz/pp.xml</span></span><br><span class="line">http:<span class="comment">//epg.51zmt.top:8000/e.xml</span></span><br><span class="line">### 老司机</span><br><span class="line">https:<span class="comment">//raw.fastgit.org/YanG-1989/m3u/main/Adult.m3u</span></span><br></pre></td></tr></table></figure>
+
 
       
     </div>
@@ -442,6 +444,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2023/05/23/remember/" rel="prev" title="登录界面的“记住我”安全设计">
+                登录界面的“记住我”安全设计 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -522,7 +528,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-count">55</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -533,7 +539,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-count">58</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -544,7 +550,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">67</span>
+                  <span class="site-state-item-count">68</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -577,7 +583,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#点亮杜比视界"><span class="nav-number">1.</span> <span class="nav-text">点亮杜比视界</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在线播放阿里云盘"><span class="nav-number">2.</span> <span class="nav-text">在线播放阿里云盘</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TVBOX"><span class="nav-number">3.</span> <span class="nav-text">TVBOX</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IPTV"><span class="nav-number">4.</span> <span class="nav-text">IPTV</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#点亮杜比视界"><span class="nav-number">1.</span> <span class="nav-text">点亮杜比视界</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#无损播放阿里云盘4K视频"><span class="nav-number">2.</span> <span class="nav-text">无损播放阿里云盘4K视频</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TVBOX"><span class="nav-number">3.</span> <span class="nav-text">TVBOX</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IPTV"><span class="nav-number">4.</span> <span class="nav-text">IPTV</span></a></li></ol></div>
             
 
           </div>
