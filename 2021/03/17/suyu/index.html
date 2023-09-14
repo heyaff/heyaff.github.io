@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="mavenMaven主要做了两件事：统一开发规范与工具统一管理jar&#x2F;aar&#x2F;so包">
+<meta name="description" content="MavenMaven主要做了两件事：统一开发规范与工具统一管理jar&#x2F;aar&#x2F;so包">
 <meta name="keywords" content="专业术语">
 <meta property="og:type" content="article">
 <meta property="og:title" content="术语">
 <meta property="og:url" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;2021&#x2F;03&#x2F;17&#x2F;suyu&#x2F;index.html">
 <meta property="og:site_name" content="安全笔记">
-<meta property="og:description" content="mavenMaven主要做了两件事：统一开发规范与工具统一管理jar&#x2F;aar&#x2F;so包">
+<meta property="og:description" content="MavenMaven主要做了两件事：统一开发规范与工具统一管理jar&#x2F;aar&#x2F;so包">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;maven.jpg">
 <meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;npm_dist.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;npm_dist1.png">
-<meta property="og:updated_time" content="2022-02-07T11:09:33.595Z">
+<meta property="og:updated_time" content="2023-08-25T09:16:11.889Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;images&#x2F;maven.jpg">
 
@@ -393,8 +393,9 @@
       
 
       
-        <h3 id="maven"><a href="#maven" class="headerlink" title="maven"></a>maven</h3><p><img src="/images/maven.jpg" alt="" title="后端开发IDE阶段才会用到maven"><br>Maven主要做了两件事：<br>统一开发规范与工具<br>统一管理jar/aar/so包<a id="more"></a></p>
-<p>maven是一个JAVA项目管理工具，直接配置pom文件，maven会自动帮你下载和管理jar包。<br>maven项目的目录结构遵守以下规范</p>
+        <h3 id="Maven"><a href="#Maven" class="headerlink" title="Maven"></a>Maven</h3><p><img src="/images/maven.jpg" alt="" title="后端开发IDE阶段才会用到maven"><br>Maven主要做了两件事：<br>统一开发规范与工具<br>统一管理jar/aar/so包<a id="more"></a></p>
+<p>Maven是一个JAVA项目管理工具，直接配置pom文件，Maven会自动帮你下载和管理jar包。<br>Maven项目有一个中央仓库，存了好多好多jar包，每个jar包不同的版本都存了。你想用什么jar包，只需要在Maven的配置文件中（pom.xml）配置一下，写好用什么jar包，什么版本即可，Maven会自动帮你下载jar包；你依赖的jar包如果还依赖其他jar包的话，它也可以帮你下载下来。</p>
+<p>maven项目的目录结构遵守以下规范</p>
 <table>
 <thead>
 <tr>
@@ -420,6 +421,8 @@
 </tr>
 </tbody></table>
 <p>就是如果是一个maven项目那么它的根目录下必定存在src文件夹和pom.xml。</p>
+<h3 id="Maven和Jenkins关系"><a href="#Maven和Jenkins关系" class="headerlink" title="Maven和Jenkins关系"></a>Maven和Jenkins关系</h3><p>Maven偏项目开发管理，主要是解决项目依懒问题；<br>Jenkins偏运维管理，让运维从繁琐的发布工作中解脱出来。</p>
+<p>项目的自动化编译、打包、部署：<br>码农提交了代码之后（svn/git），Jenkins会自动的把代码拿下来，编译好，编译之前可能要跑测试（跑测试、编译、打包是在Maven中做的），测试通过之后项目直接打包，然后部署到服务器上。从上面看出来，很多事情并不是Jenkins单独搞，也是有集成Maven、ant、gradle的</p>
 <h3 id="Node-js"><a href="#Node-js" class="headerlink" title="Node.js"></a>Node.js</h3><p>前端项目，在服务器上解析运行js文件</p>
 <p><code>src</code>文件夹，存放前端工程师的源代码，如app.vue等源码，<code>dist</code>文件夹，存放编译好的前端文件</p>
 <p>npm install xxx包，从仓库下载的依赖资源包都放在了node_modules目录下面</p>
@@ -437,6 +440,21 @@
 <p><strong><em>Dockerfile</em></strong> 用于构建一个镜像的文件（基于标准镜像改ba改ba）</p>
 <p>1.编写代码<br>2.自测+测试用例<br>3.编写Dockerfile<br>4.构建Docker镜像<br>5.推送Docker镜像到仓库<br>6.编写k8s YAML 文件<br>7.更新 YAML 文件中的Docker镜像TAG<br>8.利用kubectl工具部署应用</p>
 <p>-<a href="https://blog.ops-coffee.cn/s/gatfwneto_agsjhzdv5yzq" title="运维咖啡吧">中小团队基于Docker的devops实践</a></p>
+<h3 id="包部署和镜像部署"><a href="#包部署和镜像部署" class="headerlink" title="包部署和镜像部署"></a>包部署和镜像部署</h3><p>包部署</p>
+<ol>
+<li>在初次部署时会生成一台胖容器，里面的系统由云平台分配。</li>
+<li>如果系统中缺乏某些软件或运行环境需要自行上去安装，比如nginx</li>
+<li>每次部署变更只是不断的把软件包丢到机器里的部署目录，运行数据和自行安装的软件不会消失</li>
+<li>扩容后又得重新安装需要的软件和环境    </li>
+</ol>
+<p>镜像部署</p>
+<ol>
+<li>可以自行制作基础镜像，把项目运行时需要的软件和环境都打到基础镜像里</li>
+<li>在构建时把软件包打到自行制作的基础镜像中，生成最终的最终镜像</li>
+<li>每次部署变更都会根据最终镜像重新生成一台机器，但ip可以保持不变</li>
+<li>每次部署变更得到的都是一个新的运行环境（纯净的），运行时的数据需要使用其他的方式来收集来保证重启不会丢失</li>
+<li>由于环境和软件包全都在镜像里，所以非常方便扩容</li>
+</ol>
 
       
     </div>
@@ -560,7 +578,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">55</span>
+                  <span class="site-state-item-count">57</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -571,7 +589,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-count">60</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -582,7 +600,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-count">71</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -615,7 +633,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#maven"><span class="nav-number">1.</span> <span class="nav-text">maven</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Node-js"><span class="nav-number">2.</span> <span class="nav-text">Node.js</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ansible"><span class="nav-number">3.</span> <span class="nav-text">ansible</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CI-CD流程"><span class="nav-number">4.</span> <span class="nav-text">CI/CD流程</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Maven"><span class="nav-number">1.</span> <span class="nav-text">Maven</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Maven和Jenkins关系"><span class="nav-number">2.</span> <span class="nav-text">Maven和Jenkins关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Node-js"><span class="nav-number">3.</span> <span class="nav-text">Node.js</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ansible"><span class="nav-number">4.</span> <span class="nav-text">ansible</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CI-CD流程"><span class="nav-number">5.</span> <span class="nav-text">CI/CD流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#包部署和镜像部署"><span class="nav-number">6.</span> <span class="nav-text">包部署和镜像部署</span></a></li></ol></div>
             
 
           </div>

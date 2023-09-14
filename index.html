@@ -295,6 +295,297 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://heyaff.github.io/2023/08/25/yingji/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="heyaff">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="安全笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2023/08/25/yingji/" itemprop="url">应急响应</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-08-25T00:00:00+08:00">
+                2023-08-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SRC/" itemprop="url" rel="index">
+                    <span itemprop="name">SRC</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="应急响应"><a href="#应急响应" class="headerlink" title="应急响应"></a>应急响应</h3><h3 id="排查原因"><a href="#排查原因" class="headerlink" title="排查原因"></a>排查原因</h3><h4 id="查看ssh爆破登录记录"><a href="#查看ssh爆破登录记录" class="headerlink" title="查看ssh爆破登录记录"></a>查看ssh爆破登录记录</h4><p><code>tail /var/log/secure</code></p>
+<p><code>&#39;Failed password for invalid user&#39; /var/log/secure | awk &#39;{print $13}&#39; | sort | uniq -c | sort -nr | more</code><br>查看尝试暴力破解用户名的IP及次数</p>
+<p><code>&#39;Accepted publickey&#39; secure* | awk -F &#39;{print $11}&#39; | sort | uniq -c</code><br>查看SSH登录成功的IP及次数</p>
+<h4 id="查看端口网络连接信息"><a href="#查看端口网络连接信息" class="headerlink" title="查看端口网络连接信息"></a>查看端口网络连接信息</h4><p><code>netstat -atp</code></p>
+<h4 id="查看可疑进程"><a href="#查看可疑进程" class="headerlink" title="查看可疑进程"></a>查看可疑进程</h4><p><code>ps ef</code><br><code>docker ps</code><br><code>docker exec (容器ID)</code></p>
+<h3 id="处置动作"><a href="#处置动作" class="headerlink" title="处置动作"></a>处置动作</h3><h4 id="删除定时任务"><a href="#删除定时任务" class="headerlink" title="删除定时任务"></a>删除定时任务</h4><p>输入<code>crontab -e</code>打开crontab文件，直接删除相关行，保存退出</p>
+<h4 id="删除authorized-keys中相关的公钥"><a href="#删除authorized-keys中相关的公钥" class="headerlink" title="删除authorized_keys中相关的公钥"></a>删除authorized_keys中相关的公钥</h4>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://heyaff.github.io/2023/08/21/gpt/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="heyaff">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="安全笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2023/08/21/gpt/" itemprop="url">OpenAI带来的变革</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-08-21T00:00:00+08:00">
+                2023-08-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ChatGPT/" itemprop="url" rel="index">
+                    <span itemprop="name">ChatGPT</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>ChatGPT推出来一年多，对行业的变革是颠覆性的，公司高层站得高看得远，希望在代码辅助、数据分析领域，通过简单的对话来激发创造力，解放生产力。</p>
+<h3 id="DataChat"><a href="#DataChat" class="headerlink" title="DataChat"></a>DataChat</h3><p>通过对话形式，自动生成SQL，结果可视化展现，降低数据分析的门槛。</p>
+<h3 id="CodeChat"><a href="#CodeChat" class="headerlink" title="CodeChat"></a>CodeChat</h3><p>基于大模型的智能AI编程助手，可实现代码生成、代码补全、代码解释、代码优化、智能问答对话等。帮助开发者提升工作效率，支持主流的编程语言，并提供VSCode、Jetbrains IDE插件。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://heyaff.github.io/2023/05/23/remember/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1473,296 +1764,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://heyaff.github.io/2021/08/27/sdn/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="heyaff">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="安全笔记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/08/27/sdn/" itemprop="url">SDN网络</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-08-27T00:00:00+08:00">
-                2021-08-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/SDN/" itemprop="url" rel="index">
-                    <span itemprop="name">SDN</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>-<a href="https://zhuanlan.zhihu.com/p/52110156">SDN名词解释</a></p>
-<h3 id="什么是SDN"><a href="#什么是SDN" class="headerlink" title="什么是SDN"></a>什么是SDN</h3><p>SDN：网络设备（交换机、防火墙、路由器）可以集中式管理，可编程，控制和转发分离。</p>
-<h3 id=""><a href="#" class="headerlink" title=""></a></h3><p>购买SDN交换机设备来管控现有的网络设备</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://heyaff.github.io/2021/08/18/ioc/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="heyaff">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="安全笔记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/08/18/ioc/" itemprop="url">威胁情报建设</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-08-18T00:00:00+08:00">
-                2021-08-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%A8%81%E8%83%81%E6%83%85%E6%8A%A5/" itemprop="url" rel="index">
-                    <span itemprop="name">威胁情报</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><img src="/images/%E5%A8%81%E8%83%81%E6%83%85%E6%8A%A5.png" alt=""></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/08/18/ioc/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1816,7 +1817,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">55</span>
+                  <span class="site-state-item-count">57</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1827,7 +1828,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-count">60</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1838,7 +1839,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-count">71</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
