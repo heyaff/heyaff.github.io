@@ -387,15 +387,15 @@
 
       
         
-          
-            <h3 id="应急响应"><a href="#应急响应" class="headerlink" title="应急响应"></a>应急响应</h3><h3 id="排查原因"><a href="#排查原因" class="headerlink" title="排查原因"></a>排查原因</h3><h4 id="查看ssh爆破登录记录"><a href="#查看ssh爆破登录记录" class="headerlink" title="查看ssh爆破登录记录"></a>查看ssh爆破登录记录</h4><p><code>tail /var/log/secure</code></p>
-<p><code>&#39;Failed password for invalid user&#39; /var/log/secure | awk &#39;{print $13}&#39; | sort | uniq -c | sort -nr | more</code><br>查看尝试暴力破解用户名的IP及次数</p>
-<p><code>&#39;Accepted publickey&#39; secure* | awk -F &#39;{print $11}&#39; | sort | uniq -c</code><br>查看SSH登录成功的IP及次数</p>
-<h4 id="查看端口网络连接信息"><a href="#查看端口网络连接信息" class="headerlink" title="查看端口网络连接信息"></a>查看端口网络连接信息</h4><p><code>netstat -atp</code></p>
-<h4 id="查看可疑进程"><a href="#查看可疑进程" class="headerlink" title="查看可疑进程"></a>查看可疑进程</h4><p><code>ps ef</code><br><code>docker ps</code><br><code>docker exec (容器ID)</code></p>
-<h3 id="处置动作"><a href="#处置动作" class="headerlink" title="处置动作"></a>处置动作</h3><h4 id="删除定时任务"><a href="#删除定时任务" class="headerlink" title="删除定时任务"></a>删除定时任务</h4><p>输入<code>crontab -e</code>打开crontab文件，直接删除相关行，保存退出</p>
-<h4 id="删除authorized-keys中相关的公钥"><a href="#删除authorized-keys中相关的公钥" class="headerlink" title="删除authorized_keys中相关的公钥"></a>删除authorized_keys中相关的公钥</h4>
-          
+          <h3 id="一、排查原因"><a href="#一、排查原因" class="headerlink" title="一、排查原因"></a>一、排查原因</h3><h4 id="1、查看ssh爆破成功记录"><a href="#1、查看ssh爆破成功记录" class="headerlink" title="1、查看ssh爆破成功记录"></a>1、查看ssh爆破成功记录</h4><p><code>tail /var/log/secure</code></p>
+<p><code>grep &quot;Accepted &quot; /var/log/secure | awk &#39;{print $1,$2,$3,$9,$11,$13}&#39;</code><br>查看登录成功的用户、登录方式及来源IP</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2023/08/25/yingji/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
