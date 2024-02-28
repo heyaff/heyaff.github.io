@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="安全笔记">
 <meta property="og:description" content="一、排查原因1、查看ssh爆破成功记录tail &#x2F;var&#x2F;log&#x2F;secure grep &amp;quot;Accepted &amp;quot; &#x2F;var&#x2F;log&#x2F;secure | awk &amp;#39;{print $1,$2,$3,$9,$11,$13}&amp;#39;查看登录成功的用户、登录方式及来源IP">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2023-11-16T06:24:21.764Z">
+<meta property="og:updated_time" content="2024-02-20T08:31:13.349Z">
 <meta name="twitter:card" content="summary">
 
 
@@ -395,7 +395,7 @@
 <p><code>cat /var/log/secure | awk &#39;/Failed/{print $(NF-3)}&#39; | sort | uniq -c | awk &#39;{print $2&quot; = &quot;$1;}&#39;</code><br>查看登录失败的来源IP及次数</p>
 <h4 id="2、登录用户相关，排查登录-注销、来源IP、认证方式等"><a href="#2、登录用户相关，排查登录-注销、来源IP、认证方式等" class="headerlink" title="2、登录用户相关，排查登录/注销、来源IP、认证方式等"></a>2、登录用户相关，排查登录/注销、来源IP、认证方式等</h4><p><code>cat /var/log/secure | grep &quot;Nov 6 22:&quot;</code><br><code>lastlog</code></p>
 <h4 id="3、查看端口网络连接信息"><a href="#3、查看端口网络连接信息" class="headerlink" title="3、查看端口网络连接信息"></a>3、查看端口网络连接信息</h4><p><code>netstat -atp| grep 3000</code></p>
-<h4 id="4、查看可疑进程"><a href="#4、查看可疑进程" class="headerlink" title="4、查看可疑进程"></a>4、查看可疑进程</h4><p><code>ps ef</code><br><code>docker ps</code><br><code>docker exec (容器ID)</code></p>
+<h4 id="4、查看可疑进程"><a href="#4、查看可疑进程" class="headerlink" title="4、查看可疑进程"></a>4、查看可疑进程</h4><p><code>ps ef | grep redis</code><br><code>ss -auntp |grep 进程ID</code>  #用来查看可疑进程的网络连接信息，如外联的远程IP<br><code>docker ps</code><br><code>docker exec (容器ID)</code></p>
 <h4 id="5、查看某目录下在过去3天被修改过的文件"><a href="#5、查看某目录下在过去3天被修改过的文件" class="headerlink" title="5、查看某目录下在过去3天被修改过的文件"></a>5、查看某目录下在过去3天被修改过的文件</h4><p><code>find /etc/cron.d -type f -mtime -3</code><br><code>find /root/.ssh/ -type f -mtime -3</code></p>
 <h3 id="二、处置动作"><a href="#二、处置动作" class="headerlink" title="二、处置动作"></a>二、处置动作</h3><h4 id="删除定时任务"><a href="#删除定时任务" class="headerlink" title="删除定时任务"></a>删除定时任务</h4><p>输入<code>crontab -e</code>打开crontab文件，直接删除相关行，保存退出</p>
 <h4 id="删除authorized-keys中相关的公钥"><a href="#删除authorized-keys中相关的公钥" class="headerlink" title="删除authorized_keys中相关的公钥"></a>删除authorized_keys中相关的公钥</h4>
