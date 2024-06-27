@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="安全笔记">
 <meta property="og:description" content="ChatGPT推出来一年多，对行业的变革是颠覆性的，公司高层站得高看得远，希望在代码辅助、数据分析领域，通过简单的对话来激发创造力，解放生产力。 DataChat通过对话形式，自动生成SQL，结果可视化展现，降低数据分析的门槛。 CodeChat基于大模型的智能AI编程助手，可实现代码生成、代码补全、代码解释、代码优化、智能问答对话等。帮助开发者提升工作效率，支持主流的编程语言，并提供VSCode">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2023-12-01T10:39:49.676Z">
+<meta property="og:updated_time" content="2024-06-13T11:25:23.800Z">
 <meta name="twitter:card" content="summary">
 
 
@@ -402,6 +402,9 @@
 <li><p>综合类工具<br>微软办公套件Copilot、Office365设计器</p>
 </li>
 </ul>
+<h3 id="安全大模型"><a href="#安全大模型" class="headerlink" title="安全大模型"></a>安全大模型</h3><p>大模型基于token数来处理数据，所以并不是把全量的日志都丢给大模型，也不是在海量的日志数据中检索。目前行业做法是把各个安全设备的告警日志丢给大模型就行分析研判，这部分数据量相对少些。然后大模型基于告警日志生成查询或关联的脚本再去读取分析。并不是原始日志都丢给大模型。</p>
+<p>未来的趋势，各个厂商的告警日志都吐给大模型，不用在单独标准化，大模型直接来处理分析研判，能理解告警数据。<br>但个人意见，日志标准化ETL应该还是要做的，因为安全数据不止是要各个设备告警日志就行，还需要详细的原始日志，比如进程信息，操作日志等等，这些都不是告警日志。如果这些不标准化，这部分原始数据可是海量的，</p>
+<p>当然，目前的趋势是把prompt写的条件很多很细，这样才能引导约束大模型返回的结果是预期的或正确的，但这样反而限制了大模型的发挥，因为只是把它当辅助工具了，大模型的作用及能力也只达到了这个提问人的智力水平。</p>
 
       
     </div>
@@ -527,7 +530,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">60</span>
+                  <span class="site-state-item-count">62</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -538,7 +541,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-count">65</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -549,7 +552,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">75</span>
+                  <span class="site-state-item-count">78</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -582,7 +585,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#DataChat"><span class="nav-number">1.</span> <span class="nav-text">DataChat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CodeChat"><span class="nav-number">2.</span> <span class="nav-text">CodeChat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#强大的生产力工具"><span class="nav-number">3.</span> <span class="nav-text">强大的生产力工具</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#DataChat"><span class="nav-number">1.</span> <span class="nav-text">DataChat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CodeChat"><span class="nav-number">2.</span> <span class="nav-text">CodeChat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#强大的生产力工具"><span class="nav-number">3.</span> <span class="nav-text">强大的生产力工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安全大模型"><span class="nav-number">4.</span> <span class="nav-text">安全大模型</span></a></li></ol></div>
             
 
           </div>
