@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python,脚本," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="踩坑实战多个HTTP请求包有关联，不是单独的请求1、独立的请求是requests.post()，2、多个请求比如一个GET一个POST这种，前后有关联的话需要用session 12session = requests.session()response = session.get()">
+<meta name="keywords" content="python,脚本">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTTP脚本踩坑记录">
+<meta property="og:url" content="http:&#x2F;&#x2F;heyaff.github.io&#x2F;2024&#x2F;07&#x2F;04&#x2F;python&#x2F;index.html">
+<meta property="og:site_name" content="安全笔记">
+<meta property="og:description" content="踩坑实战多个HTTP请求包有关联，不是单独的请求1、独立的请求是requests.post()，2、多个请求比如一个GET一个POST这种，前后有关联的话需要用session 12session = requests.session()response = session.get()">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2024-07-04T08:16:21.864Z">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://heyaff.github.io/2024/07/04/python/"/>
+
+
+
+
+
+  <title>HTTP脚本踩坑记录 | 安全笔记</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?19d399916158649d0b91ca07eb928735";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">安全笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://heyaff.github.io/2024/07/04/python/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="heyaff">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="安全笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">HTTP脚本踩坑记录</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2024-07-04T16:16:21+08:00">
+                2024-07-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="踩坑实战"><a href="#踩坑实战" class="headerlink" title="踩坑实战"></a>踩坑实战</h2><h3 id="多个HTTP请求包有关联，不是单独的请求"><a href="#多个HTTP请求包有关联，不是单独的请求" class="headerlink" title="多个HTTP请求包有关联，不是单独的请求"></a>多个HTTP请求包有关联，不是单独的请求</h3><p>1、独立的请求是requests.post()，<br>2、多个请求比如一个GET一个POST这种，前后有关联的话需要用session</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">session</span> = requests.session()</span><br><span class="line"><span class="attr">response</span> = session.get()</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+
+<h3 id="抓包后，Repeater重放请求，发现和原始的结果不一样，应该是这个包有刷新机制或限制，即单独POST这个包是不行的，必须重新走下完整的流程"><a href="#抓包后，Repeater重放请求，发现和原始的结果不一样，应该是这个包有刷新机制或限制，即单独POST这个包是不行的，必须重新走下完整的流程" class="headerlink" title="抓包后，Repeater重放请求，发现和原始的结果不一样，应该是这个包有刷新机制或限制，即单独POST这个包是不行的，必须重新走下完整的流程"></a>抓包后，Repeater重放请求，发现和原始的结果不一样，应该是这个包有刷新机制或限制，即单独POST这个包是不行的，必须重新走下完整的流程</h3><p>比如POST的body如下<br><code>username=80264631&amp;password=xxx&amp;lt=LT-8653057-B3MIe2zZ7U5y9&amp;execution=e2s1&amp;_eventId=submit&amp;sliderWidth=0&amp;sliderToken=0&amp;deviceId=</code><br>具体的参数值是从哪来的，一开始我一直在F12控制台搜索，以为是js里面的值，因为当时在找pwd的加密密钥，结果没找到，就忘了看HTML的表单数据，其实HTML中也有加密密钥 &gt;_&lt;</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">POST的表单</span><br><span class="line">    # &lt;form id="authenticateByTT" action="/siam/login?"&gt;</span><br><span class="line">    #     &lt;<span class="keyword">input</span> <span class="keyword">type</span>="hidden" <span class="type">name</span>="authType" <span class="keyword">value</span>="ENC(eoxdJKT8CIi+aJV5IrZ87Q==)"/&gt;</span><br><span class="line">    #     &lt;<span class="keyword">input</span> <span class="keyword">type</span>="hidden" <span class="type">name</span>="lt" <span class="keyword">value</span>="LT-8653057-B3MIe2zZ7U5y9"/&gt;</span><br><span class="line">    #     &lt;<span class="keyword">input</span> <span class="keyword">type</span>="hidden" <span class="type">name</span>="execution" <span class="keyword">value</span>="e1s1"/&gt;</span><br><span class="line">    #     &lt;<span class="keyword">input</span> <span class="keyword">type</span>="hidden" <span class="type">name</span>="_eventId" <span class="keyword">value</span>="toTTAuth"/&gt;</span><br><span class="line">    #     &lt;<span class="keyword">input</span> <span class="keyword">type</span>="hidden" <span class="type">name</span>="mfaType" <span class="keyword">value</span>="TT"/&gt;</span><br><span class="line">    # &lt;/form&gt;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="如果用了session请求，得到的返回包还是和真实浏览器有区别，应该是第一个GET请求包问题"><a href="#如果用了session请求，得到的返回包还是和真实浏览器有区别，应该是第一个GET请求包问题" class="headerlink" title="如果用了session请求，得到的返回包还是和真实浏览器有区别，应该是第一个GET请求包问题"></a>如果用了session请求，得到的返回包还是和真实浏览器有区别，应该是第一个GET请求包问题</h3><p>比如我GET mo.adc.com，然后跳转到sso.adc.com，最后POST提交账号密码。<br>如果第一个GET用sso.adc.com可能有点问题，可以追溯到mo.adc.com，然后session.get(url, headers=headers,allow_redirects=True)，开启自动跳转到sso。这样完整的模拟浏览器抓包，结果是最准的。</p>
+<h3 id="重定向的坑，默认是开启重定向的，直到返回非301-302状态码。"><a href="#重定向的坑，默认是开启重定向的，直到返回非301-302状态码。" class="headerlink" title="重定向的坑，默认是开启重定向的，直到返回非301/302状态码。"></a>重定向的坑，默认是开启重定向的，直到返回非301/302状态码。</h3><p>请求顺序：POST–&gt;302–&gt;302–&gt;200<br>坑点一：一开始我想一路重定向，默认设置，结果最终返回403，POST–&gt;302–&gt;403就结束了，因为302跳转到了另外的域名，即跨域请求，去掉了header中<code>Origin</code>字段，一路绿灯直达200。（去掉整个header也中^_^）<br>坑点二：但我想获取302中的Set-Cookie值，只能单独处理重定向，要不然返回200不是我想要的。注意，Header中要去掉Host字段，要不然跳转到其他域名会报错。<br>这里也有个坑点，复用之前的header字段，结果响应超时，粘贴到burp中也无法复现，但依然怀疑header的问题，去掉header后，问题才解决。<br>原来是<code>Content-Length</code>惹的祸，怪不得响应超时，burp中会自动帮你修改这个值<br>【<strong>总结</strong>】自定义的Header头中，尽量去掉<code>Origin、Content-Length</code></p>
+<h3 id="UA字段的坑"><a href="#UA字段的坑" class="headerlink" title="UA字段的坑"></a>UA字段的坑</h3><p>我直接fork别人的代码，POST返回结果和抓包不一样，原来是UA字段中<code>Chrome/93.0.4577.82</code>，改了版本号就可以了，所以要注意刷新UA字段。</p>
+<h2 id="py技巧"><a href="#py技巧" class="headerlink" title="py技巧"></a>py技巧</h2><h3 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h3><figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">原始的response返回包</span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"code"</span>: <span class="number">200</span>,</span><br><span class="line">    <span class="string">"message"</span>: <span class="string">"OK"</span>,</span><br><span class="line">    <span class="string">"msg"</span>: <span class="string">"OK"</span>,</span><br><span class="line">    <span class="string">"data"</span>: &#123;</span><br><span class="line">        <span class="string">"prePageSize"</span>: <span class="number">200</span>,</span><br><span class="line">        <span class="string">"totalNum"</span>: <span class="number">3</span>,</span><br><span class="line">        <span class="string">"system_ops"</span>: [</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="string">"nickname"</span>: <span class="string">"谢子寒"</span>,</span><br><span class="line">                <span class="string">"username"</span>: <span class="string">"80369018"</span></span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="string">"nickname"</span>: <span class="string">"李起超"</span>,</span><br><span class="line">                <span class="string">"username"</span>: <span class="string">"80372465"</span></span><br><span class="line">            &#125;</span><br><span class="line">        ],</span><br><span class="line">        <span class="string">"lastId"</span>: <span class="string">"657b0723db7ed"</span>,</span><br><span class="line">        <span class="string">"prePageNumber"</span>: <span class="number">1</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"logId"</span>: <span class="string">"8ab501f9294c"</span>,</span><br><span class="line">    <span class="string">"status"</span>: <span class="string">"0000"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面是返回包中的原始结果，直接打印system_ops不适合统计数据，优化后的代码片段：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">data = res.json()[<span class="string">'data'</span>]</span><br><span class="line">list=[]</span><br><span class="line"><span class="keyword">for</span> ops_user <span class="keyword">in</span> data[<span class="string">'system_ops'</span>]:</span><br><span class="line">    userid=ops_user[<span class="string">"username"</span>]</span><br><span class="line">    username=ops_user[<span class="string">'nickname'</span>]</span><br><span class="line">    list.append(<span class="string">f"<span class="subst">&#123;username&#125;</span>(<span class="subst">&#123;userid&#125;</span>)"</span>)</span><br><span class="line"><span class="comment"># 使用 join 将列表连接成一个字符串，每个元素用逗号分隔</span></span><br><span class="line">out = <span class="string">','</span>.join(list)</span><br></pre></td></tr></table></figure>
+<p>输出结果</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">打印<span class="type">list</span>：</span><br><span class="line">['谢子寒(<span class="number">80369018</span>)', '李起超(<span class="number">80372465</span>)']</span><br><span class="line">打印out：</span><br><span class="line">谢子寒(<span class="number">80369018</span>),李起超(<span class="number">80372465</span>)</span><br></pre></td></tr></table></figure>
+<p>【<strong>总结</strong>】如果要将data中的数组元素全部打印并拼接出来，在for循环中，用列表list.append()来拼接</p>
+<h3 id="获取返回包的字段元素"><a href="#获取返回包的字段元素" class="headerlink" title="获取返回包的字段元素"></a>获取返回包的字段元素</h3><p>上面的response，直接用<code>response[&#39;data&#39;]</code>取值可能会报错，因为有时返回包没有data字段，运行报错<code>KeyError</code>，用<code>response.get(&quot;data&quot;,&quot;&quot;)</code>更安全<br>注意！！！不要以为是GET请求response，别搞错了！！！</p>
+<h3 id="自定义函数的输入输出"><a href="#自定义函数的输入输出" class="headerlink" title="自定义函数的输入输出"></a>自定义函数的输入输出</h3><p>初级的做法是传入一个IP，返回查询后的结果，如负责人、机房等value字段<br>推荐做法，传入传出，都可以是字典，即键值对。你可以定义out字典<br>out = {“type”:”ip”,”env”:””,”location”:””,”net_region”:””,”system_name”:””}<br>比如上面的response返回包，将数据赋值给out，最后自定义函数return out<br><strong>【总结】</strong> 自定义函数可返回键值对，而不是只返回value值。</p>
+<h3 id="logger函数"><a href="#logger函数" class="headerlink" title="logger函数"></a>logger函数</h3><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> loguru <span class="keyword">import</span> logger</span><br></pre></td></tr></table></figure>
+<p>使用logger.info比print记录日志更加专业，生产环境适用。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+            <a href="/tags/%E8%84%9A%E6%9C%AC/" rel="tag"># 脚本</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2024/06/06/elk/" rel="next" title="ELK查询语句">
+                <i class="fa fa-chevron-left"></i> ELK查询语句
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2024/08/27/chatgpt/" rel="prev" title="chatgpt">
+                chatgpt <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/logo.jpg"
+                alt="heyaff" />
+            
+              <p class="site-author-name" itemprop="name">heyaff</p>
+              <p class="site-description motion-element" itemprop="description">记录工作中的细节</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">65</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">78</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#踩坑实战"><span class="nav-number">1.</span> <span class="nav-text">踩坑实战</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#多个HTTP请求包有关联，不是单独的请求"><span class="nav-number">1.1.</span> <span class="nav-text">多个HTTP请求包有关联，不是单独的请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#抓包后，Repeater重放请求，发现和原始的结果不一样，应该是这个包有刷新机制或限制，即单独POST这个包是不行的，必须重新走下完整的流程"><span class="nav-number">1.2.</span> <span class="nav-text">抓包后，Repeater重放请求，发现和原始的结果不一样，应该是这个包有刷新机制或限制，即单独POST这个包是不行的，必须重新走下完整的流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如果用了session请求，得到的返回包还是和真实浏览器有区别，应该是第一个GET请求包问题"><span class="nav-number">1.3.</span> <span class="nav-text">如果用了session请求，得到的返回包还是和真实浏览器有区别，应该是第一个GET请求包问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重定向的坑，默认是开启重定向的，直到返回非301-302状态码。"><span class="nav-number">1.4.</span> <span class="nav-text">重定向的坑，默认是开启重定向的，直到返回非301/302状态码。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UA字段的坑"><span class="nav-number">1.5.</span> <span class="nav-text">UA字段的坑</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#py技巧"><span class="nav-number">2.</span> <span class="nav-text">py技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#列表"><span class="nav-number">2.1.</span> <span class="nav-text">列表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取返回包的字段元素"><span class="nav-number">2.2.</span> <span class="nav-text">获取返回包的字段元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义函数的输入输出"><span class="nav-number">2.3.</span> <span class="nav-text">自定义函数的输入输出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#logger函数"><span class="nav-number">2.4.</span> <span class="nav-text">logger函数</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">heyaff</span>
+
+  
+</div>
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+
+
+-->
+
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.json";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
