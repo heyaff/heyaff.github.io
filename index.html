@@ -295,6 +295,155 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://heyaff.github.io/2026/05/13/cloudflare/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="heyaff">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="安全笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2026/05/13/cloudflare/" itemprop="url">CF大善人内网穿透</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2026-05-13T00:00:00+08:00">
+                2026-05-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/" itemprop="url" rel="index">
+                    <span itemprop="name">内网穿透</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="本地已安装某个应用服务，通过CF暴漏在公网"><a href="#本地已安装某个应用服务，通过CF暴漏在公网" class="headerlink" title="本地已安装某个应用服务，通过CF暴漏在公网"></a>本地已安装某个应用服务，通过CF暴漏在公网</h2><p>最终实现效果，通过xxx.heyaff.com来访问VPS上本地某Web服务</p>
+<h3 id="1、安装-cloudflared（Ubuntu）"><a href="#1、安装-cloudflared（Ubuntu）" class="headerlink" title="1、安装 cloudflared（Ubuntu）"></a>1、安装 cloudflared（Ubuntu）</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget https:<span class="regexp">//gi</span>thub.com<span class="regexp">/cloudflare/</span>cloudflared<span class="regexp">/releases/</span>latest<span class="regexp">/download/</span>cloudflared-linux-amd64.deb</span><br><span class="line">sudo dpkg -i cloudflared-linux-amd64.deb</span><br></pre></td></tr></table></figure>
+<h3 id="2、登陆CF授权"><a href="#2、登陆CF授权" class="headerlink" title="2、登陆CF授权"></a>2、登陆CF授权</h3><p><code>cloudflared tunnel login</code><br>出现一个网址，用浏览器打开登陆CF，选择用哪个域名授权，OK后自动生成/root/.cloudflared/cert.pem和json文件</p>
+<h3 id="3、创建-Tunnel"><a href="#3、创建-Tunnel" class="headerlink" title="3、创建 Tunnel"></a>3、创建 Tunnel</h3><p><code>cloudflared tunnel create xxx-tunnel</code><br>输出Tunnel UUID: xxxxxxxx-xxxx</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2026/05/13/cloudflare/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://heyaff.github.io/2026/01/29/prompt/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1581,153 +1730,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://heyaff.github.io/2023/05/23/remember/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="heyaff">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="安全笔记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2023/05/23/remember/" itemprop="url">登录界面的“记住我”安全设计</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-05-23T00:00:00+08:00">
-                2023-05-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%B0%E4%BD%8F%E6%88%91/" itemprop="url" rel="index">
-                    <span itemprop="name">记住我</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>-<a href="https://book.itheima.net/course/1265899443273850881/1275010017375821825/1277438606880808963" title="黑马程序员教程">Java学习教程-记住我功能</a></p>
-<h3 id="不成熟的设计"><a href="#不成熟的设计" class="headerlink" title="不成熟的设计"></a>不成熟的设计</h3><p>&emsp;&emsp;一开始，我是从字面意思来进行设计的，即user勾选“记住我”后，客户端对pwd进行加密并保存在本地，然后下一次登录的时候客户端将pwd解密成明文，再submit。这是我最初想到的简单设计，即“记住我”=“保存口令”。
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2023/05/23/remember/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1781,7 +1783,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-count">65</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1792,7 +1794,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">66</span>
+                  <span class="site-state-item-count">67</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1803,7 +1805,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">79</span>
+                  <span class="site-state-item-count">81</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
