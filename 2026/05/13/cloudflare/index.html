@@ -393,9 +393,8 @@
       
         <h2 id="本地已安装某个应用服务，通过CF暴漏在公网"><a href="#本地已安装某个应用服务，通过CF暴漏在公网" class="headerlink" title="本地已安装某个应用服务，通过CF暴漏在公网"></a>本地已安装某个应用服务，通过CF暴漏在公网</h2><p>最终实现效果，通过xxx.heyaff.com来访问VPS上本地某Web服务</p>
 <h3 id="1、安装-cloudflared（Ubuntu）"><a href="#1、安装-cloudflared（Ubuntu）" class="headerlink" title="1、安装 cloudflared（Ubuntu）"></a>1、安装 cloudflared（Ubuntu）</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget https:<span class="regexp">//gi</span>thub.com<span class="regexp">/cloudflare/</span>cloudflared<span class="regexp">/releases/</span>latest<span class="regexp">/download/</span>cloudflared-linux-amd64.deb</span><br><span class="line">sudo dpkg -i cloudflared-linux-amd64.deb</span><br></pre></td></tr></table></figure>
-<h3 id="2、登陆CF授权"><a href="#2、登陆CF授权" class="headerlink" title="2、登陆CF授权"></a>2、登陆CF授权</h3><p><code>cloudflared tunnel login</code><br>出现一个网址，用浏览器打开登陆CF，选择用哪个域名授权，OK后自动生成/root/.cloudflared/cert.pem和json文件</p>
+<h3 id="2、登陆CF授权"><a href="#2、登陆CF授权" class="headerlink" title="2、登陆CF授权"></a>2、登陆CF授权</h3><p><code>cloudflared tunnel login</code><a id="more"></a><br>出现一个网址，用浏览器打开登陆CF，选择用哪个域名授权，OK后自动生成/root/.cloudflared/cert.pem和json文件</p>
 <h3 id="3、创建-Tunnel"><a href="#3、创建-Tunnel" class="headerlink" title="3、创建 Tunnel"></a>3、创建 Tunnel</h3><p><code>cloudflared tunnel create xxx-tunnel</code><br>输出Tunnel UUID: xxxxxxxx-xxxx</p>
-<a id="more"></a>
 <h3 id="4、修改配置文件（后续新增Web站点，直接从这里开始！！！）"><a href="#4、修改配置文件（后续新增Web站点，直接从这里开始！！！）" class="headerlink" title="4、修改配置文件（后续新增Web站点，直接从这里开始！！！）"></a>4、修改配置文件（后续新增Web站点，直接从这里开始！！！）</h3><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -p /etc/cloudflared</span><br><span class="line">vim /etc/cloudflared/<span class="built_in">config</span>.yml</span><br></pre></td></tr></table></figure>
 
 <p>最终文件（注意：前提是本地VPS已经启动了一个Web如31393端口）</p>
@@ -411,7 +410,7 @@
 <h3 id="3、创建DNS"><a href="#3、创建DNS" class="headerlink" title="3、创建DNS"></a>3、创建DNS</h3><p>可以继续复用VPS上已经创建好的tunnel，不用每个Web服务或者SSH协议都单独创建一个tunnel</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cloudflared tunnel<span class="built_in"> route dns </span>xxx-tunnel ssh.heyaff.com</span><br></pre></td></tr></table></figure>
 <h3 id="4、CF后台开启Web-SSH"><a href="#4、CF后台开启Web-SSH" class="headerlink" title="4、CF后台开启Web SSH"></a>4、CF后台开启Web SSH</h3><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Zero</span> Trust → Networks → Tunnels名字</span><br></pre></td></tr></table></figure>
-<h3 id="5、公网可直接访问ssh-heyaff-com"><a href="#5、公网可直接访问ssh-heyaff-com" class="headerlink" title="5、公网可直接访问ssh.heyaff.com"></a>5、公网可直接访问ssh.heyaff.com</h3><h2 id="删除CF隧道"><a href="#删除CF隧道" class="headerlink" title="删除CF隧道"></a>删除CF隧道</h2><p>如果某个Web站点不想通过CF暴漏在公网，直接第4步骤删除配置中相关域名即可，然后重启CF服务，域名DNS解析可删可不删，不影响后面你想在其他机器上使用该域名，在其他机器上执行第5步骤就会自动更新DNS解析，不用去登陆CF后台手工操作。</p>
+<h3 id="5、公网可直接访问ssh-heyaff-com"><a href="#5、公网可直接访问ssh-heyaff-com" class="headerlink" title="5、公网可直接访问ssh.heyaff.com"></a>5、公网可直接访问ssh.heyaff.com</h3><h2 id="删除CF隧道"><a href="#删除CF隧道" class="headerlink" title="删除CF隧道"></a>删除CF隧道</h2><p>如果某个Web站点不想通过CF暴漏在公网，直接第4步骤删除配置中相关域名即可，然后重启CF服务，域名DNS解析可删可不删。</p>
 
       
     </div>

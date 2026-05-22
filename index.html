@@ -389,8 +389,7 @@
         
           <h2 id="本地已安装某个应用服务，通过CF暴漏在公网"><a href="#本地已安装某个应用服务，通过CF暴漏在公网" class="headerlink" title="本地已安装某个应用服务，通过CF暴漏在公网"></a>本地已安装某个应用服务，通过CF暴漏在公网</h2><p>最终实现效果，通过xxx.heyaff.com来访问VPS上本地某Web服务</p>
 <h3 id="1、安装-cloudflared（Ubuntu）"><a href="#1、安装-cloudflared（Ubuntu）" class="headerlink" title="1、安装 cloudflared（Ubuntu）"></a>1、安装 cloudflared（Ubuntu）</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget https:<span class="regexp">//gi</span>thub.com<span class="regexp">/cloudflare/</span>cloudflared<span class="regexp">/releases/</span>latest<span class="regexp">/download/</span>cloudflared-linux-amd64.deb</span><br><span class="line">sudo dpkg -i cloudflared-linux-amd64.deb</span><br></pre></td></tr></table></figure>
-<h3 id="2、登陆CF授权"><a href="#2、登陆CF授权" class="headerlink" title="2、登陆CF授权"></a>2、登陆CF授权</h3><p><code>cloudflared tunnel login</code><br>出现一个网址，用浏览器打开登陆CF，选择用哪个域名授权，OK后自动生成/root/.cloudflared/cert.pem和json文件</p>
-<h3 id="3、创建-Tunnel"><a href="#3、创建-Tunnel" class="headerlink" title="3、创建 Tunnel"></a>3、创建 Tunnel</h3><p><code>cloudflared tunnel create xxx-tunnel</code><br>输出Tunnel UUID: xxxxxxxx-xxxx</p>
+<h3 id="2、登陆CF授权"><a href="#2、登陆CF授权" class="headerlink" title="2、登陆CF授权"></a>2、登陆CF授权</h3><p><code>cloudflared tunnel login</code>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2026/05/13/cloudflare/#more" rel="contents">
