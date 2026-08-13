@@ -392,7 +392,22 @@
       
         <h3 id="苹果APP逆向"><a href="#苹果APP逆向" class="headerlink" title="苹果APP逆向"></a>苹果APP逆向</h3><p>总结：如果要破解最新版的宝宝巴士IPA，不能直接从爱思助手下载正版IPA，因为FairPlay是加密的（cryptid=1），必须在已越狱或安装了巨魔的设备上安装最新版APP，然后从内存中DUMP出来未解密版的离线IPA安装包，这种丢给AI才能注入插件解锁会员。运气好的话公网上刚好有人分享了最新版APP破解版，不过一般都要掏钱，还不如官方购买SVIP。</p>
 <a id="more"></a>
-<h3 id="一个示例"><a href="#一个示例" class="headerlink" title="一个示例"></a>一个示例</h3>
+<h3 id="AI软件绕过破限"><a href="#AI软件绕过破限" class="headerlink" title="AI软件绕过破限"></a>AI软件绕过破限</h3><h4 id="1-WorkBuddy"><a href="#1-WorkBuddy" class="headerlink" title="1.WorkBuddy"></a>1.WorkBuddy</h4><ul>
+<li>使用 <strong>Resource Hacker</strong> 修改 EXE 的 <strong>PE 元数据</strong> 和 <strong>进程名</strong>。</li>
+<li>注意：原始默认安装目录的文件夹名称中 <strong>不能包含 <code>workbuddy</code></strong> 字样。</li>
+</ul>
+<h4 id="2-Codex桌面版"><a href="#2-Codex桌面版" class="headerlink" title="2.Codex桌面版"></a>2.Codex桌面版</h4><ul>
+<li>修改的是 <code>resources</code> 目录里的进程名，<strong>只改文件名即可</strong>。</li>
+<li>同时需要设置环境变量，指向改名后的可执行文件：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setx CODEX_CLI_PATH <span class="string">"D:\OpenAI\app\resources\coddex.exe"</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="3-CodeX-CLI"><a href="#3-CodeX-CLI" class="headerlink" title="3.CodeX CLI"></a>3.CodeX CLI</h4><p>需要修改 <strong>两处</strong>：<br><strong>第一处：重命名可执行文件</strong><br>将以下路径中的 <code>codex.exe</code> 改为 <code>cx.exe</code>：<br><code>C:\Users\{用户名}\AppData\Roaming\npm\node_modules\@openai\codex\node_modules\@openai\codex-win32-x64\vendor\x86_64-pc-windows-msvc\bin\codex.exe</code><br><strong>第二处：修改启动脚本中的硬编码路径</strong><br><code>C:\Users\{用户名}\AppData\Roaming\npm\node_modules\@openai\codex\bin\codex.js</code> 中写死了 <code>codex.exe</code>，将其改为 <code>cx.exe</code> 即可。</p>
+<h4 id="4-Claude-Code"><a href="#4-Claude-Code" class="headerlink" title="4.Claude Code"></a>4.Claude Code</h4><ul>
+<li>与 WorkBuddy 方式相同：只改 <code>~\.local\bin\claude.exe</code> 的 <strong>PE 元数据</strong> 和 <strong>进程名</strong>（例如改为 <code>cc.exe</code>）。</li>
+<li>如果仍想使用 <code>claude</code> 命令，可在同目录下创建一个同名跳转脚本 <code>claude.cmd</code>，这样敲 <code>claude</code> 时实际调用的仍是 <code>cc.exe</code>。</li>
+</ul>
+
       
     </div>
     
@@ -566,7 +581,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#苹果APP逆向"><span class="nav-number">1.</span> <span class="nav-text">苹果APP逆向</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一个示例"><span class="nav-number">2.</span> <span class="nav-text">一个示例</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#苹果APP逆向"><span class="nav-number">1.</span> <span class="nav-text">苹果APP逆向</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AI软件绕过破限"><span class="nav-number">2.</span> <span class="nav-text">AI软件绕过破限</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-WorkBuddy"><span class="nav-number">2.1.</span> <span class="nav-text">1.WorkBuddy</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Codex桌面版"><span class="nav-number">2.2.</span> <span class="nav-text">2.Codex桌面版</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-CodeX-CLI"><span class="nav-number">2.3.</span> <span class="nav-text">3.CodeX CLI</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-Claude-Code"><span class="nav-number">2.4.</span> <span class="nav-text">4.Claude Code</span></a></li></ol></li></ol></div>
             
 
           </div>
