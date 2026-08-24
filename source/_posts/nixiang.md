@@ -11,6 +11,17 @@ tags:
 ### 苹果APP逆向
 总结：如果要破解最新版的宝宝巴士IPA，不能直接从爱思助手下载正版IPA，因为FairPlay是加密的（cryptid=1），必须在已越狱或安装了巨魔的设备上安装最新版APP，然后从内存中DUMP出来未解密版的离线IPA安装包，这种丢给AI才能注入插件解锁会员。运气好的话公网上刚好有人分享了最新版APP破解版，不过一般都要掏钱，还不如官方购买SVIP。
 <!--more-->
+
+# iOS破壳软件下载
+
+| 网站 | 链接 | 推荐指数 | 备注 |
+|------|------|----------|------|
+| Decrypt | [https://decrypt.34306.lol/](https://decrypt.34306.lol/) | ⭐⭐⭐⭐⭐ | 免费可用，有最新版本，**强烈推荐** |
+| IPA Store | [https://ipa.store/dump](https://ipa.store/dump) | ⭐⭐⭐⭐ | 免费可用，版本约滞后半年，非实时更新 |
+| ArmConverter | [https://armconverter.com/store/us/](https://armconverter.com/store/us/) | ⭐⭐⭐ | 免费可用，有最新版本砸壳，缺点：排队需等待数天 |
+| iPadump | [https://ipadump.com/](https://ipadump.com/) | ⭐⭐⭐ | 一分钱下载一次，性价比可，有最新版本，作为备选 |
+破壳是指将APP从sandbox中提取出来，FairPlay是未加密的，便于你后续逆向/VIP破解/注入操作，然后用个人ID进行签名安装即可。
+
 ### AI软件绕过破限
 #### 1.WorkBuddy
 - 使用 **Resource Hacker** 修改 EXE 的 **PE 元数据** 和 **进程名**。
