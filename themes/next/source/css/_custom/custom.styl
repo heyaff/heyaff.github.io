@@ -53,21 +53,40 @@ a:hover {
     margin-top: 20px;
 }
 
-// ``代码块样式
+// ===== 代码样式（GitHub 风格：修正刺眼橙色 + 代码块干净边框）=====
+// 行内代码：浅灰底 + 深色字，不再用 #ff7600 橙色
 code {
-    color: #ff7600;
-    background: #fbf7f8;
-    border-radius: 3px;
+  color: #24292f;
+  background: rgba(175, 184, 193, 0.2);
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  font-size: 0.88em;
 }
-
-// 大代码块的自定义样式
-.highlight, pre {
-    margin: 5px 0;
-    padding: 5px;
-    border-radius: 3px;
+// 大代码块（``` 围栏 / 缩进代码）：干净边框 + 浅灰底
+.highlight,
+pre {
+  margin: 20px 0;
+  padding: 14px 16px;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  background: #f6f8fa;
+  overflow: auto;
+  font-size: 13px;
+  line-height: 1.6;
 }
-.highlight, code, pre {
-    border: 1px solid #d6d6d6;
+// 代码块内的 code 还原（继承语法高亮配色，去掉行内 code 的样式/边框）
+.highlight code,
+pre code {
+  padding: 0;
+  color: inherit;
+  background: none;
+  border: none;
+  font-size: 13px;
+}
+// 代码注释/引号：柔和灰，保持清晰
+.highlight .comment,
+.highlight .quote {
+  color: #6e7781;
 }
 
 // 文章标题动态效果
@@ -110,4 +129,34 @@ body {
 }
 .post-body tbody tr:hover {
   background-color: #f0f3f6;   // 悬停高亮
+}
+
+// ===== 排除：代码块内部行号表格不要套文章表格样式 =====
+// NexT 的代码块用 <figure class="highlight"><table> 渲染行号，
+// 上面的 .post-body table 规则会误伤它，这里还原回去。
+.post-body .highlight table {
+  display: table;
+  width: auto;
+  margin: 0;
+  border: none;
+  border-collapse: collapse;
+  table-layout: auto;
+  overflow: visible;
+}
+.post-body .highlight table tr {
+  background: transparent;
+  border-top: none;
+}
+.post-body .highlight table th,
+.post-body .highlight table td {
+  display: table-cell;
+  padding: 0;
+  border: none;
+  background: transparent;
+}
+.post-body .highlight table tr:nth-child(2n) {
+  background: transparent;
+}
+.post-body .highlight table tbody tr:hover {
+  background: transparent;
 }
