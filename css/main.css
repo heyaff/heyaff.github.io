@@ -1832,7 +1832,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #982fff;
+  background: #95aadf;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2952,20 +2952,34 @@ a:hover {
   margin-top: 20px;
 }
 code {
-  color: #ff7600;
-  background: #fbf7f8;
-  border-radius: 3px;
+  color: #24292f;
+  background: rgba(175,184,193,0.2);
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  font-size: 0.88em;
 }
 .highlight,
 pre {
-  margin: 5px 0;
-  padding: 5px;
-  border-radius: 3px;
+  margin: 20px 0;
+  padding: 14px 16px;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  background: #f6f8fa;
+  overflow: auto;
+  font-size: 13px;
+  line-height: 1.6;
 }
-.highlight,
-code,
-pre {
-  border: 1px solid #d6d6d6;
+.highlight code,
+pre code {
+  padding: 0;
+  color: inherit;
+  background: none;
+  border: none;
+  font-size: 13px;
+}
+.highlight .comment,
+.highlight .quote {
+  color: #6e7781;
 }
 body {
   color: #444;
@@ -2999,4 +3013,30 @@ body {
 }
 .post-body tbody tr:hover {
   background-color: #f0f3f6;
+}
+.post-body .highlight table {
+  display: table;
+  width: auto;
+  margin: 0;
+  border: none;
+  border-collapse: collapse;
+  table-layout: auto;
+  overflow: visible;
+}
+.post-body .highlight table tr {
+  background: transparent;
+  border-top: none;
+}
+.post-body .highlight table th,
+.post-body .highlight table td {
+  display: table-cell;
+  padding: 0;
+  border: none;
+  background: transparent;
+}
+.post-body .highlight table tr:nth-child(2n) {
+  background: transparent;
+}
+.post-body .highlight table tbody tr:hover {
+  background: transparent;
 }
