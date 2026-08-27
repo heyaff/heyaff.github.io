@@ -79,12 +79,12 @@
 
 
 
-<meta name="description" content="在kibana管理Web页面中，Dev Tools工具，写SQL语句查看统计结果，格式如下 1234POST &#x2F;_sql?format&#x3D;txt&amp;#123;&quot;query&quot;: &quot;SELECT 日志字段1,日志字段2 FROM index_索引表名 WHERE 日志字段3 &#x3D; &#39;XXX&#39; AND 时间字段 &gt;&#x3D; &#39;2024-05-16&#39; AND 时间字段 &lt;&#x3D; &#39;2024-05-17&#39; &quot;&amp;">
+<meta name="description" content="在kibana管理Web页面中，Dev Tools工具，写SQL语句查看统计结果，格式如下 POST &#x2F;_sql?format&#x3D;txt&amp;#123;&quot;query&quot;: &quot;SELECT 日志字段1,日志字段2 FROM index_索引表名 WHERE 日志字段3 &#x3D; &#39;XXX&#39; AND 时间字段 &gt;&#x3D; &#39;2024-05-16&#39; AND 时间字段 &lt;&#x3D; &#39;2024-05-17&#39; &quot;&amp;#125">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ELK查询语句">
 <meta property="og:url" content="https://heyaff.github.io/2024/05/17/elk/index.html">
 <meta property="og:site_name" content="安全笔记">
-<meta property="og:description" content="在kibana管理Web页面中，Dev Tools工具，写SQL语句查看统计结果，格式如下 1234POST &#x2F;_sql?format&#x3D;txt&amp;#123;&quot;query&quot;: &quot;SELECT 日志字段1,日志字段2 FROM index_索引表名 WHERE 日志字段3 &#x3D; &#39;XXX&#39; AND 时间字段 &gt;&#x3D; &#39;2024-05-16&#39; AND 时间字段 &lt;&#x3D; &#39;2024-05-17&#39; &quot;&amp;">
+<meta property="og:description" content="在kibana管理Web页面中，Dev Tools工具，写SQL语句查看统计结果，格式如下 POST &#x2F;_sql?format&#x3D;txt&amp;#123;&quot;query&quot;: &quot;SELECT 日志字段1,日志字段2 FROM index_索引表名 WHERE 日志字段3 &#x3D; &#39;XXX&#39; AND 时间字段 &gt;&#x3D; &#39;2024-05-16&#39; AND 时间字段 &lt;&#x3D; &#39;2024-05-17&#39; &quot;&amp;#125">
 <meta property="article:published_time" content="2024-05-17T18:50:41.000Z">
 <meta property="article:modified_time" content="2024-05-17T18:50:41.000Z">
 <meta property="article:author" content="heyaff">
@@ -391,12 +391,12 @@
 
       
         <p>在kibana管理Web页面中，Dev Tools工具，写SQL语句查看统计结果，格式如下</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">POST /_sql?<span class="attribute">format</span>=txt</span><br><span class="line">&#123;</span><br><span class="line"><span class="string">"query"</span>: <span class="string">"SELECT 日志字段1,日志字段2 FROM index_索引表名 WHERE 日志字段3 = 'XXX' AND 时间字段 &gt;= '2024-05-16' AND 时间字段 &lt;= '2024-05-17' "</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">POST /_sql?<span class="attribute">format</span>=txt</span><br><span class="line">&#123;</span><br><span class="line"><span class="string">"query"</span>: <span class="string">"SELECT 日志字段1,日志字段2 FROM index_索引表名 WHERE 日志字段3 = 'XXX' AND 时间字段 &gt;= '2024-05-16' AND 时间字段 &lt;= '2024-05-17' "</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
 
 
 <p>例如，查询特定时间内访问blog.csdn.net的源IP次数统计</p>
-<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">POST /_sql?format=txt</span><br><span class="line">&#123;</span><br><span class="line">"query": "<span class="keyword">SELECT</span> network_source_ip, <span class="built_in">COUNT</span>(*) <span class="keyword">AS</span> Num <span class="keyword">FROM</span> net_flow_log <span class="keyword">WHERE</span> log_product = <span class="string">'nta_wb_cn'</span> <span class="keyword">AND</span> log_time &gt;= <span class="string">'2024-05-16T10:00:00.000Z'</span> <span class="keyword">AND</span> log_time &lt;= <span class="string">'2024-05-17T10:01:00.000Z'</span> <span class="keyword">AND</span> data = <span class="string">'blog.csdn.net'</span> <span class="keyword">GROUP</span> <span class="keyword">BY</span> network_source_ip <span class="keyword">ORDER</span> <span class="keyword">BY</span> Num <span class="keyword">DESC</span>  <span class="keyword">LIMIT</span> <span class="number">100</span><span class="string">"</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight n1ql"><table><tr><td class="code"><pre><span class="line">POST /_sql?format=txt</span><br><span class="line">&#123;</span><br><span class="line">"query": "<span class="keyword">SELECT</span> network_source_ip, <span class="built_in">COUNT</span>(*) <span class="keyword">AS</span> Num <span class="keyword">FROM</span> net_flow_log <span class="keyword">WHERE</span> log_product = <span class="string">'nta_wb_cn'</span> <span class="keyword">AND</span> log_time &gt;= <span class="string">'2024-05-16T10:00:00.000Z'</span> <span class="keyword">AND</span> log_time &lt;= <span class="string">'2024-05-17T10:01:00.000Z'</span> <span class="keyword">AND</span> data = <span class="string">'blog.csdn.net'</span> <span class="keyword">GROUP</span> <span class="keyword">BY</span> network_source_ip <span class="keyword">ORDER</span> <span class="keyword">BY</span> Num <span class="keyword">DESC</span>  <span class="keyword">LIMIT</span> <span class="number">100</span><span class="string">"</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
 
 
 

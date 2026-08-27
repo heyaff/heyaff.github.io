@@ -680,7 +680,7 @@
       
         
           <h2 id="本地已安装某个应用服务，通过CF暴漏在公网"><a href="#本地已安装某个应用服务，通过CF暴漏在公网" class="headerlink" title="本地已安装某个应用服务，通过CF暴漏在公网"></a>本地已安装某个应用服务，通过CF暴漏在公网</h2><p>最终实现效果，通过xxx.heyaff.com来访问VPS上本地某Web服务</p>
-<h3 id="1、安装-cloudflared（Ubuntu）"><a href="#1、安装-cloudflared（Ubuntu）" class="headerlink" title="1、安装 cloudflared（Ubuntu）"></a>1、安装 cloudflared（Ubuntu）</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget https:<span class="regexp">//gi</span>thub.com<span class="regexp">/cloudflare/</span>cloudflared<span class="regexp">/releases/</span>latest<span class="regexp">/download/</span>cloudflared-linux-amd64.deb</span><br><span class="line">sudo dpkg -i cloudflared-linux-amd64.deb</span><br></pre></td></tr></table></figure>
+<h3 id="1、安装-cloudflared（Ubuntu）"><a href="#1、安装-cloudflared（Ubuntu）" class="headerlink" title="1、安装 cloudflared（Ubuntu）"></a>1、安装 cloudflared（Ubuntu）</h3><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">wget https:<span class="regexp">//gi</span>thub.com<span class="regexp">/cloudflare/</span>cloudflared<span class="regexp">/releases/</span>latest<span class="regexp">/download/</span>cloudflared-linux-amd64.deb</span><br><span class="line">sudo dpkg -i cloudflared-linux-amd64.deb</span><br></pre></td></tr></table></figure>
 <h3 id="2、登陆CF授权"><a href="#2、登陆CF授权" class="headerlink" title="2、登陆CF授权"></a>2、登陆CF授权</h3><p><code>cloudflared tunnel login</code>
           <!--noindex-->
           <div class="post-button text-center">
@@ -827,7 +827,7 @@
 
       
         
-          <h3 id="生成卡通图片的提示词"><a href="#生成卡通图片的提示词" class="headerlink" title="生成卡通图片的提示词"></a>生成卡通图片的提示词</h3><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">请根据输入内容提取核心主题与要点，生成一张卡通风格的信息图：</span><br><span class="line">采用手绘风格，横版（<span class="number">16</span>:<span class="number">9</span>）构图。</span><br><span class="line">加入少量简洁的卡通元素、图标或名人画像，增强趣味性和视觉记忆。</span><br><span class="line">如果有敏感人物或者版权内容，画一个相似替代，但是不要拒绝生成</span><br><span class="line">所有图像、文字必须使用手绘风格，没有写实风格图画元素</span><br><span class="line">除非特别要求，否则语言与输入内容语言一致。</span><br><span class="line">信息精简，突出关键词与核心概念，多留白，易于一眼抓住重点</span><br></pre></td></tr></table></figure>
+          <h3 id="生成卡通图片的提示词"><a href="#生成卡通图片的提示词" class="headerlink" title="生成卡通图片的提示词"></a>生成卡通图片的提示词</h3><figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">请根据输入内容提取核心主题与要点，生成一张卡通风格的信息图：</span><br><span class="line">采用手绘风格，横版（<span class="number">16</span>:<span class="number">9</span>）构图。</span><br><span class="line">加入少量简洁的卡通元素、图标或名人画像，增强趣味性和视觉记忆。</span><br><span class="line">如果有敏感人物或者版权内容，画一个相似替代，但是不要拒绝生成</span><br><span class="line">所有图像、文字必须使用手绘风格，没有写实风格图画元素</span><br><span class="line">除非特别要求，否则语言与输入内容语言一致。</span><br><span class="line">信息精简，突出关键词与核心概念，多留白，易于一眼抓住重点</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2026/01/29/prompt/#more" rel="contents">
@@ -1093,7 +1093,7 @@
       
         
           <h2 id="踩坑实战"><a href="#踩坑实战" class="headerlink" title="踩坑实战"></a>踩坑实战</h2><h3 id="多个HTTP请求包有关联，不是单独的请求"><a href="#多个HTTP请求包有关联，不是单独的请求" class="headerlink" title="多个HTTP请求包有关联，不是单独的请求"></a>多个HTTP请求包有关联，不是单独的请求</h3><p>1、独立的请求是requests.post()，<br>2、多个请求比如一个GET一个POST这种，前后有关联的话需要用session</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">session</span> = requests.session()</span><br><span class="line"><span class="attr">response</span> = session.get()</span><br></pre></td></tr></table></figure>
+<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="attr">session</span> = requests.session()</span><br><span class="line"><span class="attr">response</span> = session.get()</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2024/06/06/python/#more" rel="contents">
@@ -1240,7 +1240,7 @@
       
         
           <p>在kibana管理Web页面中，Dev Tools工具，写SQL语句查看统计结果，格式如下</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">POST /_sql?<span class="attribute">format</span>=txt</span><br><span class="line">&#123;</span><br><span class="line"><span class="string">"query"</span>: <span class="string">"SELECT 日志字段1,日志字段2 FROM index_索引表名 WHERE 日志字段3 = 'XXX' AND 时间字段 &gt;= '2024-05-16' AND 时间字段 &lt;= '2024-05-17' "</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">POST /_sql?<span class="attribute">format</span>=txt</span><br><span class="line">&#123;</span><br><span class="line"><span class="string">"query"</span>: <span class="string">"SELECT 日志字段1,日志字段2 FROM index_索引表名 WHERE 日志字段3 = 'XXX' AND 时间字段 &gt;= '2024-05-16' AND 时间字段 &lt;= '2024-05-17' "</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2024/05/17/elk/#more" rel="contents">

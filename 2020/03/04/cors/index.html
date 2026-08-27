@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="跨域,CORS," />
+  <meta name="keywords" content="CORS,跨域," />
 
 
 
@@ -90,8 +90,8 @@
 <meta property="article:published_time" content="2020-03-04T19:12:57.000Z">
 <meta property="article:modified_time" content="2020-03-04T19:12:57.000Z">
 <meta property="article:author" content="heyaff">
-<meta property="article:tag" content="跨域">
 <meta property="article:tag" content="CORS">
+<meta property="article:tag" content="跨域">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://heyaff.github.io/images/cors.png">
 
@@ -402,10 +402,10 @@
 <h4 id="2、CORS-W3C标准-跨域资源共享"><a href="#2、CORS-W3C标准-跨域资源共享" class="headerlink" title="2、CORS W3C标准 跨域资源共享"></a>2、CORS W3C标准 跨域资源共享</h4><p>CORS需要服务器设置header <code>Access-Control-Allow-Origin</code> 白名单等等，安全性高，<strong>推荐使用</strong></p>
 <ul>
 <li><p>2.1 对于简单请求：<br>浏览器直接发出CORS请求。具体来说，就是在头信息之中，增加一个Origin字段。</p>
-<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">GET</span> <span class="string">/cors</span> HTTP/1.1</span><br><span class="line"><span class="attribute">Origin</span>: http://www.cmft.com</span><br><span class="line"><span class="attribute">Host</span>: api.cmft.com</span><br><span class="line"><span class="attribute">Accept-Language</span>: en-US</span><br><span class="line"><span class="attribute">Connection</span>: keep-alive</span><br><span class="line"><span class="attribute">User-Agent</span>: Mozilla/5.0...</span><br></pre></td></tr></table></figure>
+<figure class="highlight http"><table><tr><td class="code"><pre><span class="line"><span class="keyword">GET</span> <span class="string">/cors</span> HTTP/1.1</span><br><span class="line"><span class="attribute">Origin</span>: http://www.cmft.com</span><br><span class="line"><span class="attribute">Host</span>: api.cmft.com</span><br><span class="line"><span class="attribute">Accept-Language</span>: en-US</span><br><span class="line"><span class="attribute">Connection</span>: keep-alive</span><br><span class="line"><span class="attribute">User-Agent</span>: Mozilla/5.0...</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>2.2 对于复杂请求：<br>非简单请求的CORS请求，会在正式通信之前，增加一次HTTP查询请求，称为”预检”请求OPTIONS</p>
-<figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">OPTIONS /cors HTTP/<span class="number">1.1</span></span><br><span class="line">Origin: http:<span class="comment">//www.cmft.com</span></span><br><span class="line">Access-Control-Request-<span class="function"><span class="keyword">Method</span>:</span> PUT</span><br><span class="line">Access-Control-Request-Headers: X-Custom-Header</span><br><span class="line">Host: api.cmft.com</span><br><span class="line">Accept-Language: en-US</span><br><span class="line">Connection: keep-alive</span><br><span class="line">User-Agent: Mozilla/<span class="number">5.0</span>...</span><br></pre></td></tr></table></figure>
+<figure class="highlight oxygene"><table><tr><td class="code"><pre><span class="line">OPTIONS /cors HTTP/<span class="number">1.1</span></span><br><span class="line">Origin: http:<span class="comment">//www.cmft.com</span></span><br><span class="line">Access-Control-Request-<span class="function"><span class="keyword">Method</span>:</span> PUT</span><br><span class="line">Access-Control-Request-Headers: X-Custom-Header</span><br><span class="line">Host: api.cmft.com</span><br><span class="line">Accept-Language: en-US</span><br><span class="line">Connection: keep-alive</span><br><span class="line">User-Agent: Mozilla/<span class="number">5.0</span>...</span><br></pre></td></tr></table></figure>
 <p>用来询问HOST，关键字段是Origin，表示请求来自哪个源。RESPONSE只有header，没有响应包。<br>整个CORS通信过程，都是浏览器自动完成，不需要用户参与<br><img src="/images/response.png" alt=""></p>
 </li>
 </ul>
@@ -413,10 +413,10 @@
 <h4 id="3、Nginx反向代理"><a href="#3、Nginx反向代理" class="headerlink" title="3、Nginx反向代理"></a>3、Nginx反向代理</h4><p>Nginx中转服务器，用于转发请求（NG与其他服务端之间的资源请求不会有跨域限制）</p>
 <p>例如<code>www.123.com/index.html</code>需要调用<code>www.456.com/server.php</code>，可以写一个接口<code>www.123.com/api/server.php</code>，由这个接口在后端去调用<code>www.456.com/server.php</code>并拿到返回值，然后再返回给index.html。用nginx把/api路径转发到其他域名那里，相当于绕过了浏览器端，自然就不存在跨域问题。</p>
 <h3 id="CORS前端报错"><a href="#CORS前端报错" class="headerlink" title="CORS前端报错"></a>CORS前端报错</h3><p>报错一：</p>
-<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">The <span class="built_in">value</span> <span class="keyword">of</span> <span class="keyword">the</span> <span class="string">'Access-Control-Allow-Credentials'</span> header <span class="keyword">in</span> <span class="keyword">the</span> response is <span class="string">''</span> which must be <span class="string">'true'</span> when <span class="keyword">the</span> request<span class="string">'s credentials mode is '</span><span class="built_in">include</span><span class="string">'.</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">The <span class="built_in">value</span> <span class="keyword">of</span> <span class="keyword">the</span> <span class="string">'Access-Control-Allow-Credentials'</span> header <span class="keyword">in</span> <span class="keyword">the</span> response is <span class="string">''</span> which must be <span class="string">'true'</span> when <span class="keyword">the</span> request<span class="string">'s credentials mode is '</span><span class="built_in">include</span><span class="string">'.</span></span><br></pre></td></tr></table></figure>
 <p>解决方法：<br>因为请求头中有设置cookie，如登录认证。所以response响应头必须添加<code>Access-Control-Allow-Credentials: true</code></p>
 <p>报错二：</p>
-<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">The <span class="built_in">value</span> <span class="keyword">of</span> <span class="keyword">the</span> <span class="string">'Access-Control-Allow-Origin'</span> header <span class="keyword">in</span> <span class="keyword">the</span> response must <span class="keyword">not</span> be <span class="keyword">the</span> wildcard <span class="string">'*'</span> when <span class="keyword">the</span> request<span class="string">'s credentials mode is '</span><span class="built_in">include</span><span class="string">'.</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">The <span class="built_in">value</span> <span class="keyword">of</span> <span class="keyword">the</span> <span class="string">'Access-Control-Allow-Origin'</span> header <span class="keyword">in</span> <span class="keyword">the</span> response must <span class="keyword">not</span> be <span class="keyword">the</span> wildcard <span class="string">'*'</span> when <span class="keyword">the</span> request<span class="string">'s credentials mode is '</span><span class="built_in">include</span><span class="string">'.</span></span><br></pre></td></tr></table></figure>
 <p>解决方法：<br>响应头<code>Access-Control-Allow-Origin: *</code>中的*改为具体的https://域名</p>
 
       
@@ -435,9 +435,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/%E8%B7%A8%E5%9F%9F/" rel="tag"># 跨域</a>
-          
             <a href="/tags/CORS/" rel="tag"># CORS</a>
+          
+            <a href="/tags/%E8%B7%A8%E5%9F%9F/" rel="tag"># 跨域</a>
           
         </div>
       

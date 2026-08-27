@@ -79,12 +79,12 @@
 
 
 
-<meta name="description" content="如果你购买的域名，没有配置SPF值，则黑客可以冒充你的域名后缀发送邮件。 添加TXT记录1v&#x3D;spf1 include:spf.mail.qq.com ip4:1.1.1.1 -all  检测是否有SPF漏洞Windows下，命令行下输入： 1nslookup -type&#x3D;txt 域名  Unix下： 1dig 域名 txt +short">
+<meta name="description" content="如果你购买的域名，没有配置SPF值，则黑客可以冒充你的域名后缀发送邮件。 添加TXT记录v&#x3D;spf1 include:spf.mail.qq.com ip4:1.1.1.1 -all  检测是否有SPF漏洞Windows下，命令行下输入： nslookup -type&#x3D;txt 域名  Unix下： dig 域名 txt +short">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SPF防范假冒邮件">
 <meta property="og:url" content="https://heyaff.github.io/2021/07/14/spf/index.html">
 <meta property="og:site_name" content="安全笔记">
-<meta property="og:description" content="如果你购买的域名，没有配置SPF值，则黑客可以冒充你的域名后缀发送邮件。 添加TXT记录1v&#x3D;spf1 include:spf.mail.qq.com ip4:1.1.1.1 -all  检测是否有SPF漏洞Windows下，命令行下输入： 1nslookup -type&#x3D;txt 域名  Unix下： 1dig 域名 txt +short">
+<meta property="og:description" content="如果你购买的域名，没有配置SPF值，则黑客可以冒充你的域名后缀发送邮件。 添加TXT记录v&#x3D;spf1 include:spf.mail.qq.com ip4:1.1.1.1 -all  检测是否有SPF漏洞Windows下，命令行下输入： nslookup -type&#x3D;txt 域名  Unix下： dig 域名 txt +short">
 <meta property="article:published_time" content="2021-07-14T00:00:00.000Z">
 <meta property="article:modified_time" content="2021-07-14T00:00:00.000Z">
 <meta property="article:author" content="heyaff">
@@ -392,13 +392,13 @@
 
       
         <p>如果你购买的域名，没有配置SPF值，则黑客可以冒充你的域名后缀发送邮件。</p>
-<h3 id="添加TXT记录"><a href="#添加TXT记录" class="headerlink" title="添加TXT记录"></a>添加TXT记录</h3><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">v=spf1 include:spf.mail.qq.com ip4:<span class="number">1.1</span><span class="number">.1</span><span class="number">.1</span> -all</span><br></pre></td></tr></table></figure>
+<h3 id="添加TXT记录"><a href="#添加TXT记录" class="headerlink" title="添加TXT记录"></a>添加TXT记录</h3><figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">v=spf1 include:spf.mail.qq.com ip4:<span class="number">1.1</span><span class="number">.1</span><span class="number">.1</span> -all</span><br></pre></td></tr></table></figure>
 
 <h3 id="检测是否有SPF漏洞"><a href="#检测是否有SPF漏洞" class="headerlink" title="检测是否有SPF漏洞"></a>检测是否有SPF漏洞</h3><p>Windows下，命令行下输入：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nslookup -<span class="built_in">type</span>=txt 域名</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">nslookup -<span class="built_in">type</span>=txt 域名</span><br></pre></td></tr></table></figure>
 
 <p>Unix下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dig 域名 txt +short</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">dig 域名 txt +short</span><br></pre></td></tr></table></figure>
 
       
     </div>
