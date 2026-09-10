@@ -19,11 +19,11 @@ tags:
 
 | 网站 | 链接 | 推荐指数 | 备注 |
 |------|------|----------|------|
-| Decrypt | [https://decrypt.34306.lol/](https://decrypt.34306.lol/) | ⭐⭐⭐⭐⭐ | 免费可用，有最新版本，**强烈推荐** |
+| X个人站点 | [https://decrypt.34306.lol/](https://decrypt.34306.lol/) | ⭐⭐⭐⭐⭐ | 免费可用，有最新版本，**强烈推荐** |
 | 砸壳中心 | [https://www.uczyw.cn/ipa](https://www.uczyw.cn/ipa) | ⭐⭐⭐⭐ | 免费可用，版本是最新的，排队1~2天可成功，非100% |
 | IPA Store | [https://ipa.store/dump](https://ipa.store/dump) | ⭐⭐⭐ | 免费可用，版本约滞后半年，非实时更新 |
 | 老牌IPA站 | [https://decrypt.day/](https://decrypt.day/app/id1264951751) | ⭐⭐⭐ | 免费可用，版本约滞后半年，非实时更新 |
-| ArmConverter | [https://armconverter.com/](https://armconverter.com/store/us) | ⭐⭐ | 免费可用，有最新版本砸壳，缺点：排队基本不成功 |
+| ArmConverter | [https://armconverter.com/](https://armconverter.com/store/us) | ⭐⭐ | 免费不可用，有最新版本砸壳，缺点是排队基本不成功 |
 | iPadump | [https://ipadump.com/](https://ipadump.com/) | ⭐ | 一分钱下载一次，性价比可，有最新版本，作为备选 |
 
 ### AI软件绕过破限
